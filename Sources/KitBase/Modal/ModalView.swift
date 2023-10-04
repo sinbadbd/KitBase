@@ -10,7 +10,7 @@ import SwiftUI
 @available(iOS 15.0, *)
 public struct ModalView: View {
     
-    enum Kind {
+   public enum Axis {
         case vertical
         case horizontal
     }
@@ -22,7 +22,7 @@ public struct ModalView: View {
     var width: CGFloat? = 84
     var height: CGFloat? = 84
     var onSubmit: (() -> Void)
-    var layoutKind: Kind
+    var layoutAxis: Axis
     var buttonOneText: String? = nil
     var buttonTwoText: String? = nil
     
@@ -37,7 +37,7 @@ public struct ModalView: View {
         height: CGFloat? = nil,
         buttonOneText: String? = nil,
         buttonTwoText: String? = nil,
-        layoutKind: Kind = .horizontal,
+        layoutKind: Axis = .horizontal,
         onSubmit: @escaping () -> Void) {
             
             self._isShowPopup = isShowPopup
@@ -46,7 +46,7 @@ public struct ModalView: View {
             self.image = image
             self.width = width
             self.height = height
-            self.layoutKind = layoutKind
+            self.layoutAxis = layoutKind
             self.buttonOneText = buttonOneText
             self.buttonTwoText = buttonTwoText
             self.onSubmit = onSubmit
@@ -74,7 +74,7 @@ public struct ModalView: View {
                 .frame(maxWidth: .infinity)
                 .padding(.top, 50)
                 
-                switch layoutKind {
+                switch layoutAxis {
                case .vertical:
                     VerticalButtonView(buttonOneText: buttonOneText ?? "set Title", buttonTowText: buttonTwoText ?? "Set Title", action: {
                         close()
