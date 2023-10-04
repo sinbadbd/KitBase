@@ -106,14 +106,14 @@ public struct ModalView: View {
                 }
             }
             .overlay {
-                ZStack(alignment: .top, content: {
-                    Image(systemName: "tortoise.circle.fill")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: width, height: height)
-                        .frame(alignment: .center)
-                        .offset(y: -110)
-                })
+//                ZStack(alignment: .top, content: {
+//                    Image(systemName: "tortoise.circle.fill")
+//                        .resizable()
+//                        .aspectRatio(contentMode: .fill)
+//                        .frame(width: width, height: height)
+//                        .frame(alignment: .center)
+//                        .offset(y: -110)
+//                })
             }
         }
         .ignoresSafeArea()
