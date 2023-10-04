@@ -10,10 +10,10 @@ import SwiftUI
 @available(iOS 15.0, *)
 public struct ModalView: View {
 
-    @Binding var isShowPopup: Bool
-    var title: String? = nil
-    var summary: String? = nil
-    var onSubmit: (() -> Void)
+    @Binding public var isShowPopup: Bool
+    public var title: String? = nil
+    public var summary: String? = nil
+    public var onSubmit: (() -> Void)
     
     public var body: some View{
         ZStack(alignment: Alignment(horizontal: .center, vertical: .top)){
