@@ -8,7 +8,12 @@
 import SwiftUI
 
 @available(iOS 15.0, *)
-public struct ModalView: View {
+struct ModalView: View {
+    
+    enum Kind {
+        case vertical
+        case horizontal
+    }
     
     @Binding var isShowPopup: Bool
     var title: String? = nil
@@ -17,23 +22,35 @@ public struct ModalView: View {
     var width: CGFloat? = 84
     var height: CGFloat? = 84
     var onSubmit: (() -> Void)
-    var axis: Bool = false
+    var layoutKind: Kind
     var buttonOneText: String? = nil
     var buttonTwoText: String? = nil
     
     @State private var offset: CGFloat = 1000
     
-   public init(
+    public init(
         isShowPopup: Binding<Bool>,
         title: String? = nil,
         summary: String? = nil,
         image: String? = nil,
+        width: CGFloat? = nil,
+        height: CGFloat? = nil,
+        buttonOneText: String? = nil,
+        buttonTwoText: String? = nil,
+        layoutKind: Kind,
         onSubmit: @escaping () -> Void) {
+            
             self._isShowPopup = isShowPopup
             self.title = title
             self.summary = summary
             self.image = image
+            self.width = width
+            self.height = height
+            self.layoutKind = layoutKind
+            self.buttonOneText = buttonOneText
+            self.buttonTwoText = buttonTwoText
             self.onSubmit = onSubmit
+            
         }
     
     public var body: some View{
@@ -56,33 +73,25 @@ public struct ModalView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.top, 50)
-                // .padding(.horizontal)
                 
-                HStack {
-                    Button {
+                switch layoutKind {
+               case .vertical:
+                    VerticalButtonView(buttonOneText: buttonOneText ?? "set Title", buttonTowText: buttonTwoText ?? "Set Title", action: {
                         close()
-                    } label: {
-                        Text(buttonOneText ?? "Button title")
-                            .font(.caption)
-                            .bold()
-                            .foregroundColor(.blue)
-                        //                            .modifier(DtacButtonModifier(backgroundColor: .clear, hasCustomStyle: true))
-                    }
-                    .frame(width: 100)
-                    
-                    Button {
+                    }, onSubmit: {
                         onSubmit()
-                    } label: {
-                        Text(buttonTwoText ?? "Button title")
-                            .font(.caption)
-                            .bold()
-                            .foregroundColor(.red)
-                        //                            .modifier(DtacButtonModifier(backgroundColor: .primaryDark, hasCustomStyle: false))
-                    }
-                    .frame(width: 100)
-                }
-                .padding(.top, 24)
-                .padding(.bottom, 20)
+                    })
+                    .padding(.top, 24)
+                    .padding(.bottom, 20)
+               case .horizontal:
+                     HorizontalButtonView(buttonOneText: buttonOneText ?? "set Title", buttonTowText: buttonTwoText ?? "Set Title", action: {
+                         close()
+                     }, onSubmit: {
+                         onSubmit()
+                     })
+                     .padding(.top, 24)
+                     .padding(.bottom, 20)
+               }
             }
             .frame(maxWidth: .infinity)
             .background(
@@ -124,10 +133,11 @@ public struct ModalView: View {
 
 @available(iOS 15.0, *)
 #Preview {
-    ModalView(isShowPopup: .constant(true), title: "Set Title", summary: "Set Summary") {
+    ModalView(isShowPopup: .constant(true), title: "Confirm This", summary: "Are you want to delete this?", image: "tortoise.circle.fill", width: 40, height: 40, buttonOneText: "Cancle", buttonTwoText: "Save", layoutKind: .vertical) {
         
-    }
+    }    
 }
+//as! any View
 
 /*
  In Swift, when you have a property with the @Binding attribute, it is typically used to create a two-way binding with a value stored in a parent view. To initialize such a property, you need to provide a binding to a value from the parent view. To do this, you use the self._property syntax to access the underlying projected value of the binding.
