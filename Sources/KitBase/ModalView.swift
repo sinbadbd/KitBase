@@ -11,7 +11,7 @@ import SwiftUI
 public struct ModalView: View {
     public init() {}
     public var body: some View {
-        Text("Hello ")
+        Text("Hello my first Package")
     }
 }
 @available(iOS 13.0, *)
