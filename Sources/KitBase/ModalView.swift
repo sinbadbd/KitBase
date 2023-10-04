@@ -10,10 +10,17 @@ import SwiftUI
 @available(iOS 15.0, *)
 public struct ModalView: View {
 
-    @Binding public var isShowPopup: Bool
-    public var title: String? = nil
-    public var summary: String? = nil
-    public var onSubmit: (() -> Void)
+    @Binding var isShowPopup: Bool
+    var title: String? = nil
+    var summary: String? = nil
+    var onSubmit: (() -> Void)
+    
+    public init(isShowPopup: Binding<Bool>, title: String? = nil, summary: String? = nil, onSubmit: @escaping () -> Void) {
+        self._isShowPopup = isShowPopup
+        self.title = title
+        self.summary = summary
+        self.onSubmit = onSubmit
+    }
     
     public var body: some View{
         ZStack(alignment: Alignment(horizontal: .center, vertical: .top)){
@@ -92,7 +99,23 @@ public struct ModalView: View {
 
 @available(iOS 15.0, *)
 #Preview {
-    ModalView(isShowPopup: .constant(true), title: "Confirm", summary: "this is testthis is testthis is testthis is testthis is testthis is testthis is testthis is testthis is testthis is testthis is testthis is testthis is testthis is testthis is test") {
+    ModalView(isShowPopup: .constant(true), title: "Set Title", summary: "Set Summary") {
         
     }
 }
+
+/*
+ In Swift, when you have a property with the @Binding attribute, it is typically used to create a two-way binding with a value stored in a parent view. To initialize such a property, you need to provide a binding to a value from the parent view. To do this, you use the self._property syntax to access the underlying projected value of the binding.
+
+ Here's a breakdown of why self._isShowPopup is used in this context:
+
+ @Binding public var isShowPopup: Bool: This property is declared as a binding to a Boolean value, which means it doesn't store the value directly but provides access to the value stored in a parent view.
+
+ In the custom initializer init(isShowPopup: Binding<Bool>, ...), you want to initialize the isShowPopup property with the binding that is passed in as a parameter. You can't directly assign a binding parameter to a binding property because bindings are read-only, so you need to access the underlying value via the projected value.
+
+ self._isShowPopup = isShowPopup: This line of code uses the _isShowPopup projected value to set up the two-way binding. By doing this, you're essentially connecting the isShowPopup property of your ModalView to the external isShowPopup binding provided by the parent view.
+
+ In summary, when you use self._isShowPopup = isShowPopup, you are initializing the isShowPopup property with the binding that comes from the parent view. This allows your ModalView to read and update the value stored in the parent view, creating a two-way binding between them.
+ 
+ 
+ */
