@@ -80,6 +80,7 @@ public struct ModalView: View {
                         close()
                     }, onSubmit: {
                         onSubmit()
+                        close()
                     })
                     .padding(.top, 24)
                     .padding(.bottom, 20)
