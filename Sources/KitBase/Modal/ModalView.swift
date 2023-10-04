@@ -8,7 +8,7 @@
 import SwiftUI
 
 @available(iOS 15.0, *)
-struct ModalView: View {
+public struct ModalView: View {
     
     enum Kind {
         case vertical
