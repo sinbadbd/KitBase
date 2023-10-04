@@ -8,9 +8,10 @@
 import SwiftUI
 
 @available(iOS 15.0, *)
+ 
 public struct ModalView: View {
     
-   public enum Axis {
+    public enum Axis {
         case vertical
         case horizontal
     }
@@ -38,22 +39,21 @@ public struct ModalView: View {
         buttonOneText: String? = nil,
         buttonTwoText: String? = nil,
         layoutKind: Axis = .horizontal,
-        onSubmit: @escaping () -> Void) {
-            
-            self._isShowPopup = isShowPopup
-            self.title = title
-            self.summary = summary
-            self.image = image
-            self.width = width
-            self.height = height
-            self.layoutAxis = layoutKind
-            self.buttonOneText = buttonOneText
-            self.buttonTwoText = buttonTwoText
-            self.onSubmit = onSubmit
-            
-        }
+        onSubmit: @escaping () -> Void
+    ) {
+        self._isShowPopup = isShowPopup
+        self.title = title
+        self.summary = summary
+        self.image = image
+        self.width = width
+        self.height = height
+        self.layoutAxis = layoutKind
+        self.buttonOneText = buttonOneText
+        self.buttonTwoText = buttonTwoText
+        self.onSubmit = onSubmit
+    }
     
-    public var body: some View{
+    public var body: some View {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .top)){
             
             VStack(alignment: .center){
@@ -75,7 +75,7 @@ public struct ModalView: View {
                 .padding(.top, 50)
                 
                 switch layoutAxis {
-               case .vertical:
+                case .vertical:
                     VerticalButtonView(buttonOneText: buttonOneText ?? "set Title", buttonTowText: buttonTwoText ?? "Set Title", action: {
                         close()
                     }, onSubmit: {
@@ -83,15 +83,15 @@ public struct ModalView: View {
                     })
                     .padding(.top, 24)
                     .padding(.bottom, 20)
-               case .horizontal:
-                     HorizontalButtonView(buttonOneText: buttonOneText ?? "set Title", buttonTowText: buttonTwoText ?? "Set Title", action: {
-                         close()
-                     }, onSubmit: {
-                         onSubmit()
-                     })
-                     .padding(.top, 24)
-                     .padding(.bottom, 20)
-               }
+                case .horizontal:
+                    HorizontalButtonView(buttonOneText: buttonOneText ?? "set Title", buttonTowText: buttonTwoText ?? "Set Title", action: {
+                        close()
+                    }, onSubmit: {
+                        onSubmit()
+                    })
+                    .padding(.top, 24)
+                    .padding(.bottom, 20)
+                }
             }
             .frame(maxWidth: .infinity)
             .background(
@@ -130,6 +130,7 @@ public struct ModalView: View {
         }
     }
 }
+
 
 @available(iOS 15.0, *)
 #Preview {
