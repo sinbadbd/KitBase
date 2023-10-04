@@ -17,6 +17,7 @@ struct HorizontalButtonView: View {
     
     var body: some View {
         HStack {
+            
             Button {
                 action()
             } label: {
@@ -24,9 +25,10 @@ struct HorizontalButtonView: View {
                     .font(.caption)
                     .bold()
                     .foregroundColor(.blue)
-                //                            .modifier(DtacButtonModifier(backgroundColor: .clear, hasCustomStyle: true))
+                    .frame(maxWidth: .infinity)
+                    .modifier(KitBaseButtonModifier(backgroundColor: .clear, hasCustomStyle: true))
+                  
             }
-            .frame(width: 100)
             
             Button {
                 onSubmit()
@@ -35,9 +37,9 @@ struct HorizontalButtonView: View {
                     .font(.caption)
                     .bold()
                     .foregroundColor(.red)
-                //                            .modifier(DtacButtonModifier(backgroundColor: .primaryDark, hasCustomStyle: false))
+                    .frame(maxWidth: .infinity)
+                    .modifier(KitBaseButtonModifier(backgroundColor: .blue, hasCustomStyle: false))
             }
-            .frame(width: 100)
         }
     }
 }

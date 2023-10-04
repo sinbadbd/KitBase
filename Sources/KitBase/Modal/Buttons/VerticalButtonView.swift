@@ -24,9 +24,9 @@ struct VerticalButtonView: View {
                     .font(.caption)
                     .bold()
                     .foregroundColor(.red)
-                //                            .modifier(DtacButtonModifier(backgroundColor: .primaryDark, hasCustomStyle: false))
+                    .frame(maxWidth: .infinity)
+                    .modifier(KitBaseButtonModifier(backgroundColor: .blue, hasCustomStyle: false))
             }
-            .frame(width: 100)
             
             Button {
                 action()
@@ -35,17 +35,16 @@ struct VerticalButtonView: View {
                     .font(.caption)
                     .bold()
                     .foregroundColor(.blue)
-                //                            .modifier(DtacButtonModifier(backgroundColor: .clear, hasCustomStyle: true))
+                    .frame(maxWidth: .infinity)
+                    .modifier(KitBaseButtonModifier(backgroundColor: .clear, hasCustomStyle: true))
             }
-            .frame(width: 100)
-    
         }
     }
 }
 @available(iOS 15.0, *)
 #Preview {
     VerticalButtonView(buttonOneText: "Cancle", buttonTowText: "Save") {
-    
+        
     } onSubmit: {
         
     }

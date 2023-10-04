@@ -8,7 +8,6 @@
 import SwiftUI
 
 @available(iOS 15.0, *)
- 
 public struct ModalView: View {
     
     public enum Axis {
@@ -82,6 +81,7 @@ public struct ModalView: View {
                         onSubmit()
                         close()
                     })
+                    .padding(.horizontal, 20)
                     .padding(.top, 24)
                     .padding(.bottom, 20)
                 case .horizontal:
@@ -89,7 +89,9 @@ public struct ModalView: View {
                         close()
                     }, onSubmit: {
                         onSubmit()
+                        close()
                     })
+                    .padding(.horizontal, 20)
                     .padding(.top, 24)
                     .padding(.bottom, 20)
                 }
