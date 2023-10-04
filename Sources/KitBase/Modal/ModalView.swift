@@ -37,7 +37,7 @@ struct ModalView: View {
         height: CGFloat? = nil,
         buttonOneText: String? = nil,
         buttonTwoText: String? = nil,
-        layoutKind: Kind,
+        layoutKind: Kind = .horizontal,
         onSubmit: @escaping () -> Void) {
             
             self._isShowPopup = isShowPopup
@@ -135,7 +135,7 @@ struct ModalView: View {
 #Preview {
     ModalView(isShowPopup: .constant(true), title: "Confirm This", summary: "Are you want to delete this?", image: "tortoise.circle.fill", width: 40, height: 40, buttonOneText: "Cancle", buttonTwoText: "Save", layoutKind: .vertical) {
         
-    }    
+    }
 }
 //as! any View
 
