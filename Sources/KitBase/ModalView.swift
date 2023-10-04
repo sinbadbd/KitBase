@@ -23,7 +23,7 @@ public struct ModalView: View {
     
     @State private var offset: CGFloat = 1000
     
-    init(
+   public init(
         isShowPopup: Binding<Bool>,
         title: String? = nil,
         summary: String? = nil,
