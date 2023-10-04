@@ -17,6 +17,10 @@ public struct ModalView: View {
     var width: CGFloat? = 84
     var height: CGFloat? = 84
     var onSubmit: (() -> Void)
+    var axis: Bool = false
+    var buttonOneText: String? = nil
+    var buttonTwoText: String? = nil
+    
     @State private var offset: CGFloat = 1000
     
     init(
@@ -58,8 +62,8 @@ public struct ModalView: View {
                     Button {
                         close()
                     } label: {
-                        Text("cancel")
-                            .font(Font.custom("DTAC2018-Bold", size: 14))
+                        Text(buttonOneText ?? "Button title")
+                            .font(.caption)
                             .bold()
                             .foregroundColor(.blue)
                         //                            .modifier(DtacButtonModifier(backgroundColor: .clear, hasCustomStyle: true))
@@ -69,8 +73,8 @@ public struct ModalView: View {
                     Button {
                         onSubmit()
                     } label: {
-                        Text("save")
-                            .font(Font.custom("DTAC2018-Bold", size: 14))
+                        Text(buttonTwoText ?? "Button title")
+                            .font(.caption)
                             .bold()
                             .foregroundColor(.red)
                         //                            .modifier(DtacButtonModifier(backgroundColor: .primaryDark, hasCustomStyle: false))
