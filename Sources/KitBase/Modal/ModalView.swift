@@ -15,18 +15,18 @@ public struct ModalView: View {
         case horizontal
     }
     
-    @Binding var isShowPopup: Bool
-    private var title: String? = nil
-    private var summary: String? = nil
-    private var image: String? = nil
-    private var width: CGFloat? = 84
-    private var height: CGFloat? = 84
-    private var onSubmit: (() -> Void)
-    private var layoutAxis: Axis
-    private var buttonOneText: String? = nil
-    private var buttonTwoText: String? = nil
-    private var buttonBGColorOne: Color
-    private var buttonBGColorTwo: Color
+    @Binding private (set) var isShowPopup: Bool
+    private (set) var title: String? = nil
+    private (set) var summary: String? = nil
+    private (set) var image: String? = nil
+    private (set) var width: CGFloat? = 84
+    private (set) var height: CGFloat? = 84
+    private (set) var onSubmit: (() -> Void)
+    private (set) var layoutAxis: Axis
+    private (set) var buttonOneText: String? = nil
+    private (set) var buttonTwoText: String? = nil
+    private (set) var buttonBGColorOne: Color
+    private (set) var buttonBGColorTwo: Color
     
     @State private var offset: CGFloat = 1000
     
