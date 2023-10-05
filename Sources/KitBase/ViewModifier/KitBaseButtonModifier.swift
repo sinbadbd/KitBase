@@ -42,7 +42,7 @@ public struct KitBaseButtonModifier: ViewModifier {
 
 @available(iOS 15.0, *)
 extension View {
-  public  func buttonBackground(backgroundColor: Color = .blue, hasCustomStyle: Bool)-> some View{
+  public func buttonBackground(backgroundColor: Color = .blue, hasCustomStyle: Bool)-> some View{
         modifier(KitBaseButtonModifier(backgroundColor: backgroundColor, hasCustomStyle: hasCustomStyle))
     }
 }

@@ -98,8 +98,8 @@ public struct ModalViewBuilder {
             height: height,
             buttonOneText: buttonOneText,
             buttonTwoText: buttonTwoText,
-            buttonBGColorOne: buttonBGColorOne ?? .green,
-            buttonBGColorTwo:  buttonBGColorTwo ?? .red,
+            buttonBGColorOne: buttonBGColorOne ?? .clear,
+            buttonBGColorTwo:  buttonBGColorTwo ?? .clear,
             layoutKind: layoutKind,
             onSubmit: onSubmit
         )

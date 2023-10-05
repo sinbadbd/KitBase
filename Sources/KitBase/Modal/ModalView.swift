@@ -16,17 +16,17 @@ public struct ModalView: View {
     }
     
     @Binding var isShowPopup: Bool
-    var title: String? = nil
-    var summary: String? = nil
-    var image: String? = nil
-    var width: CGFloat? = 84
-    var height: CGFloat? = 84
-    var onSubmit: (() -> Void)
-    var layoutAxis: Axis
-    var buttonOneText: String? = nil
-    var buttonTwoText: String? = nil
-    var buttonBGColorOne: Color? = .green
-    var buttonBGColorTwo: Color? = .red
+    private var title: String? = nil
+    private var summary: String? = nil
+    private var image: String? = nil
+    private var width: CGFloat? = 84
+    private var height: CGFloat? = 84
+    private var onSubmit: (() -> Void)
+    private var layoutAxis: Axis
+    private var buttonOneText: String? = nil
+    private var buttonTwoText: String? = nil
+    private var buttonBGColorOne: Color
+    private var buttonBGColorTwo: Color
     
     @State private var offset: CGFloat = 1000
     
@@ -92,18 +92,12 @@ public struct ModalView: View {
                     .padding(.bottom, 20)
                 case .horizontal:
                     
-                    HorizontalButtonView(buttonOneText:  buttonOneText ?? "set Title", buttonTowText: buttonTwoText ?? "Set Title", buttonBGColorOne: buttonBGColorOne ?? .green, buttonBGColorTwo: buttonBGColorTwo ?? .red, action: {
-                        
+                    HorizontalButtonView(buttonOneText:  buttonOneText ?? "set Title", buttonTowText: buttonTwoText ?? "Set Title", buttonBGColorOne: buttonBGColorOne , buttonBGColorTwo: buttonBGColorTwo, action: {
+                        close()
                     }, onSubmit: {
-                        
+                        onSubmit()
+                        close()
                     })
-                    
-//                    HorizontalButtonView(buttonOneText: buttonOneText ?? "set Title", buttonTowText: buttonTwoText ?? "Set Title", action: {
-//                        close()
-//                    }, onSubmit: {
-//                        onSubmit()
-//                        close()
-//                    })
                     .padding(.horizontal, 20)
                     .padding(.top, 24)
                     .padding(.bottom, 20)
@@ -122,14 +116,14 @@ public struct ModalView: View {
                 }
             }
             .overlay {
-//                ZStack(alignment: .top, content: {
-//                    Image(systemName: "tortoise.circle.fill")
-//                        .resizable()
-//                        .aspectRatio(contentMode: .fill)
-//                        .frame(width: width, height: height)
-//                        .frame(alignment: .center)
-//                        .offset(y: -110)
-//                })
+                //                ZStack(alignment: .top, content: {
+                //                    Image(systemName: "tortoise.circle.fill")
+                //                        .resizable()
+                //                        .aspectRatio(contentMode: .fill)
+                //                        .frame(width: width, height: height)
+                //                        .frame(alignment: .center)
+                //                        .offset(y: -110)
+                //                })
             }
         }
         .ignoresSafeArea()
