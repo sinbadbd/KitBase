@@ -17,6 +17,8 @@ public struct ModalViewBuilder {
     private var height: CGFloat?
     private var buttonOneText: String?
     private var buttonTwoText: String?
+    private var buttonBGColorOne: Color?
+    private var buttonBGColorTwo: Color?
     private var layoutKind: ModalView.Axis
     private var onSubmit: (() -> Void)
     
@@ -74,6 +76,18 @@ public struct ModalViewBuilder {
         return builder
     }
     
+    public func buttonBGColorOne(_ backgroundColor: Color) -> ModalViewBuilder {
+        var builder = self
+        builder.buttonBGColorOne = backgroundColor
+        return builder
+    }
+    
+    public func buttonBGColorTwo(_ backgroundColor: Color) -> ModalViewBuilder {
+        var builder = self
+        builder.buttonBGColorTwo = backgroundColor
+        return builder
+    }
+
     public func build() -> ModalView {
         return ModalView(
             isShowPopup: isShowPopup,
@@ -84,6 +98,8 @@ public struct ModalViewBuilder {
             height: height,
             buttonOneText: buttonOneText,
             buttonTwoText: buttonTwoText,
+            buttonBGColorOne: buttonBGColorOne ?? .green,
+            buttonBGColorTwo:  buttonBGColorTwo ?? .red,
             layoutKind: layoutKind,
             onSubmit: onSubmit
         )

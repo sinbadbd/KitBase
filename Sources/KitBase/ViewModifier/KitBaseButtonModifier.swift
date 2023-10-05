@@ -4,12 +4,12 @@
 import SwiftUI
 @available(iOS 15.0, *)
 
-struct KitBaseButtonModifier: ViewModifier {
+public struct KitBaseButtonModifier: ViewModifier {
     
     let backgroundColor: Color
     let hasCustomStyle: Bool
     
-    func body(content: Content) -> some View {
+    public func body(content: Content) -> some View {
         HStack {
             content
                 .font(.caption)
@@ -42,7 +42,7 @@ struct KitBaseButtonModifier: ViewModifier {
 
 @available(iOS 15.0, *)
 extension View {
-    func buttonBackground(backgroundColor: Color = .blue, hasCustomStyle: Bool)-> some View{
+  public  func buttonBackground(backgroundColor: Color = .blue, hasCustomStyle: Bool)-> some View{
         modifier(KitBaseButtonModifier(backgroundColor: backgroundColor, hasCustomStyle: hasCustomStyle))
     }
 }

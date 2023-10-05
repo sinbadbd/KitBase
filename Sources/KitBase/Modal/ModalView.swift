@@ -25,6 +25,8 @@ public struct ModalView: View {
     var layoutAxis: Axis
     var buttonOneText: String? = nil
     var buttonTwoText: String? = nil
+    var buttonBGColorOne: Color? = .green
+    var buttonBGColorTwo: Color? = .red
     
     @State private var offset: CGFloat = 1000
     
@@ -37,6 +39,8 @@ public struct ModalView: View {
         height: CGFloat? = nil,
         buttonOneText: String? = nil,
         buttonTwoText: String? = nil,
+        buttonBGColorOne: Color = .green,
+        buttonBGColorTwo: Color = .red,
         layoutKind: Axis = .horizontal,
         onSubmit: @escaping () -> Void
     ) {
@@ -50,6 +54,8 @@ public struct ModalView: View {
         self.buttonOneText = buttonOneText
         self.buttonTwoText = buttonTwoText
         self.onSubmit = onSubmit
+        self.buttonBGColorOne = buttonBGColorOne
+        self.buttonBGColorTwo = buttonBGColorTwo
     }
     
     public var body: some View {
@@ -85,12 +91,19 @@ public struct ModalView: View {
                     .padding(.top, 24)
                     .padding(.bottom, 20)
                 case .horizontal:
-                    HorizontalButtonView(buttonOneText: buttonOneText ?? "set Title", buttonTowText: buttonTwoText ?? "Set Title", action: {
-                        close()
+                    
+                    HorizontalButtonView(buttonOneText:  buttonOneText ?? "set Title", buttonTowText: buttonTwoText ?? "Set Title", buttonBGColorOne: buttonBGColorOne ?? .green, buttonBGColorTwo: buttonBGColorTwo ?? .red, action: {
+                        
                     }, onSubmit: {
-                        onSubmit()
-                        close()
+                        
                     })
+                    
+//                    HorizontalButtonView(buttonOneText: buttonOneText ?? "set Title", buttonTowText: buttonTwoText ?? "Set Title", action: {
+//                        close()
+//                    }, onSubmit: {
+//                        onSubmit()
+//                        close()
+//                    })
                     .padding(.horizontal, 20)
                     .padding(.top, 24)
                     .padding(.bottom, 20)
@@ -141,6 +154,9 @@ public struct ModalView: View {
         
     }
 }
+
+
+
 //as! any View
 
 /*

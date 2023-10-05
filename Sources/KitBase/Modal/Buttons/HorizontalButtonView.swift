@@ -12,6 +12,8 @@ struct HorizontalButtonView: View {
     
     var buttonOneText: String
     var buttonTowText: String
+    var buttonBGColorOne: Color
+    var buttonBGColorTwo: Color
     let action: (() -> Void)
     var onSubmit: (() -> Void)
     
@@ -26,7 +28,8 @@ struct HorizontalButtonView: View {
                     .bold()
                     .foregroundColor(.blue)
                     .frame(maxWidth: .infinity)
-                    .modifier(KitBaseButtonModifier(backgroundColor: .clear, hasCustomStyle: true))
+                    .background(buttonBGColorOne)
+                    // .modifier(KitBaseButtonModifier(backgroundColor: .clear, hasCustomStyle: true))
                   
             }
             
@@ -38,7 +41,8 @@ struct HorizontalButtonView: View {
                     .bold()
                     .foregroundColor(.red)
                     .frame(maxWidth: .infinity)
-                    .modifier(KitBaseButtonModifier(backgroundColor: .blue, hasCustomStyle: false))
+                    .background(buttonBGColorOne)
+                    //.modifier(KitBaseButtonModifier(backgroundColor: .blue, hasCustomStyle: false))
             }
         }
     }
@@ -46,11 +50,10 @@ struct HorizontalButtonView: View {
 
 @available(iOS 15.0, *)
 #Preview {
-    HorizontalButtonView(buttonOneText: "Cancle", buttonTowText: "Save") {
-    
-    } onSubmit: {
+    HorizontalButtonView(buttonOneText: "dsf", buttonTowText: "J", buttonBGColorOne: .red, buttonBGColorTwo: .green) {
         
+    } onSubmit: {
+    
     }
-
 
 }
