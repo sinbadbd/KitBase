@@ -13,13 +13,13 @@ enum ButtonVariant { case solid, subtle, outline }
 @available(iOS 15.0, *)
 
 
-struct KitBaseButtonStyle: ButtonStyle {
+public struct KitBaseButtonStyle: ButtonStyle {
     let size: ButtonSize
     let variant: ButtonVariant
     let fontSize: CGFloat
     let backgroundColor: Color
     
-    func makeBody(configuration: Configuration) -> some View {
+    public func makeBody(configuration: Configuration) -> some View {
         let padding: EdgeInsets
         let foregroundColor: Color
         let borderWidth: CGFloat
