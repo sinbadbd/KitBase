@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-enum ButtonSize{ case xs, sm, md, lg }
-enum ButtonVariant { case solid, subtle, outline }
+public enum ButtonSize{ case xs, sm, md, lg }
+public enum ButtonVariant { case solid, subtle, outline }
 
 @available(iOS 15.0, *)
 
