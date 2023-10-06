@@ -2,3 +2,6 @@
 // https://docs.swift.org/swift-book
 
 
+public class KitBase{
+
+}

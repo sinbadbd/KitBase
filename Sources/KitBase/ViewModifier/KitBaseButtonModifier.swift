@@ -25,7 +25,6 @@ public struct KitBaseButtonModifier: ViewModifier {
             //                    radius: hasCustomStyle ? 2 : 0,  x: 0, y: hasCustomStyle ? 2 : 0
             //                )
         }
-        
         .overlay(
             RoundedRectangle(cornerRadius: 4)
                 .inset(by: 0.5)
@@ -35,14 +34,13 @@ public struct KitBaseButtonModifier: ViewModifier {
             RoundedRectangle(cornerRadius: 4)
                 .fill(hasCustomStyle ? .clear : Color.blue) // Background color on the right side
                 .frame(maxWidth: .infinity)
-            
         )
     }
 }
 
 @available(iOS 15.0, *)
 extension View {
-  public func buttonBackground(backgroundColor: Color = .blue, hasCustomStyle: Bool)-> some View{
+    public func buttonBackground(backgroundColor: Color = .blue, hasCustomStyle: Bool)-> some View{
         modifier(KitBaseButtonModifier(backgroundColor: backgroundColor, hasCustomStyle: hasCustomStyle))
     }
 }
