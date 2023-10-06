@@ -30,6 +30,8 @@ public struct KitBaseButtonStyle: ButtonStyle {
     public let borderWidth: CGFloat?
     public let icon: Image?
     public let iconColor: Color?
+    public let iconWidth: CGFloat?
+    public let iconHeight: CGFloat?
     
     public init(
         size: ButtonSize,
@@ -43,7 +45,9 @@ public struct KitBaseButtonStyle: ButtonStyle {
         buttonCornerRadius: CGFloat? = nil,
         borderWidth: CGFloat? = nil,
         icon: Image? = nil,
-        iconColor: Color? = nil
+        iconColor: Color? = nil,
+        iconWidth: CGFloat? = nil,
+        iconHeight: CGFloat? = nil
     ) {
         self.size = size
         self.variant = variant
@@ -57,6 +61,8 @@ public struct KitBaseButtonStyle: ButtonStyle {
         self.borderWidth = borderWidth
         self.icon = icon
         self.iconColor = iconColor
+        self.iconWidth = iconWidth
+        self.iconHeight = iconHeight
     }
     
     public func makeBody(configuration: Configuration) -> some View {
@@ -88,6 +94,7 @@ public struct KitBaseButtonStyle: ButtonStyle {
                 if let icon = icon {
                     icon
                         .foregroundColor(iconColor ?? foregroundColor)
+                        .frame(width: iconWidth, height: iconHeight)
                         .padding(.trailing, 8)
                 }
                 configuration.label
@@ -108,6 +115,7 @@ public struct KitBaseButtonStyle: ButtonStyle {
 }
 
 
+
 @available(iOS 15.0, *)
 #Preview {
     ContentButtonView()
@@ -124,7 +132,7 @@ struct ContentButtonView: View {
                 .buttonStyle(KitBaseButtonStyle(size: .lg, variant: .solid, backgroundColor: .red, borderColor: .accentColor, foregroundColor:.blue, buttonCornerRadius: 8))
             
             Button("Subtle MD", action: {})
-                .buttonStyle(KitBaseButtonStyle(size: .md, variant: .solid, backgroundColor: .green, borderColor: .yellow, foregroundColor: .blue, buttonWidth: UIScreen.main.bounds.width * 0.8, borderWidth: 2))
+                .buttonStyle(KitBaseButtonStyle(size: .lg, variant: .outline, backgroundColor: .clear, borderColor: .yellow, foregroundColor: .blue, buttonWidth: UIScreen.main.bounds.width * 0.8, borderWidth: 2))
             
             Button("Outline SM", action: {})
                 .buttonStyle(KitBaseButtonStyle(size: .sm, variant: .outline, backgroundColor: .blue, borderColor: .red, foregroundColor: .yellow, borderWidth: 1))
