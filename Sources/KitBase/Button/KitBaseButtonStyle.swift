@@ -28,6 +28,8 @@ public struct KitBaseButtonStyle: ButtonStyle {
     public let buttonHeight: CGFloat?
     public let buttonCornerRadius: CGFloat?
     public let borderWidth: CGFloat?
+    public let icon: Image?
+    public let iconColor: Color?
     
     public init(
         size: ButtonSize,
@@ -39,7 +41,9 @@ public struct KitBaseButtonStyle: ButtonStyle {
         buttonWidth: CGFloat? = nil,
         buttonHeight: CGFloat? = nil,
         buttonCornerRadius: CGFloat? = nil,
-        borderWidth: CGFloat? = nil
+        borderWidth: CGFloat? = nil,
+        icon: Image? = nil,
+        iconColor: Color? = nil
     ) {
         self.size = size
         self.variant = variant
@@ -51,6 +55,8 @@ public struct KitBaseButtonStyle: ButtonStyle {
         self.buttonHeight = buttonHeight
         self.buttonCornerRadius = buttonCornerRadius
         self.borderWidth = borderWidth
+        self.icon = icon
+        self.iconColor = iconColor
     }
     
     public func makeBody(configuration: Configuration) -> some View {
@@ -78,21 +84,28 @@ public struct KitBaseButtonStyle: ButtonStyle {
         }
         
         return Button(action: {}) {
-            configuration.label
-                .frame(width: buttonWidth, height: buttonHeight)
-                .foregroundColor(foregroundColor)
-                .padding(padding)
-                .background(background)
-                .opacity(opacity ?? 1.0)
-                .cornerRadius(buttonCornerRadius ?? 8)
-                .overlay(
-                    RoundedRectangle(cornerRadius: buttonCornerRadius ?? 8)
-                        .stroke(borderColor ?? .clear, lineWidth: borderWidth ?? 0)
-                )
+            HStack {
+                if let icon = icon {
+                    icon
+                        .foregroundColor(iconColor ?? foregroundColor)
+                        .padding(.trailing, 8)
+                }
+                configuration.label
+                    .foregroundColor(foregroundColor)
+            }
+            .frame(width: buttonWidth, height: buttonHeight)
+            .padding(padding)
+            .background(background)
+            .opacity(opacity ?? 1.0)
+            .cornerRadius(buttonCornerRadius ?? 8)
+            .overlay(
+                RoundedRectangle(cornerRadius: buttonCornerRadius ?? 8)
+                    .stroke(borderColor ?? .clear, lineWidth: borderWidth ?? 0)
+            )
         }
+       // .opacity(icon != nil ? 1.0 : 0.0) // Hide button if icon is nil
     }
 }
-
 
 
 @available(iOS 15.0, *)
@@ -104,6 +117,9 @@ public struct KitBaseButtonStyle: ButtonStyle {
 struct ContentButtonView: View {
     var body: some View {
         VStack(spacing: 16) {
+            Button("icon with button", action: {})
+                .buttonStyle(KitBaseButtonStyle(size: .lg, variant: .solid, backgroundColor: .red, borderColor: .accentColor, foregroundColor:.blue, buttonCornerRadius: 8, icon: Image(systemName: "pencil.circle.fill"), iconColor: .green))
+            
             Button("Solid XS", action: {})
                 .buttonStyle(KitBaseButtonStyle(size: .lg, variant: .solid, backgroundColor: .red, borderColor: .accentColor, foregroundColor:.blue, buttonCornerRadius: 8))
             
