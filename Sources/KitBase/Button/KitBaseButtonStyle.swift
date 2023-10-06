@@ -46,8 +46,8 @@ public struct KitBaseButtonStyle: ButtonStyle {
         borderWidth: CGFloat? = nil,
         icon: Image? = nil,
         iconColor: Color? = nil,
-        iconWidth: CGFloat? = nil,
-        iconHeight: CGFloat? = nil
+        iconWidth: CGFloat? = 30,
+        iconHeight: CGFloat? = 30
     ) {
         self.size = size
         self.variant = variant
@@ -93,9 +93,11 @@ public struct KitBaseButtonStyle: ButtonStyle {
             HStack {
                 if let icon = icon {
                     icon
+                        .resizable()
+                        .scaledToFill()
                         .foregroundColor(iconColor ?? foregroundColor)
                         .frame(width: iconWidth, height: iconHeight)
-                        .padding(.trailing, 8)
+//                        .padding(.trailing, 8)
                 }
                 configuration.label
                     .foregroundColor(foregroundColor)
@@ -126,7 +128,7 @@ struct ContentButtonView: View {
     var body: some View {
         VStack(spacing: 16) {
             Button("icon with button", action: {})
-                .buttonStyle(KitBaseButtonStyle(size: .lg, variant: .solid, backgroundColor: .red, borderColor: .accentColor, foregroundColor:.blue, buttonCornerRadius: 8, icon: Image(systemName: "pencil.circle.fill"), iconColor: .green))
+                .buttonStyle(KitBaseButtonStyle(size: .lg, variant: .solid, backgroundColor: .red, borderColor: .accentColor, foregroundColor:.blue, buttonHeight: 34, buttonCornerRadius: 8, icon: Image(systemName: "pencil.circle.fill"), iconColor: .green, iconWidth: 40, iconHeight: 40))
             
             Button("Solid XS", action: {})
                 .buttonStyle(KitBaseButtonStyle(size: .lg, variant: .solid, backgroundColor: .red, borderColor: .accentColor, foregroundColor:.blue, buttonCornerRadius: 8))
