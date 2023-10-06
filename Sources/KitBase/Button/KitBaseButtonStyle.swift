@@ -7,17 +7,29 @@
 
 import SwiftUI
 
-public enum ButtonSize{ case xs, sm, md, lg }
-public enum ButtonVariant { case solid, subtle, outline }
+import SwiftUI
+
+public enum ButtonSize {
+    case xs, sm, md, lg
+}
+
+public enum ButtonVariant {
+    case solid, subtle, outline
+}
 
 @available(iOS 15.0, *)
-
-
 public struct KitBaseButtonStyle: ButtonStyle {
-    let size: ButtonSize
-    let variant: ButtonVariant
-    let fontSize: CGFloat
-    let backgroundColor: Color
+    public let size: ButtonSize
+    public let variant: ButtonVariant
+    public let fontSize: CGFloat
+    public let backgroundColor: Color
+    
+    public init(size: ButtonSize, variant: ButtonVariant, fontSize: CGFloat, backgroundColor: Color) {
+        self.size = size
+        self.variant = variant
+        self.fontSize = fontSize
+        self.backgroundColor = backgroundColor
+    }
     
     public func makeBody(configuration: Configuration) -> some View {
         let padding: EdgeInsets
@@ -61,6 +73,7 @@ public struct KitBaseButtonStyle: ButtonStyle {
         }
     }
 }
+
 
 //@available(iOS 15.0, *)
 //#Preview {
