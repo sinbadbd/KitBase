@@ -127,10 +127,14 @@ public struct KitBaseButtonStyle: ButtonStyle {
 struct ContentButtonView: View {
     var body: some View {
         VStack(spacing: 16) {
-            Button("icon with button", action: {})
+            Button("icon with button", action: {
+                print("")
+            })
                 .buttonStyle(KitBaseButtonStyle(size: .lg, variant: .solid, backgroundColor: .red, borderColor: .accentColor, foregroundColor:.blue, buttonHeight: 34, buttonCornerRadius: 8, icon: Image(systemName: "pencil.circle.fill"), iconColor: .green, iconWidth: 40, iconHeight: 40))
             
-            Button("Solid XS", action: {})
+            Button("Solid XS", action: {
+                
+            })
                 .buttonStyle(KitBaseButtonStyle(size: .lg, variant: .solid, backgroundColor: .red, borderColor: .accentColor, foregroundColor:.blue, buttonCornerRadius: 8))
             
             Button("Subtle MD", action: {})
