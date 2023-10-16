@@ -89,8 +89,8 @@ public struct KitBaseButtonStyle: ButtonStyle {
             background = Color.clear
         }
         
-        return Button(action: {}) {
-            HStack {
+//        return Button(action: {}) {
+       return  HStack {
                 if let icon = icon {
                     icon
                         .resizable()
@@ -111,7 +111,7 @@ public struct KitBaseButtonStyle: ButtonStyle {
                 RoundedRectangle(cornerRadius: buttonCornerRadius ?? 8)
                     .stroke(borderColor ?? .clear, lineWidth: borderWidth ?? 0)
             )
-        }
+//        }
        // .opacity(icon != nil ? 1.0 : 0.0) // Hide button if icon is nil
     }
 }
@@ -128,7 +128,7 @@ struct ContentButtonView: View {
     var body: some View {
         VStack(spacing: 16) {
             Button("icon with button", action: {
-                print("")
+                print("print")
             })
                 .buttonStyle(KitBaseButtonStyle(size: .lg, variant: .solid, backgroundColor: .red, borderColor: .accentColor, foregroundColor:.blue, buttonHeight: 34, buttonCornerRadius: 8, icon: Image(systemName: "pencil.circle.fill"), iconColor: .green, iconWidth: 40, iconHeight: 40))
             
