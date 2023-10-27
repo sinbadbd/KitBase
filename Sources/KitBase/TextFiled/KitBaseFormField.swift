@@ -60,6 +60,14 @@ public struct KitBaseFormField<Content>: View where Content: View {
                     .font(.caption)
             }
         }
+        .onAppear {
+            updateBorderColor()
+        }
+    }
+    
+    
+    private func updateBorderColor() {
+        borderColor = isValid ? Color.gray : .red
     }
 }
 
@@ -85,15 +93,9 @@ struct TextFieldView: View {
                KitBaseFormField(title: "Username", error: usernameError, isValid: $isUsernameValid, borderColor: $usernameBorderColor) {
                    TextField("Username", text: $username)
                }
-               .onChange(of: isUsernameValid) { newValue in
-                   usernameBorderColor = newValue ? Color.gray : .red
-               }
 
                KitBaseFormField(title: "Password", error: passwordError, isValid: $isPasswordValid, borderColor: $passwordBorderColor) {
                    SecureField("Password", text: $password)
-               }
-               .onChange(of: isPasswordValid) { newValue in
-                   passwordBorderColor = newValue ? Color.gray : .red
                }
            }
        }
