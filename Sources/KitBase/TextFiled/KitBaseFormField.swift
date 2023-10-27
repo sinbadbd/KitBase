@@ -9,18 +9,19 @@ import SwiftUI
 @available(iOS 15.0, *)
 
 public struct KitBaseFormField<Content>: View where Content: View {
+    
     let title: String
-    let text: String
     let textColor: Color
+    let backgroundColor: Color
     let content: () -> Content
     
-    public init(title: String, text: String, textColor: Color = .gray, @ViewBuilder content: @escaping () -> Content) {
+    init(title: String, textColor: Color = .gray, backgroundColor: Color = .white, @ViewBuilder content: @escaping () -> Content) {
         self.title = title
-        self.text = text
         self.textColor = textColor
+        self.backgroundColor = backgroundColor
         self.content = content
     }
-    
+ 
     public var body: some View {
         VStack(alignment: .leading) {
             Text(title)
@@ -33,7 +34,7 @@ public struct KitBaseFormField<Content>: View where Content: View {
                 .padding(.horizontal, 16)
                 .background(
                     RoundedRectangle(cornerRadius: 8, style: .continuous)
-                        .fill(Color.white)
+                        .fill(backgroundColor)
                 )
                 .overlay {
                     RoundedRectangle(cornerRadius: 8, style: .continuous)
@@ -58,20 +59,20 @@ struct TextFieldView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            KitBaseFormField(title: "Username", text: username) {
+            KitBaseFormField(title: "Username") {
                 TextField("username", text: $username)
             }
             
-            KitBaseFormField(title: "Password", text: password) {
+            KitBaseFormField(title: "Password") {
                 SecureField("Password", text: $password)
                     .keyboardType(.namePhonePad)
             }
             
-            KitBaseFormField(title: "First name", text: firstname) {
+            KitBaseFormField(title: "First name") {
                 TextField("First name", text: $firstname)
             }
             
-            KitBaseFormField(title: "Last name", text: lastname) {
+            KitBaseFormField(title: "Last name") {
                 TextField("Last name", text: $lastname)
             }
         }
