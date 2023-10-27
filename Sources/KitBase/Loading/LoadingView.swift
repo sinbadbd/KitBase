@@ -8,8 +8,10 @@
 import SwiftUI
 @available(iOS 15.0, *)
 public struct LoadingView: View {
+    
     public var progressColor: Color
-    init(progressColor: Color) {
+    
+    public init(progressColor: Color) {
         self.progressColor = progressColor
     }
     
