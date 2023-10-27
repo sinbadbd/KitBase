@@ -14,16 +14,16 @@ public struct KitBaseFormField<Content>: View where Content: View {
     let backgroundColor: Color
     let error: String?
     let content: () -> Content
-    @Binding var isValid: Bool?
-    @Binding var borderColor: Color?
+    @Binding var isValid: Bool
+    //@Binding var borderColor: Color?
     
     public init(
         title: String,
         textColor: Color = .gray,
         backgroundColor: Color = .white,
         error: String? = nil,
-        isValid: Binding<Bool?>? = nil,
-        borderColor: Binding<Color?>? = nil,
+        isValid: Binding<Bool>,
+        //borderColor: Binding<Color?>? = nil,
         @ViewBuilder content: @escaping () -> Content
     ) {
         self.title = title
@@ -31,8 +31,8 @@ public struct KitBaseFormField<Content>: View where Content: View {
         self.backgroundColor = backgroundColor
         self.error = error
         self.content = content
-        self._isValid = isValid ?? .constant(nil)
-        self._borderColor = borderColor ?? .constant(nil)
+        self._isValid = isValid
+        //self._borderColor = borderColor ?? .constant(nil)
     }
     
     public var body: some View {
@@ -51,7 +51,7 @@ public struct KitBaseFormField<Content>: View where Content: View {
                 )
                 .overlay {
                     RoundedRectangle(cornerRadius: 8, style: .continuous)
-                        .stroke(borderColor ?? Color.gray, lineWidth: 1)
+                        .stroke(error != nil ? Color.red : Color.gray, lineWidth: 1)
                 }
             
             if let error = error {
@@ -60,14 +60,8 @@ public struct KitBaseFormField<Content>: View where Content: View {
                     .font(.caption)
             }
         }
-        .onAppear {
-            updateBorderColor()
-        }
     }
     
-    private func updateBorderColor() {
-        borderColor = isValid == nil ? Color.gray : (isValid == false ? Color.red : Color.gray)
-    }
 }
 
 @available(iOS 15.0, *)
@@ -80,8 +74,8 @@ struct TextFieldView: View {
     
     @State private var username = ""
        @State private var password = ""
-       @State private var isUsernameValid: Bool? = true
-       @State private var isPasswordValid: Bool? = true
+       @State private var isUsernameValid: Bool = true
+       @State private var isPasswordValid: Bool = true
        @State private var usernameError: String? = nil
        @State private var passwordError: String? = nil
        @State private var usernameBorderColor: Color? = .gray
@@ -89,11 +83,11 @@ struct TextFieldView: View {
 
        var body: some View {
            VStack(alignment: .leading, spacing: 8) {
-               KitBaseFormField(title: "Username", error: usernameError) {
+               KitBaseFormField(title: "Username", error: usernameError, isValid: $isUsernameValid) {
                    TextField("Username", text: $username)
                }
 
-               KitBaseFormField(title: "Password", error: passwordError, isValid: $isPasswordValid, borderColor: $passwordBorderColor) {
+               KitBaseFormField(title: "Password", error: passwordError, isValid: $isPasswordValid) {
                    SecureField("Password", text: $password)
                }
            }
