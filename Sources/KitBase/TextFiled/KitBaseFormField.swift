@@ -67,7 +67,7 @@ public struct KitBaseFormField<Content>: View where Content: View {
     
     
     private func updateBorderColor() {
-        borderColor = isValid ? Color.gray : .red
+        borderColor = isValid == true ? Color.gray : .red
     }
 }
 
