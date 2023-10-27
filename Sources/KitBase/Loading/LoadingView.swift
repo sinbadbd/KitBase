@@ -27,7 +27,7 @@ public struct LoadingView: View {
                     .frame(width: 50, height: 50)
                     .foregroundColor(.white)
                     .padding()
-                    .background(Color.white.opacity(0.2))
+                    .background(Color.black.opacity(0.2))
                     .cornerRadius(10)
             }
         }
