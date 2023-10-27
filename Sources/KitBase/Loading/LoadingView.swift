@@ -10,7 +10,9 @@ import SwiftUI
 public struct LoadingView: View {
     
     public var text: String
-    
+    public init(text: String) {
+        self.text = text
+    }
     public var body: some View {
         ZStack {
             Color.black.opacity(0.5)
