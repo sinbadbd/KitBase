@@ -9,7 +9,7 @@ import SwiftUI
 @available(iOS 15.0, *)
 public struct LoadingView: View {
     
-    var text: String
+    public var text: String
     
     public var body: some View {
         ZStack {
