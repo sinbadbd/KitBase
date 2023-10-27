@@ -15,7 +15,7 @@ public struct KitBaseFormField<Content>: View where Content: View {
     let backgroundColor: Color
     let content: () -> Content
     
-    init(title: String, textColor: Color = .gray, backgroundColor: Color = .white, @ViewBuilder content: @escaping () -> Content) {
+    public init(title: String, textColor: Color = .gray, backgroundColor: Color = .white, @ViewBuilder content: @escaping () -> Content) {
         self.title = title
         self.textColor = textColor
         self.backgroundColor = backgroundColor
