@@ -1,18 +1,32 @@
 //
-//  SwiftUIView.swift
-//  
+//  LoadingView.swift
+//
 //
 //  Created by Imran on 27/10/23.
 //
 
 import SwiftUI
-
-struct SwiftUIView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+@available(iOS 15.0, *)
+public struct LoadingView: View {
+    
+    var text: String
+    
+    public var body: some View {
+        ZStack {
+            Color.black.opacity(0.5)
+                .ignoresSafeArea()
+            VStack {
+                ProgressView(text)
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.black.opacity(0.7))
+                    .cornerRadius(10)
+            }
+        }
     }
 }
 
+@available(iOS 15.0, *)
 #Preview {
-    SwiftUIView()
+    LoadingView(text: "Loading...")
 }
