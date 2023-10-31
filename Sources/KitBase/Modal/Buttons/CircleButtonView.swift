@@ -33,10 +33,6 @@ public struct CircleButtonView: View {
                     .stroke(lineWidth: 1)
                     .foregroundColor(borderColor)
             }
-        /*
-         .shadow(color: Color.gray, radius: 2, x: 2, y: 2)
-         .shadow(color: Color.white, radius: 2, x: -2, y: -2)
-         */
     }
 }
 
