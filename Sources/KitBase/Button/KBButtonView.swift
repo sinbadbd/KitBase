@@ -1,5 +1,5 @@
 //
-//  KitbaseCircleButtonView.swift
+//  KBButtonCircleView.swift
 //
 //
 //  Created by Imran on 31/10/23.
@@ -8,7 +8,7 @@
 import SwiftUI
 
 @available(iOS 15.0, *)
-public struct KBButtonView: View {
+public struct KBButtonCircleView: View {
     
     public let iconName: String
     public let foregroundColor: Color
@@ -61,7 +61,7 @@ struct KBButtonAnimationView: View {
 
 @available(iOS 15.0, *)
 #Preview {
-    KBButtonView(iconName: "info", foregroundColor: .red, backgroundColor: .gray, borderColor: .blue, width: 40, height: 40, fontSize: 24)
+    KBButtonCircleView(iconName: "info", foregroundColor: .red, backgroundColor: .gray, borderColor: .blue, width: 40, height: 40, fontSize: 24)
         .padding()
         .previewLayout(.fixed(width: 100, height: 100))
 }
