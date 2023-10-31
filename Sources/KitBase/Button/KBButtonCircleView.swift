@@ -61,7 +61,22 @@ struct KBButtonAnimationView: View {
 
 @available(iOS 15.0, *)
 #Preview {
-    KBButtonCircleView(iconName: "info", foregroundColor: .red, backgroundColor: .gray, borderColor: .blue, width: 40, height: 40, fontSize: 24)
-        .padding()
-        .previewLayout(.fixed(width: 100, height: 100))
+    HStack{
+        Button {
+            
+        } label: {
+            KBButtonCircleView(iconName: "plus", foregroundColor: .black, backgroundColor: .gray.opacity(0.2), borderColor: .gray.opacity(0.2), width: 4, height: 4, fontSize: 18)
+        }
+        Button {
+            
+        } label: {
+            KBButtonCircleView(iconName: "magnifyingglass",  foregroundColor: .black, backgroundColor: .gray.opacity(0.2), borderColor: .gray.opacity(0.2), width: 4, height: 4, fontSize: 18)
+        }
+        Button {
+            
+        } label: {
+            KBButtonCircleView(iconName: "ellipsis.message.fill",  foregroundColor: .black, backgroundColor: .gray.opacity(0.2), borderColor: .gray.opacity(0.2), width: 4, height: 4, fontSize: 18)
+        }
+
+    }
 }
