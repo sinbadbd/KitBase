@@ -10,13 +10,14 @@ import SwiftUI
 @available(iOS 15.0, *)
 public struct KBButtonView: View {
     
-    let iconName: String
-    let foregroundColor: Color
-    let backgroundColor: Color
-    let borderColor: Color
-    let width: CGFloat
-    let height: CGFloat
-    let fontSize: CGFloat
+    public let iconName: String
+    public let foregroundColor: Color
+    public let backgroundColor: Color
+    public let borderColor: Color
+    public let width: CGFloat
+    public let height: CGFloat
+    public let fontSize: CGFloat
+    
     public init(iconName: String, foregroundColor: Color, backgroundColor: Color, borderColor: Color, width: CGFloat, height: CGFloat, fontSize: CGFloat) {
         self.iconName = iconName
         self.foregroundColor = foregroundColor
