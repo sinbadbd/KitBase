@@ -17,7 +17,15 @@ public struct KBButtonView: View {
     let width: CGFloat
     let height: CGFloat
     let fontSize: CGFloat
-    
+    public init(iconName: String, foregroundColor: Color, backgroundColor: Color, borderColor: Color, width: CGFloat, height: CGFloat, fontSize: CGFloat) {
+        self.iconName = iconName
+        self.foregroundColor = foregroundColor
+        self.backgroundColor = backgroundColor
+        self.borderColor = borderColor
+        self.width = width
+        self.height = height
+        self.fontSize = fontSize
+    }
     public var body: some View {
         Image(systemName: iconName)
             .font(.system(size: fontSize))
