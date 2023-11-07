@@ -86,7 +86,7 @@ public struct KitBaseButtonStyle: ButtonStyle {
         case .subtle:
             background = backgroundColor ?? .clear
         case .outline:
-            background = Color.clear
+            background = backgroundColor ?? .clear
         }
         
 //        return Button(action: {}) {
