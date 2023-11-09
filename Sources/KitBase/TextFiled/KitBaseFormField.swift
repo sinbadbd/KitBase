@@ -10,6 +10,9 @@ import SwiftUI
 @available(iOS 15.0, *)
 public struct KitBaseFormField<Content>: View where Content: View {
     let title: String
+    let font: Font
+    var errorFont: Font? = nil
+    let titleSpacing: CGFloat
     let textColor: Color
     let backgroundColor: Color
     let error: String?
@@ -19,6 +22,9 @@ public struct KitBaseFormField<Content>: View where Content: View {
     
     public init(
         title: String,
+        font: Font,
+        errorFont: Font? = nil,
+        spacing: CGFloat,
         textColor: Color = .gray,
         backgroundColor: Color = .white,
         error: String? = nil,
@@ -27,6 +33,9 @@ public struct KitBaseFormField<Content>: View where Content: View {
         @ViewBuilder content: @escaping () -> Content
     ) {
         self.title = title
+        self.font = font
+        self.errorFont = errorFont
+        self.titleSpacing = spacing
         self.textColor = textColor
         self.backgroundColor = backgroundColor
         self.error = error
@@ -36,32 +45,38 @@ public struct KitBaseFormField<Content>: View where Content: View {
     }
     
     public var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: titleSpacing) {
             Text(title)
+                .font(font)
                 .foregroundColor(textColor)
                 .font(.caption)
             
             content()
-                .frame(height: 44)
+                .frame(height: 40)
                 .foregroundColor(textColor)
                 .padding(.horizontal, 16)
+            
                 .background(
-                    RoundedRectangle(cornerRadius: 8, style: .continuous)
-                        .fill(backgroundColor)
+                    RoundedRectangle(cornerRadius: 4, style: .continuous)
+                        .fill(error != nil ? Color(red: 0.97, green: 0.93, blue: 0.93) : backgroundColor)
                 )
                 .overlay {
-                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                    RoundedRectangle(cornerRadius: 4, style: .continuous)
                         .stroke(error != nil ? Color.red : Color.gray, lineWidth: 1)
-                    
-                    //--- new
-                        .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
-                        .shadow(color: Color.gray.opacity(0.5), radius: 9, x: 0, y: 9)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 4, style: .continuous)
+                                .stroke(Color(red: 236/255, green: 234/255, blue: 235/255), lineWidth: 1.5)
+                                .shadow(color: Color(red: 192/255, green: 189/255, blue: 191/255), radius: 1.5, x: 0, y: 0) // All side shadow
+                                .clipShape(RoundedRectangle(cornerRadius: 4))
+                        )
                 }
             
             if let error = error {
                 Text(error)
                     .foregroundColor(.red) // Customize the error text color
-                    .font(.caption)
+                    .font(errorFont)
+                
+                    .padding(.top, 5)
             }
         }
     }
@@ -86,14 +101,22 @@ struct TextFieldView: View {
     @State private var passwordBorderColor: Color? = .gray
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            KitBaseFormField(title: "Username", error: usernameError, isValid: $isUsernameValid) {
+        VStack(alignment: .leading, spacing: 20) {
+            KitBaseFormField(title: "Username", font: .callout, errorFont: .caption, spacing: 8, error: usernameError, isValid: $isUsernameValid) {
                 TextField("Username", text: $username)
             }
             
-            KitBaseFormField(title: "Password", error: passwordError, isValid: $isPasswordValid) {
+            KitBaseFormField(title: "Password", font: .footnote, errorFont: .caption, spacing: 0, error: passwordError, isValid: $isPasswordValid) {
                 SecureField("Password", text: $password)
             }
+            
+            Button {
+                
+            } label: {
+                Text("Submit")
+            }
+            
         }
+        .padding(.horizontal, 16)
     }
 }
