@@ -18,8 +18,6 @@ public enum ButtonVariant {
 @available(iOS 15.0, *)
 public struct KitBaseButtonStyle: ButtonStyle {
     
-    //public let size: ButtonSize
-    //public let variant: ButtonVariant
     public let backgroundColor: Color?
     public let font: Font?
     public let borderColor: Color?
@@ -35,8 +33,7 @@ public struct KitBaseButtonStyle: ButtonStyle {
     public let iconHeight: CGFloat?
     
     public init(
-        //size: ButtonSize,
-        //variant: ButtonVariant,
+        
         backgroundColor: Color? = nil,
         font: Font? = nil,
         borderColor: Color? = nil,
@@ -51,8 +48,7 @@ public struct KitBaseButtonStyle: ButtonStyle {
         iconWidth: CGFloat? = 30,
         iconHeight: CGFloat? = 30
     ) {
-        //self.size = size
-        //self.variant = variant
+        
         self.backgroundColor = backgroundColor
         self.font = font
         self.borderColor = borderColor
@@ -69,30 +65,7 @@ public struct KitBaseButtonStyle: ButtonStyle {
     }
     
     public func makeBody(configuration: Configuration) -> some View {
-        /*
-         let padding: EdgeInsets
-         let background: Color
-         switch size {
-         case .xs:
-         padding = EdgeInsets.init()//EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12)
-         case .sm:
-         padding = EdgeInsets.init() //EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16)
-         case .md:
-         padding = EdgeInsets.init()//EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20)
-         case .lg:
-         padding = EdgeInsets.init()//EdgeInsets(top: 12, leading: 24, bottom: 12, trailing: 24)
-         }
-         
-         switch variant {
-         case .solid:
-         background = backgroundColor ?? .clear
-         case .subtle:
-         background = backgroundColor ?? .clear
-         case .outline:
-         background = backgroundColor ?? .clear
-         }
-         */
-        //        return Button(action: {}) {
+        
         return  HStack {
             if let icon = icon {
                 icon
@@ -108,25 +81,20 @@ public struct KitBaseButtonStyle: ButtonStyle {
         }
         
         .frame(width: buttonWidth, height: buttonHeight)
-        /*
-         .frame(
-         minWidth: 0, // Allow the button to shrink to fit its content
-         idealWidth: buttonWidth,
-         maxWidth: .infinity, // Set an ideal width if provided
-         minHeight: buttonHeight,
-         maxHeight: buttonHeight
-         )*/
-        // .frame(maxWidth: .infinity)
         .padding(.horizontal, 12)
         .padding(.vertical, 10)
         .background(backgroundColor)
         .opacity(opacity ?? 1.0)
         .cornerRadius(buttonCornerRadius ?? 8)
+       // .shadow(color: Color(red: 0.38, green: 0.38, blue: 0.44).opacity(0.16), radius: 2, x: 0, y: 2)
+
         .overlay(
             RoundedRectangle(cornerRadius: buttonCornerRadius ?? 8)
                 .stroke(borderColor ?? .clear, lineWidth: borderWidth ?? 0)
+                .shadow(color: Color(red: 0.38, green: 0.38, blue: 0.44).opacity(0.16), radius: 2, x: 0, y: 2)
             
         )
+        .shadow(color: Color(red: 0.38, green: 0.38, blue: 0.44).opacity(0.16), radius: 2, x: 0, y: 2)
         
         //        }
         // .opacity(icon != nil ? 1.0 : 0.0) // Hide button if icon is nil
