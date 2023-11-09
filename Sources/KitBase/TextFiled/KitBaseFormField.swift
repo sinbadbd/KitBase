@@ -62,11 +62,11 @@ public struct KitBaseFormField<Content>: View where Content: View {
                 )
                 .overlay {
                     RoundedRectangle(cornerRadius: 4, style: .continuous)
-                        .stroke(error != nil ? Color.red : Color.gray, lineWidth: 1)
+                        .stroke(error != nil ? Color.red : Color(red: 0.84, green: 0.84, blue: 0.84), lineWidth: 1.2)
                         .overlay(
                             RoundedRectangle(cornerRadius: 4, style: .continuous)
                                 .stroke(Color(red: 236/255, green: 234/255, blue: 235/255), lineWidth: 1.5)
-                                .shadow(color: Color(red: 192/255, green: 189/255, blue: 191/255), radius: 1.5, x: 0, y: 0) // All side shadow
+                                .shadow(color: Color(red: 192/255, green: 189/255, blue: 191/255), radius: 1.6, x: 0, y: 0) // All side shadow
                                 .clipShape(RoundedRectangle(cornerRadius: 4))
                         )
                 }
