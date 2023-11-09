@@ -10,7 +10,7 @@ import SwiftUI
 @available(iOS 15.0, *)
 public struct KitBaseFormField<Content>: View where Content: View {
     var title: String? = nil
-    let font: Font
+    var font: Font? = nil
     var errorFont: Font? = nil
     let titleSpacing: CGFloat
     let textColor: Color
@@ -22,7 +22,7 @@ public struct KitBaseFormField<Content>: View where Content: View {
     
     public init(
         title: String? = nil,
-        font: Font,
+        font: Font? = nil,
         errorFont: Font? = nil,
         spacing: CGFloat,
         textColor: Color = .gray,
@@ -46,11 +46,12 @@ public struct KitBaseFormField<Content>: View where Content: View {
     
     public var body: some View {
         VStack(alignment: .leading, spacing: titleSpacing) {
-            Text(title ?? "")
-                .font(font)
-                .foregroundColor(textColor)
-                .font(.caption)
-            
+            if let title = title {
+                Text(title)
+                    .font(font)
+                    .foregroundColor(textColor)
+                    .font(.caption)
+            }
             content()
                 .frame(height: 40)
                 .foregroundColor(textColor)
@@ -76,9 +77,10 @@ public struct KitBaseFormField<Content>: View where Content: View {
                     .foregroundColor(.red) // Customize the error text color
                     .font(errorFont)
                 
-                    .padding(.top, 5)
+                    //.padding(.top, 5)
             }
         }
+        //.border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: 1) // MARK: - DEBUG
     }
     
 }
@@ -102,11 +104,11 @@ struct TextFieldView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            KitBaseFormField(title: "Username", font: .callout, errorFont: .caption, spacing: 8, error: usernameError, isValid: $isUsernameValid) {
+            KitBaseFormField(errorFont: .caption, spacing: 0, error: usernameError, isValid: $isUsernameValid) {
                 TextField("Username", text: $username)
             }
             
-            KitBaseFormField(title: "Password", font: .footnote, errorFont: .caption, spacing: 0, error: passwordError, isValid: $isPasswordValid) {
+            KitBaseFormField(title: "Password", font: .footnote, errorFont: .caption, spacing: 8, error: passwordError, isValid: $isPasswordValid) {
                 SecureField("Password", text: $password)
             }
             
