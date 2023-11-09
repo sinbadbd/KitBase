@@ -14,6 +14,7 @@ public class KitBaseButtonStyleBuilder {
     private var size: ButtonSize = .md
     private var variant: ButtonVariant = .solid
     private var backgroundColor: Color? = nil
+    private var font: Font? = nil
     private var borderColor: Color? = nil
     private var foregroundColor: Color? = nil
     private var opacity: Double? = nil
@@ -40,6 +41,10 @@ public class KitBaseButtonStyleBuilder {
     
     public func setBackgroundColor(_ backgroundColor: Color?) -> KitBaseButtonStyleBuilder {
         self.backgroundColor = backgroundColor
+        return self
+    } 
+    public func setFont(_ font: Font?) -> KitBaseButtonStyleBuilder {
+        self.font = font
         return self
     }
     
@@ -100,9 +105,10 @@ public class KitBaseButtonStyleBuilder {
     
     public func build() -> KitBaseButtonStyle {
         return KitBaseButtonStyle(
-            size: size,
-            variant: variant,
+//            size: size,
+//            variant: variant,
             backgroundColor: backgroundColor,
+            font: font,
             borderColor: borderColor,
             foregroundColor: foregroundColor,
             opacity: opacity,
@@ -132,8 +138,8 @@ struct ContentBuilderView: View {
             })
             .buttonStyle(
                 KitBaseButtonStyleBuilder()
-                    .setSize(.md)
-                    .setVariant(.solid)
+//                    .setSize(.md)
+//                    .setVariant(.solid)
                     .setBackgroundColor(.blue)
                     .setForegroundColor(.white)
                     .setButtonWidth(200)
