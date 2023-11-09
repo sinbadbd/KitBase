@@ -9,7 +9,7 @@ import SwiftUI
 
 @available(iOS 15.0, *)
 public struct KitBaseFormField<Content>: View where Content: View {
-    let title: String
+    var title: String? = nil
     let font: Font
     var errorFont: Font? = nil
     let titleSpacing: CGFloat
@@ -21,7 +21,7 @@ public struct KitBaseFormField<Content>: View where Content: View {
     //@Binding var borderColor: Color?
     
     public init(
-        title: String,
+        title: String? = nil,
         font: Font,
         errorFont: Font? = nil,
         spacing: CGFloat,
@@ -46,7 +46,7 @@ public struct KitBaseFormField<Content>: View where Content: View {
     
     public var body: some View {
         VStack(alignment: .leading, spacing: titleSpacing) {
-            Text(title)
+            Text(title ?? "")
                 .font(font)
                 .foregroundColor(textColor)
                 .font(.caption)
