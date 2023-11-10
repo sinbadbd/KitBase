@@ -27,6 +27,10 @@ public class KitBaseButtonStyleBuilder {
     private var iconHeight: CGFloat? = nil
     public var isShowShadow: Bool = true
     
+    public var paddingAll: CGFloat?
+    public var paddingHorizontal: CGFloat?
+    public var paddingVertical: CGFloat?
+    
     public init() {}
     
     public func setSize(_ size: ButtonSize) -> KitBaseButtonStyleBuilder {
@@ -111,7 +115,20 @@ public class KitBaseButtonStyleBuilder {
         return self
     }
     
+    public func setPaddingAll(paddingAll: CGFloat?) -> KitBaseButtonStyleBuilder {
+        self.paddingAll = paddingAll
+        return self
+    }
     
+    public func setPaddingHorizontal(paddingHorizontal: CGFloat?) -> KitBaseButtonStyleBuilder {
+        self.paddingHorizontal = paddingHorizontal
+        return self
+    }
+    public func setPaddingVertical(paddingVertical: CGFloat?) -> KitBaseButtonStyleBuilder {
+        self.paddingVertical = paddingVertical
+        return self
+    }
+
     public func build() -> KitBaseButtonStyle {
         return KitBaseButtonStyle(
             backgroundColor: backgroundColor,
@@ -128,7 +145,10 @@ public class KitBaseButtonStyleBuilder {
             iconColor: iconColor,
             iconWidth: iconWidth,
             iconHeight: iconHeight,
-            isShowShadow: isShowShadow
+            isShowShadow: isShowShadow,
+            paddingAll: paddingAll ?? 0,
+            paddingHorizontal: paddingHorizontal ?? 12,
+            paddingVertical: paddingVertical ?? 10
         )
     }
 }
@@ -151,13 +171,16 @@ struct ContentBuilderView: View {
                     .setForegroundColor(.black)
                     .setButtonWidth(200)
                     .setButtonHeight(30)
-                    .setIcon("ic_offe")
+                    .setIcon("square.and.arrow.up")
                     .setImage("ic_edit")
                     .setIconColor(.red)
                     .setIconColor(.red)
                     .setIconWidth(20)
                     .setIconHeight(20)
-                    .setShowShadow(true) // Default true
+                    .setShowShadow(false) // Default true
+                    //.setPaddingAll(paddingAll: 0)
+                    .setPaddingVertical(paddingVertical: 0)
+                    .setPaddingHorizontal(paddingHorizontal: 0)
                     .build()
             )
         }
