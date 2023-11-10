@@ -67,83 +67,98 @@ public struct ModalView: View {
     
     public var body: some View {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .top)){
-            
-            VStack(alignment: .center){
-                
-                VStack(spacing:8){
-                    Text(title ?? "")
-                        .font(.headline)
-                        .bold()
-                        .foregroundColor(.black)
-                        .padding(.horizontal, 16)
+            if isShowPopup {
+                ZStack{
+                    VStack(alignment: .center){
+                        Image(systemName: "tortoise.circle.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: width, height: height)
+                            .frame(alignment: .center)
+                            .offset(y: -110)
+                        VStack(spacing:8){
+                            Text(title ?? "")
+                                .font(.headline)
+                                .bold()
+                                .foregroundColor(.black)
+                                .padding(.horizontal, 16)
+                            
+                            Text(summary ?? "")
+                                .font(.caption)
+                                .foregroundColor(.black)
+                                .multilineTextAlignment(.center)
+                                .padding(.horizontal, 16)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.top, 50)
+                        
+                        switch layoutAxis {
+                        case .vertical:
+                            VerticalButtonView(buttonOneText: buttonOneText ?? "set Title", buttonTowText: buttonTwoText ?? "Set Title", action: {
+                                onCancel()
+                                close()
+                            }, onSubmit: {
+                                onSubmit()
+                                close()
+                            })
+                            .padding(.horizontal, 20)
+                            .padding(.top, 24)
+                            .padding(.bottom, 20)
+                        case .horizontal:
+                            
+                            HorizontalButtonView(buttonOneText:  buttonOneText ?? "set Title", buttonTowText: buttonTwoText ?? "Set Title", buttonBGColorOne: buttonBGColorOne , buttonBGColorTwo: buttonBGColorTwo, action: {
+                                close()
+                            }, onSubmit: {
+                                onSubmit()
+                                close()
+                            })
+                            .padding(.horizontal, 20)
+                            .padding(.top, 24)
+                            .padding(.bottom, 20)
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                    .background(
+                        Color.green
+                    )
+                    .cornerRadius(8)
+                    .padding(.horizontal, 16)
+                    .offset(x: 0, y: offset)
+                    .onAppear {
+                        withAnimation(.spring()) {
+                            offset = 0
+                        }
+                    }
                     
-                    Text(summary ?? "")
-                        .font(.caption)
-                        .foregroundColor(.black)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 16)
+                    //                .overlay {
+                    //                   // ZStack(alignment: .top, content: {
+                    //                        Image(systemName: "tortoise.circle.fill")
+                    //                            .resizable()
+                    //                            .aspectRatio(contentMode: .fill)
+                    //                            .frame(width: width, height: height)
+                    //                            .frame(alignment: .center)
+                    //                            .offset(y: -110)
+                    //                   // })
+                    //                }
                 }
-                .frame(maxWidth: .infinity)
-                .padding(.top, 50)
                 
-                switch layoutAxis {
-                case .vertical:
-                    VerticalButtonView(buttonOneText: buttonOneText ?? "set Title", buttonTowText: buttonTwoText ?? "Set Title", action: {
-                        onCancel()
-                        close()
-                    }, onSubmit: {
-                        onSubmit()
-                        close()
-                    })
-                    .padding(.horizontal, 20)
-                    .padding(.top, 24)
-                    .padding(.bottom, 20)
-                case .horizontal:
-                    
-                    HorizontalButtonView(buttonOneText:  buttonOneText ?? "set Title", buttonTowText: buttonTwoText ?? "Set Title", buttonBGColorOne: buttonBGColorOne , buttonBGColorTwo: buttonBGColorTwo, action: {
-                        close()
-                    }, onSubmit: {
-                        onSubmit()
-                        close()
-                    })
-                    .padding(.horizontal, 20)
-                    .padding(.top, 24)
-                    .padding(.bottom, 20)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                //            .background(Color.black.opacity(0.5))
+                .opacity(isShowPopup ? 1.0 : 0.0)
+                .animation(.easeInOut)
+                //        .zIndex(1111)
+                .onTapGesture {
+                    print("background Tapped")
+                    self.isTapBackground = true
+                    close()
                 }
-            }
-            .frame(maxWidth: .infinity)
-            .background(
-                Color.white
-            )
-            .cornerRadius(8)
-            .padding(.horizontal, 16)
-            .offset(x: 0, y: offset)
-            .onAppear {
-                withAnimation(.spring()) {
-                    offset = 0
-                }
-            }
-            .overlay {
-                ZStack(alignment: .top, content: {
-                    Image(systemName: "tortoise.circle.fill")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: width, height: height)
-                        .frame(alignment: .center)
-                        .offset(y: -110)
-                })
+                
+                .background(isShowPopup ? Color.black.opacity(0.5) : Color.clear)
+                .ignoresSafeArea()
             }
         }
-        .ignoresSafeArea()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(isShowPopup ? Color.black.opacity(0.5) : .clear)
-        .opacity(isShowPopup ? 1.0 : 0.0)
-        .animation(.easeInOut)
-        .zIndex(1111)
-        .onTapGesture {
-            print("background Tapped")
-            self.isTapBackground = true
-        }
+
+        //.background(isShowPopup ? Color.black.opacity(0.5) : Color.clear)
     }
     
     func close() {
