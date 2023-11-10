@@ -1,6 +1,6 @@
 //
 //  SwiftUIView.swift
-//  
+//
 //
 //  Created by Imran on 4/10/23.
 //
@@ -29,8 +29,8 @@ struct HorizontalButtonView: View {
                     .foregroundColor(.blue)
                     .frame(maxWidth: .infinity)
                     .background(buttonBGColorOne)
-                    // .modifier(KitBaseButtonModifier(backgroundColor: .clear, hasCustomStyle: true))
-                  
+                // .modifier(KitBaseButtonModifier(backgroundColor: .clear, hasCustomStyle: true))
+                
             }
             
             Button {
@@ -42,7 +42,7 @@ struct HorizontalButtonView: View {
                     .foregroundColor(.red)
                     .frame(maxWidth: .infinity)
                     .background(buttonBGColorOne)
-                    //.modifier(KitBaseButtonModifier(backgroundColor: .blue, hasCustomStyle: false))
+                //.modifier(KitBaseButtonModifier(backgroundColor: .blue, hasCustomStyle: false))
             }
         }
     }
@@ -53,7 +53,7 @@ struct HorizontalButtonView: View {
     HorizontalButtonView(buttonOneText: "dsf", buttonTowText: "J", buttonBGColorOne: .red, buttonBGColorTwo: .green) {
         
     } onSubmit: {
-    
+        
     }
-
+    
 }

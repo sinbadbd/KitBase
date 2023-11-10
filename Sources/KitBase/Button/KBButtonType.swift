@@ -14,7 +14,7 @@ public enum ImageViewType{
     case circle, rectangle
 }
 
-
+//@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 @available(iOS 15.0, *)
 public struct KBButtonType: View {
     public var imageType: ImageType = .image

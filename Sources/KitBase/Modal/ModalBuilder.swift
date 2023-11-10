@@ -21,10 +21,16 @@ public struct ModalViewBuilder {
     private var buttonBGColorTwo: Color?
     private var layoutKind: ModalView.Axis
     private var onSubmit: (() -> Void)
+    private var onCancel: (() -> Void)
     
-    public init(isShowPopup: Binding<Bool>, onSubmit: @escaping () -> Void) {
+    public init(
+        isShowPopup: Binding<Bool>,
+        onSubmit: @escaping () -> Void,
+        onCancel: @escaping () -> Void
+    ) {
         self.isShowPopup = isShowPopup
         self.onSubmit = onSubmit
+        self.onCancel = onCancel
         self.layoutKind = .horizontal
     }
     
@@ -87,7 +93,7 @@ public struct ModalViewBuilder {
         builder.buttonBGColorTwo = backgroundColor
         return builder
     }
-
+    
     public func build() -> ModalView {
         return ModalView(
             isShowPopup: isShowPopup,
@@ -101,8 +107,38 @@ public struct ModalViewBuilder {
             buttonBGColorOne: buttonBGColorOne ?? .clear,
             buttonBGColorTwo:  buttonBGColorTwo ?? .clear,
             layoutKind: layoutKind,
-            onSubmit: onSubmit
+            onSubmit: onSubmit,
+            onCancel: onCancel
         )
+    }
+}
+
+import SwiftUI
+@available(iOS 15.0, *)
+#Preview {
+    ModalBuilderView()
+}
+@available(iOS 15.0, *)
+struct ModalBuilderView: View {
+    
+    @State var isShowModal: Bool = true
+    
+    var body: some View {
+        ZStack{
+            ModalViewBuilder(isShowPopup: $isShowModal, onSubmit: {
+                print("onSubmit")
+            }, onCancel: {
+                print("onCancel")
+            })
+            .title("Confirm")
+            .summary("Are you want to logout?")
+            .width(80)
+            .height(80)
+            .buttonOneText("No")
+            .buttonTwoText("Yes")
+            .layoutKind(.vertical)
+            .build()
+        }
     }
 }
 

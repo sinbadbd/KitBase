@@ -21,7 +21,6 @@ public struct ModalView: View {
     private (set) var image: String? = nil
     private (set) var width: CGFloat? = 84
     private (set) var height: CGFloat? = 84
-    private (set) var onSubmit: (() -> Void)
     private (set) var layoutAxis: Axis
     private (set) var buttonOneText: String? = nil
     private (set) var buttonTwoText: String? = nil
@@ -29,6 +28,10 @@ public struct ModalView: View {
     private (set) var buttonBGColorTwo: Color
     
     @State private var offset: CGFloat = 1000
+    
+    
+    private (set) var onSubmit: (() -> Void)
+    private (set) var onCancel: (() -> Void)
     
     public init(
         isShowPopup: Binding<Bool>,
@@ -42,7 +45,8 @@ public struct ModalView: View {
         buttonBGColorOne: Color = .green,
         buttonBGColorTwo: Color = .red,
         layoutKind: Axis = .horizontal,
-        onSubmit: @escaping () -> Void
+        onSubmit: @escaping () -> Void,
+        onCancel: @escaping () -> Void
     ) {
         self._isShowPopup = isShowPopup
         self.title = title
@@ -54,6 +58,7 @@ public struct ModalView: View {
         self.buttonOneText = buttonOneText
         self.buttonTwoText = buttonTwoText
         self.onSubmit = onSubmit
+        self.onCancel = onCancel
         self.buttonBGColorOne = buttonBGColorOne
         self.buttonBGColorTwo = buttonBGColorTwo
     }
@@ -82,6 +87,7 @@ public struct ModalView: View {
                 switch layoutAxis {
                 case .vertical:
                     VerticalButtonView(buttonOneText: buttonOneText ?? "set Title", buttonTowText: buttonTwoText ?? "Set Title", action: {
+                        onCancel()
                         close()
                     }, onSubmit: {
                         onSubmit()
@@ -144,9 +150,16 @@ public struct ModalView: View {
 
 @available(iOS 15.0, *)
 #Preview {
+    /*
     ModalView(isShowPopup: .constant(true), title: "Confirm This", summary: "Are you want to delete this?", image: "tortoise.circle.fill", width: 40, height: 40, buttonOneText: "Cancle", buttonTwoText: "Save", layoutKind: .vertical) {
         
+    }*/
+    ModalView(isShowPopup: .constant(true),title: "Confirm This", summary: "Are you want to delete this?", image: "tortoise.circle.fill", width: 40, height: 40, buttonOneText: "Cancle", buttonTwoText: "Save", layoutKind: .vertical) {
+        
+    } onCancel: {
+        
     }
+
 }
 
 

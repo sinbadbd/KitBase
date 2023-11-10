@@ -20,9 +20,11 @@ final class ModalViewBuilderTests: XCTestCase {
         )
         
         // Create a ModalView using the builder
-        let modalViewBuidler = ModalViewBuilder(isShowPopup: binding) {
-            // This is a mock action
-            }
+        var modalViewBuidler =  ModalViewBuilder(isShowPopup: binding, onSubmit: {
+            print("onSubmit")
+        }, onCancel: {
+            print("onCancel")
+        })
             .title("Test Title")
             .summary("Test Summary")
             .buttonOneText("Cancel")
@@ -30,6 +32,8 @@ final class ModalViewBuilderTests: XCTestCase {
             .build()
         let modval = ModalView(isShowPopup: binding, onSubmit: {
             
+        }, onCancel: {
+            print("onCancel")
         })
         XCTAssertEqual(modval.isShowPopup, binding.wrappedValue)
         XCTAssertEqual(modval.title, "Test Title")
