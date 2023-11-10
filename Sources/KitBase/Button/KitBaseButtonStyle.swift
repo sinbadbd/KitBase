@@ -27,7 +27,8 @@ public struct KitBaseButtonStyle: ButtonStyle {
     public let buttonHeight: CGFloat?
     public let buttonCornerRadius: CGFloat?
     public let borderWidth: CGFloat?
-    public let icon: Image?
+    public let icon: String?
+    public let image: String?
     public let iconColor: Color?
     public let iconWidth: CGFloat?
     public let iconHeight: CGFloat?
@@ -43,7 +44,8 @@ public struct KitBaseButtonStyle: ButtonStyle {
         buttonHeight: CGFloat? = nil,
         buttonCornerRadius: CGFloat? = nil,
         borderWidth: CGFloat? = nil,
-        icon: Image? = nil,
+        icon: String? = nil,
+        image: String? = nil,
         iconColor: Color? = nil,
         iconWidth: CGFloat? = 30,
         iconHeight: CGFloat? = 30
@@ -59,6 +61,7 @@ public struct KitBaseButtonStyle: ButtonStyle {
         self.buttonCornerRadius = buttonCornerRadius
         self.borderWidth = borderWidth
         self.icon = icon
+        self.image = image
         self.iconColor = iconColor
         self.iconWidth = iconWidth
         self.iconHeight = iconHeight
@@ -67,8 +70,16 @@ public struct KitBaseButtonStyle: ButtonStyle {
     public func makeBody(configuration: Configuration) -> some View {
         
         return  HStack {
+            if let image = image {
+                Image(image)
+                    .resizable()
+                    .scaledToFill()
+                    .foregroundColor(iconColor ?? foregroundColor)
+                    .frame(width: iconWidth, height: iconHeight)
+                //                        .padding(.trailing, 8)
+            }
             if let icon = icon {
-                icon
+                Image(systemName: icon)
                     .resizable()
                     .scaledToFill()
                     .foregroundColor(iconColor ?? foregroundColor)
@@ -112,10 +123,17 @@ public struct KitBaseButtonStyle: ButtonStyle {
 struct ContentButtonView: View {
     var body: some View {
         VStack(spacing: 16) {
+            Image("ic_edit")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .background {
+                    Color.red
+                }
+                .frame(width: 30, height: 20)
             Button("icon with button", action: {
                 print("print")
             })
-            .buttonStyle(KitBaseButtonStyle( backgroundColor: .red, borderColor: .accentColor, foregroundColor:.white, buttonHeight: 20, buttonCornerRadius: 8, icon: Image(systemName: "pencil.circle.fill"), iconColor: .green, iconWidth: 14, iconHeight: 14))
+            .buttonStyle(KitBaseButtonStyle( backgroundColor: .red, borderColor: .accentColor, foregroundColor:.white, buttonHeight: 20, buttonCornerRadius: 8, icon: "pencil.circle.fill",image: "ic_edit", iconColor: .green, iconWidth: 14, iconHeight: 14))
             
             Button("Solid XS", action: {
                 

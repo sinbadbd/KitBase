@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-import SwiftUI
-
 @available(iOS 15.0, *)
 public class KitBaseButtonStyleBuilder {
     private var size: ButtonSize = .md
@@ -22,7 +20,8 @@ public class KitBaseButtonStyleBuilder {
     private var buttonHeight: CGFloat? = nil
     private var buttonCornerRadius: CGFloat? = nil
     private var borderWidth: CGFloat? = nil
-    private var icon: Image? = nil
+    private var icon: String? = nil
+    private var image: String? = nil
     private var iconColor: Color? = nil
     private var iconWidth: CGFloat? = nil
     private var iconHeight: CGFloat? = nil
@@ -83,11 +82,14 @@ public class KitBaseButtonStyleBuilder {
         return self
     }
     
-    public func setIcon(_ icon: Image?) -> KitBaseButtonStyleBuilder {
+    public func setIcon(_ icon: String?) -> KitBaseButtonStyleBuilder {
         self.icon = icon
         return self
     }
-    
+    public func setImage(_ image: String?) -> KitBaseButtonStyleBuilder {
+        self.image = image
+        return self
+    }
     public func setIconColor(_ iconColor: Color?) -> KitBaseButtonStyleBuilder {
         self.iconColor = iconColor
         return self
@@ -105,8 +107,6 @@ public class KitBaseButtonStyleBuilder {
     
     public func build() -> KitBaseButtonStyle {
         return KitBaseButtonStyle(
-//            size: size,
-//            variant: variant,
             backgroundColor: backgroundColor,
             font: font,
             borderColor: borderColor,
@@ -117,6 +117,7 @@ public class KitBaseButtonStyleBuilder {
             buttonCornerRadius: buttonCornerRadius,
             borderWidth: borderWidth,
             icon: icon,
+            image: image,
             iconColor: iconColor,
             iconWidth: iconWidth,
             iconHeight: iconHeight
@@ -138,13 +139,13 @@ struct ContentBuilderView: View {
             })
             .buttonStyle(
                 KitBaseButtonStyleBuilder()
-//                    .setSize(.md)
-//                    .setVariant(.solid)
-                    .setBackgroundColor(.blue)
-                    .setForegroundColor(.white)
+                    .setBackgroundColor(.gray)
+                    .setForegroundColor(.black)
                     .setButtonWidth(200)
                     .setButtonHeight(30)
-                    .setIcon(Image(systemName: "heart"))
+                    .setIcon("ic_offe")
+                    .setImage("ic_edit")
+                    .setIconColor(.red)
                     .setIconColor(.red)
                     .setIconWidth(20)
                     .setIconHeight(20)
