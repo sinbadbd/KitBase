@@ -33,6 +33,8 @@ public struct ModalView: View {
     private (set) var onSubmit: (() -> Void)
     private (set) var onCancel: (() -> Void)
     
+    @State var isTapBackground: Bool = false
+    
     public init(
         isShowPopup: Binding<Bool>,
         title: String? = nil,
@@ -122,21 +124,26 @@ public struct ModalView: View {
                 }
             }
             .overlay {
-                //                ZStack(alignment: .top, content: {
-                //                    Image(systemName: "tortoise.circle.fill")
-                //                        .resizable()
-                //                        .aspectRatio(contentMode: .fill)
-                //                        .frame(width: width, height: height)
-                //                        .frame(alignment: .center)
-                //                        .offset(y: -110)
-                //                })
+                ZStack(alignment: .top, content: {
+                    Image(systemName: "tortoise.circle.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: width, height: height)
+                        .frame(alignment: .center)
+                        .offset(y: -110)
+                })
             }
         }
         .ignoresSafeArea()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.black.opacity(0.5))
+        .background(isShowPopup ? Color.black.opacity(0.5) : .clear)
         .opacity(isShowPopup ? 1.0 : 0.0)
         .animation(.easeInOut)
+        .zIndex(1111)
+        .onTapGesture {
+            print("background Tapped")
+            self.isTapBackground = true
+        }
     }
     
     func close() {
@@ -151,15 +158,15 @@ public struct ModalView: View {
 @available(iOS 15.0, *)
 #Preview {
     /*
-    ModalView(isShowPopup: .constant(true), title: "Confirm This", summary: "Are you want to delete this?", image: "tortoise.circle.fill", width: 40, height: 40, buttonOneText: "Cancle", buttonTwoText: "Save", layoutKind: .vertical) {
-        
-    }*/
+     ModalView(isShowPopup: .constant(true), title: "Confirm This", summary: "Are you want to delete this?", image: "tortoise.circle.fill", width: 40, height: 40, buttonOneText: "Cancle", buttonTwoText: "Save", layoutKind: .vertical) {
+     
+     }*/
     ModalView(isShowPopup: .constant(true),title: "Confirm This", summary: "Are you want to delete this?", image: "tortoise.circle.fill", width: 40, height: 40, buttonOneText: "Cancle", buttonTwoText: "Save", layoutKind: .vertical) {
         
     } onCancel: {
         
     }
-
+    
 }
 
 

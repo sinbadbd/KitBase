@@ -116,8 +116,39 @@ public struct ModalViewBuilder {
 import SwiftUI
 @available(iOS 15.0, *)
 #Preview {
-    ModalBuilderView()
+    DemoShowModalView()
 }
+
+@available(iOS 15.0, *)
+struct DemoShowModalView: View {
+    
+    @State var isShowModal: Bool = false
+    
+    var body: some View {
+        ZStack{
+            Color.clear
+                .ignoresSafeArea()
+            
+            Button(action: {
+                isShowModal.toggle()
+            }, label: {
+                Text("Button")
+            })
+            .buttonStyle(
+                KitBaseButtonStyleBuilder()
+                .setBackgroundColor(.red)
+                .setForegroundColor(.white)
+                .setButtonWidth(200)
+                .build()
+            )
+            
+            if isShowModal{
+                ModalBuilderView()
+            }
+        }
+    }
+}
+
 @available(iOS 15.0, *)
 struct ModalBuilderView: View {
     
@@ -127,6 +158,7 @@ struct ModalBuilderView: View {
         ZStack{
             ModalViewBuilder(isShowPopup: $isShowModal, onSubmit: {
                 print("onSubmit")
+                isShowModal = true
             }, onCancel: {
                 print("onCancel")
             })
