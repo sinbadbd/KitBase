@@ -27,11 +27,12 @@ public struct KitBaseButtonStyle: ButtonStyle {
     public let buttonHeight: CGFloat?
     public let buttonCornerRadius: CGFloat?
     public let borderWidth: CGFloat?
-    public let icon: String?
+    public let systemIcon: String?
     public let image: String?
     public let iconColor: Color?
     public let iconWidth: CGFloat?
     public let iconHeight: CGFloat?
+    public var isShowShadow: Bool = true
     
     public init(
         
@@ -48,7 +49,8 @@ public struct KitBaseButtonStyle: ButtonStyle {
         image: String? = nil,
         iconColor: Color? = nil,
         iconWidth: CGFloat? = 30,
-        iconHeight: CGFloat? = 30
+        iconHeight: CGFloat? = 30,
+        isShowShadow: Bool = true
     ) {
         
         self.backgroundColor = backgroundColor
@@ -60,11 +62,12 @@ public struct KitBaseButtonStyle: ButtonStyle {
         self.buttonHeight = buttonHeight
         self.buttonCornerRadius = buttonCornerRadius
         self.borderWidth = borderWidth
-        self.icon = icon
+        self.systemIcon = icon
         self.image = image
         self.iconColor = iconColor
         self.iconWidth = iconWidth
         self.iconHeight = iconHeight
+        self.isShowShadow = isShowShadow
     }
     
     public func makeBody(configuration: Configuration) -> some View {
@@ -78,7 +81,7 @@ public struct KitBaseButtonStyle: ButtonStyle {
                     .frame(width: iconWidth, height: iconHeight)
                 //                        .padding(.trailing, 8)
             }
-            if let icon = icon {
+            if let icon = systemIcon {
                 Image(systemName: icon)
                     .resizable()
                     .scaledToFill()
@@ -102,11 +105,11 @@ public struct KitBaseButtonStyle: ButtonStyle {
         .overlay(
             RoundedRectangle(cornerRadius: buttonCornerRadius ?? 8)
                 .stroke(borderColor ?? .clear, lineWidth: borderWidth ?? 0)
-                .shadow(color: Color(red: 0.38, green: 0.38, blue: 0.44).opacity(0.16), radius: 2, x: 0, y: 2)
+                .shadow(color: !isShowShadow ? .clear : Color(red: 0.38, green: 0.38, blue: 0.44).opacity(0.16), radius: 2, x: 0, y: 2)
             
         )
-        .shadow(color: Color(red: 0.38, green: 0.38, blue: 0.44).opacity(0.16), radius: 2, x: 0, y: 2)
-        
+        .shadow(color: !isShowShadow ? .clear : Color(red: 0.38, green: 0.38, blue: 0.44).opacity(0.16), radius: 2, x: 0, y: 2)
+
         //        }
         // .opacity(icon != nil ? 1.0 : 0.0) // Hide button if icon is nil
     }

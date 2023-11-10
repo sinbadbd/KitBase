@@ -20,11 +20,12 @@ public class KitBaseButtonStyleBuilder {
     private var buttonHeight: CGFloat? = nil
     private var buttonCornerRadius: CGFloat? = nil
     private var borderWidth: CGFloat? = nil
-    private var icon: String? = nil
+    private var systemIcon: String? = nil
     private var image: String? = nil
     private var iconColor: Color? = nil
     private var iconWidth: CGFloat? = nil
     private var iconHeight: CGFloat? = nil
+    public var isShowShadow: Bool = true
     
     public init() {}
     
@@ -83,7 +84,7 @@ public class KitBaseButtonStyleBuilder {
     }
     
     public func setIcon(_ icon: String?) -> KitBaseButtonStyleBuilder {
-        self.icon = icon
+        self.systemIcon = icon
         return self
     }
     public func setImage(_ image: String?) -> KitBaseButtonStyleBuilder {
@@ -105,6 +106,12 @@ public class KitBaseButtonStyleBuilder {
         return self
     }
     
+    public func setShowShadow(_ isShowShadow: Bool?) -> KitBaseButtonStyleBuilder {
+        self.isShowShadow = isShowShadow ?? true
+        return self
+    }
+    
+    
     public func build() -> KitBaseButtonStyle {
         return KitBaseButtonStyle(
             backgroundColor: backgroundColor,
@@ -116,11 +123,12 @@ public class KitBaseButtonStyleBuilder {
             buttonHeight: buttonHeight,
             buttonCornerRadius: buttonCornerRadius,
             borderWidth: borderWidth,
-            icon: icon,
+            icon: systemIcon,
             image: image,
             iconColor: iconColor,
             iconWidth: iconWidth,
-            iconHeight: iconHeight
+            iconHeight: iconHeight,
+            isShowShadow: isShowShadow
         )
     }
 }
@@ -149,6 +157,7 @@ struct ContentBuilderView: View {
                     .setIconColor(.red)
                     .setIconWidth(20)
                     .setIconHeight(20)
+                    .setShowShadow(true) // Default true
                     .build()
             )
         }
