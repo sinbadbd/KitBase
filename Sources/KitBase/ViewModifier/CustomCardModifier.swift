@@ -2,8 +2,8 @@
 //  CustomCardModifier.swift
 
 import SwiftUI
-@available(iOS 15.0, *) 
 
+@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 struct CustomCardModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
@@ -19,7 +19,7 @@ struct CustomCardModifier: ViewModifier {
     }
 }
 
-@available(iOS 15.0, *)
+@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 extension View {
     func customCardStyle() -> some View {
         self.modifier(CustomCardModifier())

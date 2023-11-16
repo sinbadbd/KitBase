@@ -2,8 +2,8 @@
 //  ShadowModifier.swift
 
 import SwiftUI
-@available(iOS 15.0, *)
 
+@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 struct ShadowModifier: ViewModifier {
     let color: Color
     let radius: CGFloat

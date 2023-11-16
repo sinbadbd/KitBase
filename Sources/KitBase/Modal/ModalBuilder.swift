@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@available(iOS 15.0, *)
+@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 public struct ModalViewBuilder {
     private var isShowPopup: Binding<Bool>
     private var title: String?
@@ -114,12 +114,12 @@ public struct ModalViewBuilder {
 }
 
 import SwiftUI
-@available(iOS 15.0, *)
+@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 #Preview {
     DemoShowModalView()
 }
 
-@available(iOS 15.0, *)
+@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 struct DemoShowModalView: View {
     
     @State var isShowModal: Bool = false
@@ -149,7 +149,7 @@ struct DemoShowModalView: View {
     }
 }
 
-@available(iOS 15.0, *)
+@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 struct ModalBuilderView: View {
     
     @State var isShowModal: Bool = true

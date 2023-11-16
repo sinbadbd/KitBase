@@ -6,7 +6,8 @@
 //
 
 import SwiftUI
-@available(iOS 15.0, *)
+
+@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 public struct LoadingView: View {
     
     public var progressColor: Color
@@ -34,12 +35,12 @@ public struct LoadingView: View {
     }
 }
 
-@available(iOS 15.0, *)
+@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 #Preview {
     DemoLoadingView()
 }
 
-@available(iOS 15.0, *)
+@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 struct DemoLoadingView: View {
     @State private var isLoading = true
     var body: some View {

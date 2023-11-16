@@ -2,8 +2,8 @@
 //  KitBaseButtonModifier.swift
 
 import SwiftUI
-@available(iOS 15.0, *)
 
+@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 public struct KitBaseButtonModifier: ViewModifier {
     
     let backgroundColor: Color
@@ -38,7 +38,7 @@ public struct KitBaseButtonModifier: ViewModifier {
     }
 }
 
-@available(iOS 15.0, *)
+@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 extension View {
     public func buttonBackground(backgroundColor: Color = .blue, hasCustomStyle: Bool)-> some View{
         modifier(KitBaseButtonModifier(backgroundColor: backgroundColor, hasCustomStyle: hasCustomStyle))

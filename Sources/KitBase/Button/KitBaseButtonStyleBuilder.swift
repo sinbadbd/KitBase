@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@available(iOS 15.0, *)
+@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 public class KitBaseButtonStyleBuilder {
     private var size: ButtonSize = .md
     private var variant: ButtonVariant = .solid
@@ -153,12 +153,12 @@ public class KitBaseButtonStyleBuilder {
     }
 }
 
-@available(iOS 15.0, *)
+@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 #Preview {
     ContentBuilderView()
 }
 
-@available(iOS 15.0, *)
+@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 struct ContentBuilderView: View {
     var body: some View {
         VStack(spacing: 16) {

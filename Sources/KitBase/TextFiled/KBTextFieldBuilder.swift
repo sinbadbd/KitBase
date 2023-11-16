@@ -6,8 +6,8 @@
 //
 
 import SwiftUI
-@available(iOS 15.0, *)
 
+@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 public struct KBTextFieldBuilder<Content: View> {
     public var title: String? = nil
     public var font: Font? = nil
@@ -153,12 +153,12 @@ public struct KBTextFieldBuilder<Content: View> {
 }
 
 
-@available(iOS 15.0, *)
+@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 #Preview {
     KBTextFieldBuilderView(textInput: "")
 }
 
-@available(iOS 15.0, *)
+@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 struct KBTextFieldBuilderView: View  {
     @State var textInput: String
     @State var nameTextFile: Bool = false
@@ -166,7 +166,7 @@ struct KBTextFieldBuilderView: View  {
         VStack{
             
             KBTextFieldBuilder(content: {
-                TextField("Enter your username", text: $textInput)
+                TextField("Exclusive 7.7 package", text: $textInput)
             }, isValid: $nameTextFile)
             .title("Username")
             .font(.headline)

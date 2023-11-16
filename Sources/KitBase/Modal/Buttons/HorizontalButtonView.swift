@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@available(iOS 15.0, *)
+@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 struct HorizontalButtonView: View {
     
     var buttonOneText: String
@@ -48,7 +48,7 @@ struct HorizontalButtonView: View {
     }
 }
 
-@available(iOS 15.0, *)
+@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 #Preview {
     HorizontalButtonView(buttonOneText: "dsf", buttonTowText: "J", buttonBGColorOne: .red, buttonBGColorTwo: .green) {
         

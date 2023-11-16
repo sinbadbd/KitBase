@@ -15,7 +15,7 @@ public enum ImageViewType{
 }
 
 //@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
-@available(iOS 15.0, *)
+@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 public struct KBButtonType: View {
     public var imageType: ImageType = .image
     public var imageViewType: ImageViewType = .circle
@@ -111,7 +111,7 @@ public struct KBButtonType: View {
     }
 }
 
-@available(iOS 15.0, *)
+@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 struct KBButtonAnimationView: View {
     
     @Binding var animate: Bool
@@ -125,7 +125,7 @@ struct KBButtonAnimationView: View {
     }
 }
 
-@available(iOS 15.0, *)
+@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 #Preview {
     HStack{
         Button {
