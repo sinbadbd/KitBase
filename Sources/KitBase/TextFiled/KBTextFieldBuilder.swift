@@ -82,43 +82,43 @@ public struct KBTextFieldBuilder<Content: View> {
         return copy
     }
     
-    func textFieldHeight(_ height: CGFloat) -> Self {
+    public func textFieldHeight(_ height: CGFloat) -> Self {
         var copy = self
         copy.textFieldHeight = height
         return copy
     }
     
-    func cornerRadius(_ radius: CGFloat) -> Self {
+    public func cornerRadius(_ radius: CGFloat) -> Self {
         var copy = self
         copy.cornerRadius = radius
         return copy
     }
     
-    func borderColor(_ color: Color?) -> Self {
+    public func borderColor(_ color: Color?) -> Self {
         var copy = self
         copy.borderColor = color
         return copy
     }
     
-    func borderWidth(_ width: CGFloat) -> Self {
+    public func borderWidth(_ width: CGFloat) -> Self {
         var copy = self
         copy.borderWidth = width
         return copy
     }
     
-    func strokeColor(_ color: Color) -> Self {
+    public func strokeColor(_ color: Color) -> Self {
         var copy = self
         copy.strokeColor = color
         return copy
     }
     
-    func shadowColor(_ color: Color) -> Self {
+    public func shadowColor(_ color: Color) -> Self {
         var copy = self
         copy.shadowColor = color
         return copy
     }
     
-    func shadow(radius: CGFloat, x: CGFloat, y: CGFloat) -> Self {
+    public  func shadow(radius: CGFloat, x: CGFloat, y: CGFloat) -> Self {
         var copy = self
         copy.shadowRadius = radius
         copy.shadowX = x
@@ -174,15 +174,16 @@ struct KBTextFieldBuilderView: View  {
             .titleSpacing(12)
             .textColor(.blue)
             .backgroundColor(.white)
-            .error("")
+//            .error("")
             .icon(AnyView(Image(systemName: "person")))
             .textFieldHeight(44)
-            .cornerRadius(80)
-            .borderColor(.blue)
+            .cornerRadius(30)
+//            .borderColor(.green)
             .borderWidth(0.5)
-            .strokeColor(.orange)
-            .shadowColor(.red)
-            .shadow(radius: 20, x: 10, y: 10)
+//            .strokeColor(.indigo)
+//            .shadowColor(.black.opacity(0.5))
+//            .shadow(radius: 2, x: 2, y: 2)
+//            .shadow(radius: 3, x: 2, y: 3)
             .build()
             
         }
