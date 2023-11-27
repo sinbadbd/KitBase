@@ -42,3 +42,4 @@ icon with button
   Button("SwiftUI Solid LG", action: {})
       .buttonStyle(KitBaseButtonStyle(size: .sm, variant: .solid, foregroundColor: .red))
 ```
+Kitbase Builder pattern
