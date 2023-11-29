@@ -15,7 +15,7 @@ public enum ButtonVariant {
     case solid, subtle, outline
 }
 
-@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
+//@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 public struct KitBaseButtonStyle: ButtonStyle {
     
     public let backgroundColor: Color?
@@ -127,12 +127,12 @@ public struct KitBaseButtonStyle: ButtonStyle {
 
 
 
-@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
+//@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 #Preview {
     ContentButtonView()
 }
 
-@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
+//@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 struct ContentButtonView: View {
     var body: some View {
         VStack(spacing: 16) {

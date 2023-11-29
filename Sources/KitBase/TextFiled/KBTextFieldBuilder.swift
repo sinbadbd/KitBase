@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
+//@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 public struct KBTextFieldBuilder<Content: View> {
     public var title: String? = nil
     public var font: Font? = nil
@@ -15,7 +15,7 @@ public struct KBTextFieldBuilder<Content: View> {
     public var titleSpacing: CGFloat = 8
     public var textColor: Color = .gray
     public var backgroundColor: Color = .white
-    public var error: String? = nil
+    public var errorMessage: String? = nil
     public var content: () -> Content
     public var isValid: Binding<Bool>
     public var icon: AnyView? = nil
@@ -70,9 +70,9 @@ public struct KBTextFieldBuilder<Content: View> {
         return copy
     }
     
-    public func error(_ error: String?) -> KBTextFieldBuilder {
+    public func setErrorMessage(_ error: String?) -> KBTextFieldBuilder {
         var copy = self
-        copy.error = error
+        copy.errorMessage = error
         return copy
     }
     
@@ -135,7 +135,7 @@ public struct KBTextFieldBuilder<Content: View> {
             spacing: titleSpacing,
             textColor: textColor,
             backgroundColor: backgroundColor,
-            error: error,
+            setErrorMessage: errorMessage,
             isValid: isValid,
             icon: icon,
             textFieldHeight: textFieldHeight,
@@ -153,12 +153,12 @@ public struct KBTextFieldBuilder<Content: View> {
 }
 
 
-@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
+//@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 #Preview {
     KBTextFieldBuilderView(textInput: "")
 }
 
-@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
+//@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 struct KBTextFieldBuilderView: View  {
     @State var textInput: String
     @State var nameTextFile: Bool = false
@@ -174,7 +174,7 @@ struct KBTextFieldBuilderView: View  {
             .titleSpacing(12)
             .textColor(.blue)
             .backgroundColor(.white)
-//            .error("")
+            .setErrorMessage("test error message")
             .icon(AnyView(Image(systemName: "person")))
             .textFieldHeight(44)
             .cornerRadius(30)
