@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
+//@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 public struct KBTextField<Content>: View where Content: View {
     var title: String? = nil
     var font: Font? = nil
@@ -14,7 +14,7 @@ public struct KBTextField<Content>: View where Content: View {
     let titleSpacing: CGFloat
     let textColor: Color
     let backgroundColor: Color
-    let error: String?
+    let setErrorMessage: String?
     let content: () -> Content
     @Binding var isValid: Bool
     var icon: AnyView? = nil
@@ -35,7 +35,7 @@ public struct KBTextField<Content>: View where Content: View {
         spacing: CGFloat,
         textColor: Color = .gray,
         backgroundColor: Color = .white,
-        error: String? = nil,
+        setErrorMessage: String? = nil,
         isValid: Binding<Bool>,
         icon: AnyView? = nil,
         textFieldHeight: CGFloat = 40,
@@ -55,7 +55,7 @@ public struct KBTextField<Content>: View where Content: View {
         self.titleSpacing = spacing
         self.textColor = textColor
         self.backgroundColor = backgroundColor
-        self.error = error
+        self.setErrorMessage = setErrorMessage
         self.content = content
         self._isValid = isValid
         self.icon = icon
@@ -94,11 +94,11 @@ public struct KBTextField<Content>: View where Content: View {
                 )
                 .background(
                     RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                        .fill(error != nil ? Color(red: 0.97, green: 0.93, blue: 0.93) : backgroundColor)
+                        .fill(setErrorMessage != nil ? Color(red: 0.97, green: 0.93, blue: 0.93) : backgroundColor)
                 )
                 .overlay {
                     RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                        .stroke(borderColor ?? (error != nil ? Color.red : Color(red: 0.84, green: 0.84, blue: 0.84)), lineWidth: borderWidth)
+                        .stroke(borderColor ?? (setErrorMessage != nil ? Color.red : Color(red: 0.84, green: 0.84, blue: 0.84)), lineWidth: borderWidth)
                         .overlay(
                             RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                                 .stroke(strokeColor, lineWidth: 1.5)
@@ -107,7 +107,7 @@ public struct KBTextField<Content>: View where Content: View {
                         )
                 }
             
-            if let error = error {
+            if let error = setErrorMessage {
                 Text(error)
                     .foregroundColor(.red) // Customize the error text color
                     .font(errorFont)
@@ -116,12 +116,12 @@ public struct KBTextField<Content>: View where Content: View {
     }
 }
 
-@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
+//@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 #Preview {
     TextFieldView()
 }
 
-@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
+//@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 struct TextFieldView: View {
     
     @State private var username = ""
@@ -135,7 +135,7 @@ struct TextFieldView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            KBTextField(errorFont: .caption, spacing: 0, error: usernameError, isValid: $isUsernameValid) {
+            KBTextField(errorFont: .caption, spacing: 0, setErrorMessage: usernameError, isValid: $isUsernameValid) {
                 HStack{
                     TextField("Username", text: $username)
                         .onChange(of: username) { item in
@@ -144,7 +144,7 @@ struct TextFieldView: View {
                 }
             }
             
-            KBTextField(title: "Password", font: .footnote, errorFont: .caption, spacing: 8, error: passwordError, isValid: $isPasswordValid) {
+            KBTextField(title: "Password", font: .footnote, errorFont: .caption, spacing: 8, setErrorMessage: passwordError, isValid: $isPasswordValid) {
                 SecureField("Password", text: $password)
             }
             

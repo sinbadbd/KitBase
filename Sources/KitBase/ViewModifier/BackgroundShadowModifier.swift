@@ -3,7 +3,7 @@
 
 import SwiftUI
 
-@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
+//@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 struct BackgroundShadowModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
@@ -18,7 +18,7 @@ struct BackgroundShadowModifier: ViewModifier {
     }
 }
 
-@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
+//@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 extension View {
     func backgroundShadow() -> some View {
         modifier(BackgroundShadowModifier())
