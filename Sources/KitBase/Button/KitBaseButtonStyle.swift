@@ -152,10 +152,12 @@ struct ContentButtonView: View {
                 
             })
             .buttonStyle(KitBaseButtonStyle( backgroundColor: .red, borderColor: .accentColor, foregroundColor:.blue, buttonCornerRadius: 8))
-            
-            Button("Subtle MD", action: {})
-                .buttonStyle(KitBaseButtonStyle( backgroundColor: .clear, borderColor: .yellow, foregroundColor: .blue, buttonWidth: UIScreen.main.bounds.width * 0.8, borderWidth: 2))
-            
+            #if os(iOS) || os(macOS) || os(tvOS)
+            Button("Subtle MD", action: {
+                
+            }).padding(.horizontal,16)
+                .buttonStyle(KitBaseButtonStyle( backgroundColor: .clear, borderColor: .yellow, foregroundColor: .blue, buttonWidth: UIScreen.main.bounds.width, borderWidth: 2))
+                
             Button("Outline SM", action: {})
                 .buttonStyle(KitBaseButtonStyle(backgroundColor: .blue, borderColor: .red, foregroundColor: .yellow, borderWidth: 1))
             
@@ -164,6 +166,25 @@ struct ContentButtonView: View {
             
             Button("Width", action: {print(Int.random(in: 0...100))})
                 .buttonStyle(KitBaseButtonStyle(backgroundColor: .black, borderColor: .red, foregroundColor: .white, buttonWidth: UIScreen.main.bounds.width * 0.80 - 40, buttonHeight: 30, buttonCornerRadius: 4, borderWidth: 1))
+            
+            GeometryReader { geometry in
+                VStack(spacing: 16) {
+ 
+                    Button("test width", action: { print(Int.random(in: 0...100)) })
+                        .buttonStyle(KitBaseButtonStyle(
+                            backgroundColor: .black,
+                            borderColor: .red,
+                            foregroundColor: .white,
+                            buttonWidth: geometry.size.width * 0.80 - 40, buttonHeight: 30,
+                            buttonCornerRadius: 4,
+                            borderWidth: 1
+                        ))
+//                        .padding(.leading, 20)
+//                        .padding(.trailing, 20)
+                       // .frame(width: geometry.size.width * 0.80 - 40)
+                }
+            }
+            #endif
         }
     }
 }
