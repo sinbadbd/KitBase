@@ -156,8 +156,11 @@ struct ContentButtonView: View {
             Button("Subtle MD", action: {
                 
             }).padding(.horizontal,16)
-                .buttonStyle(KitBaseButtonStyle( backgroundColor: .clear, borderColor: .yellow, foregroundColor: .blue, buttonWidth: UIScreen.main.bounds.width, borderWidth: 2))
-                
+             #if os(iOS)
+                .buttonStyle(KitBaseButtonStyle( backgroundColor: .clear, borderColor: .yellow, foregroundColor: .blue, buttonWidth: UIScreen.main.bounds.width * 0.80 - 40, borderWidth: 2))
+            #elseif os(macOS)
+                .buttonStyle(KitBaseButtonStyle( backgroundColor: .clear, borderColor: .yellow, foregroundColor: .blue, buttonWidth: NSScreen.main?.frame.width, borderWidth: 2))
+            #endif
             Button("Outline SM", action: {})
                 .buttonStyle(KitBaseButtonStyle(backgroundColor: .blue, borderColor: .red, foregroundColor: .yellow, borderWidth: 1))
             
@@ -165,8 +168,11 @@ struct ContentButtonView: View {
                 .buttonStyle(KitBaseButtonStyle(foregroundColor: .red))
             
             Button("Width", action: {print(Int.random(in: 0...100))})
+#if os(iOS)
                 .buttonStyle(KitBaseButtonStyle(backgroundColor: .black, borderColor: .red, foregroundColor: .white, buttonWidth: UIScreen.main.bounds.width * 0.80 - 40, buttonHeight: 30, buttonCornerRadius: 4, borderWidth: 1))
-            
+#elseif os(macOS)
+                .buttonStyle(KitBaseButtonStyle(backgroundColor: .black, borderColor: .red, foregroundColor: .white, buttonWidth: NSScreen.main?.frame.width, buttonHeight: 30, buttonCornerRadius: 4, borderWidth: 1))
+#endif
             GeometryReader { geometry in
                 VStack(spacing: 16) {
  
