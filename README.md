@@ -17,8 +17,8 @@
 
 👉Button Usages
 
-```
 Kitbase Builder pattern with `buttonStyle` 
+
 ```swift
     Button("Button name", action: {
                 print("")
@@ -43,3 +43,41 @@ Kitbase Builder pattern with `buttonStyle`
             )
         }
 ```
+
+TextField Builder 
+
+```swift
+struct KBTextFieldBuilderView: View  {
+
+    @State var textInput: String
+    @State var nameTextFile: Bool = false
+
+    var body: some View {
+        VStack{
+            
+            KBTextFieldBuilder(content: {
+                TextField("Name field", text: $textInput)
+            }, isValid: $nameTextFile)
+            .title("Username")
+            .font(.headline)
+            .errorFont(.subheadline)
+            .titleSpacing(12)
+            .textColor(.blue)
+            .backgroundColor(.white)
+            .setErrorMessage("test error message")
+            .icon(AnyView(Image(systemName: "person")))
+            .textFieldHeight(44)
+            .cornerRadius(30)
+            .borderColor(.green)
+            .borderWidth(0.5)
+            .strokeColor(.indigo)
+            .shadowColor(.black.opacity(0.5))
+            .build()
+        }
+        .padding(.horizontal,16)
+    }
+    
+}
+```
+
+
