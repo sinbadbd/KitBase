@@ -79,4 +79,24 @@ struct KBTextFieldBuilderView: View  {
 }
 ```
 
+### Loading view 
+
+```swift
+struct DemoLoadingView: View {
+    @State private var isLoading = true
+    var body: some View {
+        ZStack{
+            Color.black.opacity(0.4)
+                .ignoresSafeArea()
+            
+            // Loading view
+            if isLoading {
+                LoadingView(progressColor: .green)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+        }
+    }
+}
+
+```
 
