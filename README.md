@@ -9,11 +9,6 @@
 
 
 
-
-
-
-
-
 👉Button Usages
 
 Kitbase Builder pattern with `buttonStyle` 
@@ -88,7 +83,6 @@ struct DemoLoadingView: View {
         ZStack{
             Color.black.opacity(0.4)
                 .ignoresSafeArea()
-            
             // Loading view
             if isLoading {
                 LoadingView(progressColor: .green)
