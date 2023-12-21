@@ -5,8 +5,8 @@
 - Modal
 - Toast
 - Card
-
-
+- Loader
+- 
 
 
 👉Button Usages
