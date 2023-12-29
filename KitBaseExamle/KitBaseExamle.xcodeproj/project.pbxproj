@@ -12,6 +12,7 @@
 		1D4ED7D52B3F0E840059E38B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D4ED7D42B3F0E840059E38B /* Assets.xcassets */; };
 		1D4ED7D92B3F0E840059E38B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D4ED7D82B3F0E840059E38B /* Preview Assets.xcassets */; };
 		1D4ED7E12B3F0F300059E38B /* KitBase in Frameworks */ = {isa = PBXBuildFile; productRef = 1D4ED7E02B3F0F300059E38B /* KitBase */; };
+		1D4ED7E52B3F24680059E38B /* ExButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4ED7E42B3F24680059E38B /* ExButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		1D4ED7D42B3F0E840059E38B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1D4ED7D62B3F0E840059E38B /* KitBaseExamle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KitBaseExamle.entitlements; sourceTree = "<group>"; };
 		1D4ED7D82B3F0E840059E38B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1D4ED7E42B3F24680059E38B /* ExButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				1D4ED7D42B3F0E840059E38B /* Assets.xcassets */,
 				1D4ED7D62B3F0E840059E38B /* KitBaseExamle.entitlements */,
 				1D4ED7D72B3F0E840059E38B /* Preview Content */,
+				1D4ED7E42B3F24680059E38B /* ExButtonView.swift */,
 			);
 			path = KitBaseExamle;
 			sourceTree = "<group>";
@@ -147,6 +150,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D4ED7E52B3F24680059E38B /* ExButtonView.swift in Sources */,
 				1D4ED7D32B3F0E820059E38B /* ContentView.swift in Sources */,
 				1D4ED7D12B3F0E820059E38B /* KitBaseExamleApp.swift in Sources */,
 			);
