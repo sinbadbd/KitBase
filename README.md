@@ -5,13 +5,8 @@
 - Modal
 - Toast
 - Card
-
-
-
-
-
-
-
+- Loader
+- 
 
 
 👉Button Usages
@@ -88,7 +83,6 @@ struct DemoLoadingView: View {
         ZStack{
             Color.black.opacity(0.4)
                 .ignoresSafeArea()
-            
             // Loading view
             if isLoading {
                 LoadingView(progressColor: .green)
