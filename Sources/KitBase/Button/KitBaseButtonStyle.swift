@@ -23,7 +23,7 @@ public struct KitBaseButtonStyle: ButtonStyle {
     public let borderColor: Color?
     public let foregroundColor: Color?
     public let opacity: Double?
-    public let buttonWidth: CGFloat?
+    public var buttonWidth: CGFloat? = .infinity
     public let buttonHeight: CGFloat?
     public let buttonCornerRadius: CGFloat?
     public let borderWidth: CGFloat?
