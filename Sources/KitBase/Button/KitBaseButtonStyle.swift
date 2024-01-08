@@ -48,7 +48,7 @@ public struct KitBaseButtonStyle: ButtonStyle {
         borderColor: Color? = nil,
         foregroundColor: Color? = nil,
         opacity: Double? = nil,
-        buttonWidth: CGFloat? = nil,
+        buttonWidth: CGFloat? = .infinity,
         buttonHeight: CGFloat? = nil,
         buttonCornerRadius: CGFloat? = nil,
         borderWidth: CGFloat? = nil,
@@ -105,6 +105,8 @@ public struct KitBaseButtonStyle: ButtonStyle {
             configuration.label
                 .font(font)
                 .foregroundColor(foregroundColor)
+                .frame(maxWidth: .infinity)
+
         }
         
         .frame(width: buttonWidth, height: buttonHeight)
@@ -114,7 +116,6 @@ public struct KitBaseButtonStyle: ButtonStyle {
         .background(backgroundColor)
         .opacity(opacity ?? 1.0)
         .cornerRadius(buttonCornerRadius ?? 8)
-
         .overlay(
             RoundedRectangle(cornerRadius: buttonCornerRadius ?? 8)
                 .stroke(borderColor ?? .clear, lineWidth: borderWidth ?? 0)
@@ -169,11 +170,11 @@ struct ContentButtonView: View {
             
             Button("Width", action: {print(Int.random(in: 0...100))})
 #if os(iOS)
-                .buttonStyle(KitBaseButtonStyle(backgroundColor: .black, borderColor: .red, foregroundColor: .white, buttonWidth: UIScreen.main.bounds.width * 0.80 - 40, buttonHeight: 30, buttonCornerRadius: 4, borderWidth: 1))
+                .buttonStyle(KitBaseButtonStyle(backgroundColor: .black, borderColor: .red, foregroundColor: .white, buttonWidth: 200, buttonHeight: 30, buttonCornerRadius: 4, borderWidth: 1))
 #elseif os(macOS)
                 .buttonStyle(KitBaseButtonStyle(backgroundColor: .black, borderColor: .red, foregroundColor: .white, buttonWidth: NSScreen.main?.frame.width, buttonHeight: 30, buttonCornerRadius: 4, borderWidth: 1))
 #endif
-            GeometryReader { geometry in
+//            GeometryReader { geometry in
                 VStack(spacing: 16) {
  
                     Button("test width", action: { print(Int.random(in: 0...100)) })
@@ -181,15 +182,15 @@ struct ContentButtonView: View {
                             backgroundColor: .black,
                             borderColor: .red,
                             foregroundColor: .white,
-                            buttonWidth: geometry.size.width * 0.80 - 40, buttonHeight: 30,
+                            buttonWidth:300, buttonHeight: 30,
                             buttonCornerRadius: 4,
                             borderWidth: 1
                         ))
-//                        .padding(.leading, 20)
-//                        .padding(.trailing, 20)
+                        .padding(.leading, 20)
+                        .padding(.trailing, 20)
                        // .frame(width: geometry.size.width * 0.80 - 40)
                 }
-            }
+//            }
             #endif
         }
     }
