@@ -1,12 +1,11 @@
 # KitBase
 
-- Button
-- Input Field
-- Modal
-- Toast
-- Card
-- Loader
-- 
+- [x] Button
+- [x] Input Field
+- [x] Loader
+- [ ] Modal
+- [ ] Toast
+- [ ] Card
 
 
 👉Button Usages
