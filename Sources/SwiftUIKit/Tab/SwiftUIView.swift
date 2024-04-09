@@ -8,7 +8,7 @@
 import SwiftUI
  
 // Assuming T is a generic type for your tab items and it's Identifiable.
-struct KBTabs<T: Identifiable, Content: View>: View {
+public struct KBTabs<T: Identifiable, Content: View>: View {
     var list: [T]
     var currentTab: T.ID
     var onSelect: (T) -> Void // Adjusted to provide selected item back to the caller
@@ -17,7 +17,7 @@ struct KBTabs<T: Identifiable, Content: View>: View {
     var deselectedColor: Color = .gray
     var animation: Namespace.ID
     
-    var body: some View {
+   public var body: some View {
         ForEach(list) { item in
             // Using the provided content closure to generate view for each tab item
             content(item, currentTab == item.id)
