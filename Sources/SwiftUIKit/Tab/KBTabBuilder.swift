@@ -140,7 +140,7 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
 //                      scrollDirection: scrollDirection,
 //                      
 //                      animation: namespace)
-        return KBTabs(list: list, content: content, currentSelection: currentTab, onSelect: onSelect, backgroundColor: backgroundColor, selectedColor: selectedColor, deselectedColor: deselectedColor, borderColor: borderColor, borderWidth: borderWidth, verticalPadding: verticalPadding, horizontalPadding: horizontalPadding, imageWidth: imageWidth, imageHeight: imageHeight, animation: namespace)
+        return KBTabs(list: list, content: content, currentTab: currentTab, onSelect: onSelect, backgroundColor: backgroundColor, selectedColor: selectedColor, deselectedColor: deselectedColor, borderColor: borderColor, borderWidth: borderWidth, verticalPadding: verticalPadding, horizontalPadding: horizontalPadding, imageWidth: imageWidth, imageHeight: imageHeight, animation: namespace)
         // Pass all other properties here...
     }
 }
