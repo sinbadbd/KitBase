@@ -93,39 +93,56 @@ extension KBTabs {
 
 
 struct KBTabView: View {
+    @Namespace var namespace
+    @State private var currentTabID: String
     
-    @Namespace var animation
-    @State private var currentTab: UUID
+    private let tabs: [MyTab] = [
+        TabItem(id: "home", title: "Home", iconName: "house.fill"),
+        TabItem(id: "search", title: "Search", iconName: "magnifyingglass"),
+        TabItem(id: "settings", title: "Settings", iconName: "gear")
+    ]
     
-    var tabs: [MyTab] // Assume MyTabModel conforms to Identifiable
+    init() {
+        _currentTabID = State(initialValue: tabs.first?.id ?? "")
+    }
     
     var body: some View {
-        KBTabs.Builder()
-            .setSelectedColor(.blue)
-            .setDeselectedColor(.gray.opacity(0.7))
-            .setBorderColor(.gray.opacity(0.3))
-            .setVerticalPadding(8)
-            .setHorizontalPadding(12)
-            .setImageWidth(24)
-            .setImageHeight(24)
-            .setScrollDirection(.horizontal) // or .vertical for vertical scrolling
-            .build(
-                list: tabs,
-                currentTab: currentTab,
-                onSelect: { selectedTab in
-                    withAnimation {
-                        self.currentTab = selectedTab.id
-                    }
-                },
-                content: { tab, isSelected in
-                    // Define how each tab should look
-                    Text(tab.title)
+        VStack {
+            KBTabs.Builder()
+                .setSelectedColor(.blue)
+                .setDeselectedColor(.gray)
+                .setBorderColor(.clear) // No border for selected tabs in this demo
+                .setVerticalPadding(10)
+                .setHorizontalPadding(10)
+                .setImageWidth(20)
+                .setImageHeight(20)
+                .setScrollDirection(.horizontal)
+                .build(
+                    list: tabs,
+                    currentTab: currentTabID,
+                    onSelect: { selectedTab in
+                        withAnimation(.easeInOut) {
+                            self.currentTabID = selectedTab.id
+                        }
+                    },
+                    content: { tab, isSelected in
+                        // Define how each tab should look
+                        HStack(spacing: 5) {
+                            Image(systemName: tab.iconName)
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                            Text(tab.title)
+                        }
                         .foregroundColor(isSelected ? .white : .gray)
-                },
-                animation: animation
-            )
+                        .padding(isSelected ? .vertical : 0)
+                    },
+                    animation: namespace
+                )
+            Spacer()
+        }
     }
 }
+
 
 // Assuming a simple MyTab struct for demonstration
 struct MyTab: Identifiable {
