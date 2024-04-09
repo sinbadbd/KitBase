@@ -91,7 +91,9 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
             content(item, currentTab == item.id)
                 .padding(.vertical, verticalPadding ?? 0)
                 .padding(.horizontal, horizontalPadding ?? 0)
-                .background(backgroundView(for: item.id))
+                .background(
+                    backgroundView(for: item.id)
+                )
                 .onTapGesture {
                     withAnimation(.easeInOut) {
                         onSelect(item)
@@ -105,11 +107,13 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
             if currentTab == itemId {
                 RoundedRectangle(cornerRadius: cornerRadius ?? 10, style: .continuous)
                     .fill(selectedColor ?? Color.blue)
+                    .stroke(borderColor ?? Color.gray, lineWidth: borderWidth ?? 1)
                     .matchedGeometryEffect(id: "TAB", in: animation)
-            } else {
+            } /*else {
                 RoundedRectangle(cornerRadius: cornerRadius ?? 10)
                     .stroke(borderColor ?? Color.gray, lineWidth: borderWidth ?? 1)
-            }
+                    .matchedGeometryEffect(id: "TAB", in: animation)
+            }*/
         }
     }
 }
