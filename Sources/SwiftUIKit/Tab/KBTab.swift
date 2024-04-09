@@ -9,19 +9,28 @@ import SwiftUI
 
 public struct KBTabs<T: Identifiable, Content: View>: View {
     
-    private var list: [T]
-    private var currentTab: T.ID
-    private var onSelect: (T) -> Void
-    private var content: (T, Bool) -> Content
-    private var selectedColor: Color
-    private var deselectedColor: Color
-    private var borderColor: Color
-    private var verticalPadding: CGFloat
-    private var horizontalPadding: CGFloat
-    private var imageWidth: CGFloat
-    private var imageHeight: CGFloat
-    private var scrollDirection: Axis.Set
-    private var animation: Namespace.ID
+    var list: [T]
+    var content: (T, Bool) -> Content
+    var currentSelection: T.ID
+    var onSelect: (T) -> Void
+    var backgroundColor: Color = .white
+    var selectedColor: Color = .blue
+    var deselectedColor: Color = .gray
+    var borderColor: Color = .black
+    var borderWidth: CGFloat = 1.0
+    var verticalPadding: CGFloat = 10.0
+    var horizontalPadding: CGFloat = 10.0
+    var imageWidth: CGFloat = 24.0
+    var imageHeight: CGFloat = 24.0
+    var cornerRadius: CGFloat = 8.0
+    var tabSpacing: CGFloat = 10.0
+    var tabBackgroundColor: Color = .clear
+    var tabSelectedBackgroundColor: Color = .clear
+    var tabTextColor: Color = .black
+    var tabSelectedTextColor: Color = .white
+    var tabFont: Font = .body
+    var tabSelectedFont: Font = .headline
+    var animationDuration: Double = 0.3
     
     public init(
         list: [T],
