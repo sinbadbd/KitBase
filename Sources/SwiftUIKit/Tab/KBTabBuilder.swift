@@ -93,13 +93,14 @@ extension KBTabs {
 
 
 struct KBTabView: View {
+    
     @Namespace var namespace
     @State private var currentTabID: String
     
     private let tabs: [MyTab] = [
-        TabItem(id: "home", title: "Home", iconName: "house.fill"),
-        TabItem(id: "search", title: "Search", iconName: "magnifyingglass"),
-        TabItem(id: "settings", title: "Settings", iconName: "gear")
+        MyTab(id: "home", title: "Home", iconName: "house.fill"),
+        MyTab(id: "search", title: "Search", iconName: "magnifyingglass"),
+        MyTab(id: "settings", title: "Settings", iconName: "gear")
     ]
     
     init() {
@@ -148,5 +149,5 @@ struct KBTabView: View {
 struct MyTab: Identifiable {
     var id: String
     var title: String
-    var imageName: String
+    var iconName: String
 }
