@@ -72,48 +72,57 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
     }
     
     public func setBackgroundColor(_ backgroundColor: Color) -> Self {
-        self.backgroundColor = backgroundColor
-        return self
+        var builder = self
+        builder.backgroundColor = backgroundColor
+        return builder
     }
     
     public func setSelectedColor(_ selectedColor: Color) -> Self {
-        self.selectedColor = selectedColor
-        return self
+        var builder = self
+        builder.selectedColor = selectedColor
+        return builder
     }
     
     public func setDeselectedColor(_ deselectedColor: Color) -> Self {
-        self.deselectedColor = deselectedColor
-        return self
+        var builder = self
+        builder.deselectedColor = deselectedColor
+        return builder
     }
     
     public func setBorderColor(_ borderColor: Color) -> Self {
-        self.borderColor = borderColor
-        return self
+        var builder = self
+        builder.borderColor = borderColor
+        return builder
     }
     
     public func setBorderWidth(_ borderWidth: CGFloat) -> Self {
-        self.borderWidth = borderWidth
-        return self
+        var builder = self
+        builder.borderWidth = borderWidth
+        return builder
     }
     
     public func setVerticalPadding(_ verticalPadding: CGFloat) -> Self {
-        self.verticalPadding = verticalPadding
-        return self
+        var builder = self
+        builder.verticalPadding = verticalPadding
+        return builder
     }
     
     public func setHorizontalPadding(_ horizontalPadding: CGFloat) -> Self {
-        self.horizontalPadding = horizontalPadding
-        return self
+        var builder = self
+        builder.horizontalPadding = horizontalPadding
+        return builder
     }
     
     public func setImageWidth(_ imageWidth: CGFloat) -> Self {
-        self.imageWidth = imageWidth
-        return self
+        var builder = self
+        builder.imageWidth = imageWidth
+        return builder
     }
     
     public func setImageHeight(_ imageHeight: CGFloat) -> Self {
-        self.imageHeight = imageHeight
-        return self
+        var builder = self
+        builder.imageHeight = imageHeight
+        return builder
     }
     
     // Add methods for all other properties...
