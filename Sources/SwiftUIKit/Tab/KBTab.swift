@@ -116,10 +116,10 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
             } else {
                 RoundedRectangle(cornerRadius: cornerRadius ?? 10)
                     .fill(deselectedColor ?? Color.clear) // Fill with deselectedColor or default
-                    .overlay(
-                        RoundedRectangle(cornerRadius: cornerRadius ?? 10)
-                            .stroke(borderColor ?? Color.gray, lineWidth: borderWidth ?? 1)
-                    )
+//                    .overlay(
+//                        RoundedRectangle(cornerRadius: cornerRadius ?? 10)
+//                            .stroke(borderColor ?? Color.gray, lineWidth: borderWidth ?? 1)
+//                    )
             }
         }
     }
