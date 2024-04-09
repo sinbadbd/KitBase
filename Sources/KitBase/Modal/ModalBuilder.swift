@@ -168,7 +168,7 @@ struct ModalBuilderView: View {
             .height(80)
             .buttonOneText("No")
             .buttonTwoText("Yes")
-            .layoutKind(.vertical)
+            .layoutKind(.horizontal)
             .build()
         }
     }

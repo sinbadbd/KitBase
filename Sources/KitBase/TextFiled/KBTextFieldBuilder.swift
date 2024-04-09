@@ -155,15 +155,16 @@ public struct KBTextFieldBuilder<Content: View> {
 
 //@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 #Preview {
-    KBTextFieldBuilderView(textInput: "")
+    KBTextFieldBuilderView(textInput: "", usename: "")
 }
 
 //@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 struct KBTextFieldBuilderView: View  {
     @State var textInput: String
+    @State var usename: String
     @State var nameTextFile: Bool = false
     var body: some View {
-        VStack{
+        VStack(spacing: 20){
             
             KBTextFieldBuilder(content: {
                 TextField("Exclusive 7.7 package", text: $textInput)
@@ -184,6 +185,27 @@ struct KBTextFieldBuilderView: View  {
 //            .shadowColor(.black.opacity(0.5))
 //            .shadow(radius: 2, x: 2, y: 2)
 //            .shadow(radius: 3, x: 2, y: 3)
+            .build()
+            
+            KBTextFieldBuilder(content: {
+                TextField("password", text: $usename)
+            }, isValid: $nameTextFile)
+//            .title("password")
+            .font(.headline)
+            .errorFont(.subheadline)
+            .titleSpacing(12)
+            .textColor(.blue)
+            .backgroundColor(.white)
+            .setErrorMessage("test error message")
+            .icon(AnyView(Image(systemName: "person")))
+            .textFieldHeight(44)
+            .cornerRadius(30)
+            //            .borderColor(.green)
+            .borderWidth(0.5)
+            //            .strokeColor(.indigo)
+            //            .shadowColor(.black.opacity(0.5))
+            //            .shadow(radius: 2, x: 2, y: 2)
+            //            .shadow(radius: 3, x: 2, y: 3)
             .build()
             
         }
