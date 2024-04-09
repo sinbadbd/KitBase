@@ -129,6 +129,11 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
         builder.cornerRadius = cornerRadius
         return builder
     }
+    public func setTabSpacing(_ tabSpacing: CGFloat) -> Self {
+        var builder = self
+        builder.tabSpacing = tabSpacing
+        return builder
+    }
     
     public func build() -> some View {
         guard let content = content, let currentTab = currentTab, let onSelect = onSelect, let namespace = namespace else {
