@@ -11,7 +11,7 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
     
     var list: [T]
     var content: (T, Bool) -> Content
-    var currentSelection: T.ID
+    var currentTab: T.ID
     var onSelect: (T) -> Void
     var backgroundColor: Color = .white
     var selectedColor: Color = .blue
@@ -31,6 +31,8 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
     var tabFont: Font = .body
     var tabSelectedFont: Font = .headline
     var animationDuration: Double = 0.3
+    var scrollDirection: Axis.Set
+    var animation: Namespace.ID
     
     public init(
         list: [T],
@@ -99,3 +101,54 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
     }
 }
 
+struct Tab: Identifiable {
+    let id: Int
+    let iconName: String
+    let title: String
+}
+
+import SwiftUI
+struct ContentView: View {
+    @State private var currentTab: Int = 0
+    
+    // Sample tabs
+    private let tabs = [
+        Tab(id: 0, iconName: "house.fill", title: "Home"),
+        Tab(id: 1, iconName: "heart.fill", title: "Favorites"),
+        Tab(id: 2, iconName: "person.fill", title: "Profile")
+    ]
+    
+    var body: some View {
+        KBTabs(
+            list: tabs,
+            currentTab: currentTab,
+            onSelect: { tab in
+                self.currentTab = tab.id
+            },
+            content: { tab, isSelected in
+                VStack {
+                    Image(systemName: tab.iconName)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(isSelected ? .white : .gray)
+                    Text(tab.title)
+                        .font(isSelected ? .headline : .body)
+                        .foregroundColor(isSelected ? .white : .gray)
+                }
+                .padding()
+            },
+            selectedColor: .blue,
+            deselectedColor: .gray,
+            borderColor: .gray,
+            verticalPadding: 10,
+            horizontalPadding: 10,
+            imageWidth: 24,
+            imageHeight: 24,
+            scrollDirection: .horizontal,
+            animation: Namespace().wrappedValue // Placeholder for animation
+        )
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.white)
+    }
+}
