@@ -1,77 +1,90 @@
 //
 //  SwiftUIView.swift
-//  
+//
 //
 //  Created by Imran on 9/4/24.
 //
 
 import SwiftUI
 
-public struct KBTabBuilder<T: Identifiable, Content: View>: View {
-        var list: [T]
-        var currentTab: T.ID
-        var onSelect: (T) -> Void
-        var content: (T, Bool) -> Content
-        var selectedColor: Color
-        var deselectedColor: Color
-        var borderColor: Color
-        var verticalPadding: CGFloat
-        var horizontalPadding: CGFloat
-        var imageWidth: CGFloat
-        var imageHeight: CGFloat
-        var animation: Namespace.ID
+extension KBTabs {
+    public class Builder {
+        private var selectedColor: Color = .blue
+        private var deselectedColor: Color = .gray
+        private var borderColor: Color = .gray
+        private var verticalPadding: CGFloat = 10
+        private var horizontalPadding: CGFloat = 10
+        private var imageWidth: CGFloat = 24
+        private var imageHeight: CGFloat = 24
+        private var scrollDirection: Axis.Set = .horizontal
         
-        // Builder class for configuring KBTabs
-        public class Builder {
-            // Default values
-            private var selectedColor: Color = .blue
-            private var deselectedColor: Color = .gray
-            private var borderColor: Color = .gray.opacity(0.3)
-            private var verticalPadding: CGFloat = 8
-            private var horizontalPadding: CGFloat = 12
-            private var imageWidth: CGFloat = 24
-            private var imageHeight: CGFloat = 24
-            
-            public init() {}
-            
-            public func setSelectedColor(_ color: Color) -> Builder {
-                self.selectedColor = color
-                return self
-            }
-            
-            // Additional builder methods for each configurable property...
-            // Example:
-            public func setBorderColor(_ color: Color) -> Builder {
-                self.borderColor = color
-                return self
-            }
-            
-            // Method to generate KBTabs with the current configuration
-            // This needs to be filled in with the correct parameters and logic
-            public func build<T, Content>(
-                list: [T],
-                currentTab: T.ID,
-                onSelect: @escaping (T) -> Void,
-                @ViewBuilder content: @escaping (T, Bool) -> Content,
-                animation: Namespace.ID
-            ) -> KBTab<T, Content> where T: Identifiable {
-                KBTab(
-                    list: list,
-                    currentTab: currentTab,
-                    onSelect: onSelect,
-                    content: content,
-                    selectedColor: selectedColor,
-                    deselectedColor: deselectedColor,
-                    borderColor: borderColor,
-                    verticalPadding: verticalPadding,
-                    horizontalPadding: horizontalPadding,
-                    imageWidth: imageWidth,
-                    imageHeight: imageHeight,
-                    animation: animation
-                )
-            }
+        public init() {}
+        
+        public func setSelectedColor(_ color: Color) -> Builder {
+            self.selectedColor = color
+            return self
+        }
+        
+        public func setDeselectedColor(_ color: Color) -> Builder {
+            self.deselectedColor = color
+            return self
+        }
+        
+        public func setBorderColor(_ color: Color) -> Builder {
+            self.borderColor = color
+            return self
+        }
+        
+        public func setVerticalPadding(_ padding: CGFloat) -> Builder {
+            self.verticalPadding = padding
+            return self
+        }
+        
+        public func setHorizontalPadding(_ padding: CGFloat) -> Builder {
+            self.horizontalPadding = padding
+            return self
+        }
+        
+        public func setImageWidth(_ width: CGFloat) -> Builder {
+            self.imageWidth = width
+            return self
+        }
+        
+        public func setImageHeight(_ height: CGFloat) -> Builder {
+            self.imageHeight = height
+            return self
+        }
+        
+        public func setScrollDirection(_ direction: Axis.Set) -> Builder {
+            self.scrollDirection = direction
+            return self
+        }
+        
+        public func build<T: Identifiable, Content: View>(
+            list: [T],
+            currentTab: T.ID,
+            onSelect: @escaping (T) -> Void,
+            content: @escaping (T, Bool) -> Content,
+            animation: Namespace.ID
+        ) -> KBTabs<T, Content> {
+            KBTabs(
+                list: list,
+                currentTab: currentTab,
+                onSelect: onSelect,
+                content: content,
+                selectedColor: selectedColor,
+                deselectedColor: deselectedColor,
+                borderColor: borderColor,
+                verticalPadding: verticalPadding,
+                horizontalPadding: horizontalPadding,
+                imageWidth: imageWidth,
+                imageHeight: imageHeight,
+                scrollDirection: scrollDirection,
+                animation: animation
+            )
         }
     }
+}
 
 
 #Preview {
@@ -80,36 +93,43 @@ public struct KBTabBuilder<T: Identifiable, Content: View>: View {
 
 
 struct KBTabView: View {
-    @Namespace var animationNamespace
-    @State var selectedTab: UUID
-    var tabs: [TabItem] // Assuming TabItem is defined elsewhere
+    
+    @Namespace var animation
+    @State private var currentTab: UUID
+    
+    var tabs: [MyTab] // Assume MyTabModel conforms to Identifiable
     
     var body: some View {
-        KBTabBuilder.Builder()
-            .setSelectedColor(.green)
-            .setBorderColor(.black.opacity(0.5))
+        KBTabs.Builder()
+            .setSelectedColor(.blue)
+            .setDeselectedColor(.gray.opacity(0.7))
+            .setBorderColor(.gray.opacity(0.3))
+            .setVerticalPadding(8)
+            .setHorizontalPadding(12)
+            .setImageWidth(24)
+            .setImageHeight(24)
+            .setScrollDirection(.horizontal) // or .vertical for vertical scrolling
             .build(
                 list: tabs,
-                currentTab: selectedTab,
-                onSelect: { tab in
+                currentTab: currentTab,
+                onSelect: { selectedTab in
                     withAnimation {
-                        self.selectedTab = tab.id
+                        self.currentTab = selectedTab.id
                     }
                 },
                 content: { tab, isSelected in
-                    VStack {
-                        Image(systemName: tab.imageName)
-                            .resizable()
-                            .frame(width: 24, height: 24)
-                        Text(tab.title)
-                    }
-                    .padding()
-                    .background(isSelected ? Color.green : Color.clear)
-                    .cornerRadius(10)
+                    // Define how each tab should look
+                    Text(tab.title)
+                        .foregroundColor(isSelected ? .white : .gray)
                 },
-                animation: animationNamespace
+                animation: animation
             )
-        
-        return tabsView
     }
+}
+
+// Assuming a simple MyTab struct for demonstration
+struct MyTab: Identifiable {
+    var id: String
+    var title: String
+    var imageName: String
 }
