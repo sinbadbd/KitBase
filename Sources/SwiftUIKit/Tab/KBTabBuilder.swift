@@ -124,6 +124,11 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
         builder.imageHeight = imageHeight
         return builder
     }
+    public func setCornerRadius(_ cornerRadius: CGFloat) -> Self {
+        var builder = self
+        builder.cornerRadius = cornerRadius
+        return builder
+    }
     
     public func build() -> some View {
         guard let content = content, let currentTab = currentTab, let onSelect = onSelect, let namespace = namespace else {
