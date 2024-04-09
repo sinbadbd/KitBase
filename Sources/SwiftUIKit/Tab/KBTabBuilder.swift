@@ -67,21 +67,23 @@ extension KBTabs {
             content: @escaping (T, Bool) -> Content,
             animation: Namespace.ID
         ) -> KBTabs<T, Content> {
-            KBTabs(
-                list: list,
-                currentTab: currentTab,
-                onSelect: onSelect,
-                content: content,
-                selectedColor: selectedColor,
-                deselectedColor: deselectedColor,
-                borderColor: borderColor,
-                verticalPadding: verticalPadding,
-                horizontalPadding: horizontalPadding,
-                imageWidth: imageWidth,
-                imageHeight: imageHeight,
-                scrollDirection: scrollDirection,
-                animation: animation
-            )
+            //            KBTabs(
+            //                list: list,
+            //                currentTab: currentTab,
+            //                onSelect: onSelect,
+            //                content: content,
+            //                selectedColor: selectedColor,
+            //                deselectedColor: deselectedColor,
+            //                borderColor: borderColor,
+            //                verticalPadding: verticalPadding,
+            //                horizontalPadding: horizontalPadding,
+            //                imageWidth: imageWidth,
+            //                imageHeight: imageHeight,
+            //                scrollDirection: scrollDirection,
+            //                animation: animation
+            //            )
+            
+            KBTabs(list: list, currentTab: currentTab, onSelect: onSelect, content: content, selectedColor: selectedColor, deselectedColor: deselectedColor, borderColor: borderColor, verticalPadding: verticalPadding, horizontalPadding: horizontalPadding, imageWidth: imageWidth, imageHeight: imageHeight, scrollDirection: scrollDirection, animation: animation)
         }
     }
 }
@@ -135,7 +137,7 @@ struct KBTabView: View {
                             Text(tab.title)
                         }
                         .foregroundColor(isSelected ? .white : .gray)
-                        .padding(isSelected ? .vertical : 0)
+                        .padding(isSelected ?  12 : 0)
                     },
                     animation: namespace
                 )
