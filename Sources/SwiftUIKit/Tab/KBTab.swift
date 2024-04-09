@@ -92,7 +92,11 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
                 .padding(.vertical, verticalPadding ?? 0)
                 .padding(.horizontal, horizontalPadding ?? 0)
                 .background(backgroundView(for: item.id))
-                .onTapGesture { onSelect(item) }
+                .onTapGesture {
+                    withAnimation(.easeInOut) {
+                        onSelect(item)
+                    }
+                }
         }
     }
     
