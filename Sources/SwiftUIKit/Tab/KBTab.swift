@@ -7,23 +7,31 @@
 
 import SwiftUI
 
-public struct KBTabs<T: Identifiable, Content: View>: View {
-    // Make properties public to allow access from outside
+public struct KBTab<T: Identifiable, Content: View>: View {
     public var list: [T]
     public var currentTab: T.ID
     public var onSelect: (T) -> Void
     public var content: (T, Bool) -> Content
     public var selectedColor: Color
     public var deselectedColor: Color
+    public var borderColor: Color
+    public var verticalPadding: CGFloat
+    public var horizontalPadding: CGFloat
+    public var imageWidth: CGFloat
+    public var imageHeight: CGFloat
     public var animation: Namespace.ID
     
-    // Public initializer
     public init(list: [T],
                 currentTab: T.ID,
                 onSelect: @escaping (T) -> Void,
                 @ViewBuilder content: @escaping (T, Bool) -> Content,
                 selectedColor: Color = .blue,
                 deselectedColor: Color = .gray,
+                borderColor: Color = .gray.opacity(0.3),
+                verticalPadding: CGFloat = 8,
+                horizontalPadding: CGFloat = 12,
+                imageWidth: CGFloat = 24,
+                imageHeight: CGFloat = 24,
                 animation: Namespace.ID) {
         self.list = list
         self.currentTab = currentTab
@@ -31,23 +39,28 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
         self.content = content
         self.selectedColor = selectedColor
         self.deselectedColor = deselectedColor
+        self.borderColor = borderColor
+        self.verticalPadding = verticalPadding
+        self.horizontalPadding = horizontalPadding
+        self.imageWidth = imageWidth
+        self.imageHeight = imageHeight
         self.animation = animation
     }
     
-    // Public body
     public var body: some View {
-        VStack {
+        HStack { // Changed to HStack for horizontal layout
             ForEach(list) { item in
                 content(item, currentTab == item.id)
-                    .foregroundColor(currentTab == item.id ? .white : deselectedColor)
+                    .padding(.vertical, verticalPadding)
+                    .padding(.horizontal, horizontalPadding)
                     .background {
                         if currentTab == item.id {
-                            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            RoundedRectangle(cornerRadius: 10, style: .continuous)
                                 .fill(selectedColor)
                                 .matchedGeometryEffect(id: "TAB", in: animation)
                         } else {
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(deselectedColor.opacity(0.3), lineWidth: 1)
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(borderColor, lineWidth: 1)
                         }
                     }
                     .onTapGesture { onSelect(item) }
@@ -55,3 +68,4 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
         }
     }
 }
+
