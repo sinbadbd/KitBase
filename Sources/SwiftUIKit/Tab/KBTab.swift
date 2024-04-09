@@ -52,44 +52,41 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
         self.scrollDirection = scrollDirection
         self.animation = animation
     }
-}
-
-public var body: some View {
-    ScrollView(scrollDirection, showsIndicators: false) {
+    
+    public var body: some View {
+        ScrollView(scrollDirection, showsIndicators: false) {
+            Group {
+                if scrollDirection == .horizontal {
+                    HStack { tabContent }
+                } else {
+                    VStack { tabContent }
+                }
+            }
+            .padding(scrollDirection == .horizontal ? .horizontal : .vertical)
+        }
+    }
+    
+    private var tabContent: some View {
+        ForEach(list) { item in
+            content(item, currentTab == item.id)
+                .padding(.vertical, verticalPadding)
+                .padding(.horizontal, horizontalPadding)
+                .background(backgroundView(for: item.id))
+                .onTapGesture { onSelect(item) }
+        }
+    }
+    
+    private func backgroundView(for itemId: T.ID) -> some View {
         Group {
-            if scrollDirection == .horizontal {
-                HStack { tabContent }
+            if currentTab == itemId {
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .fill(selectedColor)
+                    .matchedGeometryEffect(id: "TAB", in: animation)
             } else {
-                VStack { tabContent }
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(borderColor, lineWidth: 1)
             }
         }
-        .padding(scrollDirection == .horizontal ? .horizontal : .vertical)
     }
-}
-
-private var tabContent: some View {
-    ForEach(list) { item in
-        content(item, currentTab == item.id)
-            .padding(.vertical, verticalPadding)
-            .padding(.horizontal, horizontalPadding)
-            .background(backgroundView(for: item.id))
-            .onTapGesture { onSelect(item) }
-    }
-}
-
-private func backgroundView(for itemId: T.ID) -> some View {
-    Group {
-        if currentTab == itemId {
-            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                .fill(selectedColor)
-                .matchedGeometryEffect(id: "TAB", in: animation)
-        } else {
-            RoundedRectangle(cornerRadius: 10)
-                .stroke(borderColor, lineWidth: 1)
-        }
-    }
-}
-
-// Initializer including all the properties
 }
 
