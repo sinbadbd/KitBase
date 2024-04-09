@@ -107,15 +107,23 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
             if currentTab == itemId {
                 RoundedRectangle(cornerRadius: cornerRadius ?? 10, style: .continuous)
                     .fill(selectedColor ?? Color.blue)
-                    .stroke(borderColor ?? Color.gray, lineWidth: borderWidth ?? 1)
+                // Apply border to the selected tab as well, if needed.
+                    .overlay(
+                        RoundedRectangle(cornerRadius: cornerRadius ?? 10)
+                            .stroke(borderColor ?? Color.gray, lineWidth: borderWidth ?? 1)
+                    )
                     .matchedGeometryEffect(id: "TAB", in: animation)
-            } /*else {
+            } else {
                 RoundedRectangle(cornerRadius: cornerRadius ?? 10)
-                    .stroke(borderColor ?? Color.gray, lineWidth: borderWidth ?? 1)
-                    .matchedGeometryEffect(id: "TAB", in: animation)
-            }*/
+                    .fill(deselectedColor ?? Color.clear) // Fill with deselectedColor or default
+                    .overlay(
+                        RoundedRectangle(cornerRadius: cornerRadius ?? 10)
+                            .stroke(borderColor ?? Color.gray, lineWidth: borderWidth ?? 1)
+                    )
+            }
         }
     }
+
 }
 
 
