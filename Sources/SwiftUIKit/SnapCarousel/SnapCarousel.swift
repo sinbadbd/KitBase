@@ -6,9 +6,6 @@
 //
 
 import SwiftUI
-import CoreKit
-import Combine
-
 
 public struct SnapCarousel<Content: View, T: Identifiable>: View {
     var content: (T) -> Content
