@@ -13,7 +13,7 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
     var content: (T, Bool) -> Content
     var currentTab: T.ID
     var onSelect: (T) -> Void
-    var backgroundColor: Color = .white
+    var backgroundColor: Color?
     var selectedColor: Color?
     var deselectedColor: Color?
     var borderColor: Color?
@@ -39,6 +39,7 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
         currentTab: T.ID,
         onSelect: @escaping (T) -> Void,
         content: @escaping (T, Bool) -> Content,
+        backgroundColor: Color? = .white,
         selectedColor: Color? = .blue,
         deselectedColor: Color? = .gray,
         borderColor: Color? = .gray,
@@ -56,6 +57,7 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
         self.currentTab = currentTab
         self.onSelect = onSelect
         self.content = content
+        self.backgroundColor = backgroundColor
         self.selectedColor = selectedColor
         self.deselectedColor = deselectedColor
         self.borderColor = borderColor
