@@ -4,8 +4,138 @@
 ////
 ////  Created by Imran on 9/4/24.
 ////
-//
-//import SwiftUI
+import SwiftUI
+
+public struct KBTabsBuilder<T: Identifiable, Content: View> {
+    
+    private var list: [T] = []
+    private var content: ((T, Bool) -> Content)?
+    private var currentTab: T.ID?
+    private var onSelect: ((T) -> Void)?
+    private var backgroundColor: Color?
+    private var selectedColor: Color?
+    private var deselectedColor: Color?
+    private var borderColor: Color?
+    private var borderWidth: CGFloat?
+    private var verticalPadding: CGFloat?
+    private var horizontalPadding: CGFloat?
+    private var imageWidth: CGFloat?
+    private var imageHeight: CGFloat?
+    private var cornerRadius: CGFloat?
+    private var tabSpacing: CGFloat?
+    private var tabBackgroundColor: Color?
+    private var tabSelectedBackgroundColor: Color?
+    private var tabTextColor: Color?
+    private var tabSelectedTextColor: Color?
+    private var tabFont: Font?
+    private var tabSelectedFont: Font?
+    private var animationDuration: Double?
+    private var scrollDirection: Axis.Set = .horizontal
+    private var namespace: Namespace.ID?
+    
+    public init() { }
+    
+    public func withList(_ list: [T]) -> Self {
+        var builder = self
+        builder.list = list
+        return builder
+    }
+    
+    public func withContent(@ViewBuilder content: @escaping (T, Bool) -> Content) -> Self {
+        var builder = self
+        builder.content = content
+        return builder
+    }
+    
+    public func withCurrentTab(_ currentTab: T.ID) -> Self {
+        var builder = self
+        builder.currentTab = currentTab
+        return builder
+    }
+    
+    public func onSelect(_ onSelect: @escaping (T) -> Void) -> Self {
+        var builder = self
+        builder.onSelect = onSelect
+        return builder
+    }
+    
+    public func withScrollDirection(_ direction: Axis.Set) -> Self {
+        var builder = self
+        builder.scrollDirection = direction
+        return builder
+    }
+    
+    public func withNamespace(_ namespace: Namespace.ID) -> Self {
+        var builder = self
+        builder.namespace = namespace
+        return builder
+    }
+    
+    public func setBackgroundColor(_ backgroundColor: Color) -> Self {
+        self.backgroundColor = backgroundColor
+        return self
+    }
+    
+    public func setSelectedColor(_ selectedColor: Color) -> Self {
+        self.selectedColor = selectedColor
+        return self
+    }
+    
+    public func setDeselectedColor(_ deselectedColor: Color) -> Self {
+        self.deselectedColor = deselectedColor
+        return self
+    }
+    
+    public func setBorderColor(_ borderColor: Color) -> Self {
+        self.borderColor = borderColor
+        return self
+    }
+    
+    public func setBorderWidth(_ borderWidth: CGFloat) -> Self {
+        self.borderWidth = borderWidth
+        return self
+    }
+    
+    public func setVerticalPadding(_ verticalPadding: CGFloat) -> Self {
+        self.verticalPadding = verticalPadding
+        return self
+    }
+    
+    public func setHorizontalPadding(_ horizontalPadding: CGFloat) -> Self {
+        self.horizontalPadding = horizontalPadding
+        return self
+    }
+    
+    public func setImageWidth(_ imageWidth: CGFloat) -> Self {
+        self.imageWidth = imageWidth
+        return self
+    }
+    
+    public func setImageHeight(_ imageHeight: CGFloat) -> Self {
+        self.imageHeight = imageHeight
+        return self
+    }
+    
+    // Add methods for all other properties...
+    
+    // Final build method
+    public func build() -> some View {
+        guard let content = content, let currentTab = currentTab, let onSelect = onSelect, let namespace = namespace else {
+            fatalError("Missing required properties for KBTabs")
+        }
+//        
+//        return KBTabs(list: list,
+//                      content: content,
+//                      currentTab: currentTab,
+//                      onSelect: onSelect,
+//                      scrollDirection: scrollDirection,
+//                      
+//                      animation: namespace)
+        return KBTabs(list: list, content: content, currentSelection: currentTab, onSelect: onSelect, backgroundColor: backgroundColor, selectedColor: selectedColor, deselectedColor: deselectedColor, borderColor: borderColor, borderWidth: borderWidth, verticalPadding: verticalPadding, horizontalPadding: horizontalPadding, imageWidth: imageWidth, imageHeight: imageHeight, animation: namespace)
+        // Pass all other properties here...
+    }
+}
+
 //
 //extension KBTabs {
 //    class Builder {
@@ -23,79 +153,79 @@
 //        private var imageWidth: CGFloat = 24.0
 //        private var imageHeight: CGFloat = 24.0
 //        private var animation: Namespace.ID
-//        
+//
 //        init(namespace: Namespace.ID) {
 //            self.animation = namespace
 //        }
-//        
+//
 //        func setList(_ list: [T]) -> Self {
 //            self.list = list
 //            return self
 //        }
-//        
+//
 //        func setContent(_ content: @escaping (T, Bool) -> Content) -> Self {
 //            self.content = content
 //            return self
 //        }
-//        
+//
 //        func setCurrentSelection(_ currentSelection: T.ID?) -> Self {
 //            self.currentSelection = currentSelection
 //            return self
 //        }
-//        
+//
 //        func setOnSelect(_ onSelect: @escaping (T) -> Void) -> Self {
 //            self.onSelect = onSelect
 //            return self
 //        }
-//        
+//
 //        func setBackgroundColor(_ backgroundColor: Color) -> Self {
 //            self.backgroundColor = backgroundColor
 //            return self
 //        }
-//        
+//
 //        func setSelectedColor(_ selectedColor: Color) -> Self {
 //            self.selectedColor = selectedColor
 //            return self
 //        }
-//        
+//
 //        func setDeselectedColor(_ deselectedColor: Color) -> Self {
 //            self.deselectedColor = deselectedColor
 //            return self
 //        }
-//        
+//
 //        func setBorderColor(_ borderColor: Color) -> Self {
 //            self.borderColor = borderColor
 //            return self
 //        }
-//        
+//
 //        func setBorderWidth(_ borderWidth: CGFloat) -> Self {
 //            self.borderWidth = borderWidth
 //            return self
 //        }
-//        
+//
 //        func setVerticalPadding(_ verticalPadding: CGFloat) -> Self {
 //            self.verticalPadding = verticalPadding
 //            return self
 //        }
-//        
+//
 //        func setHorizontalPadding(_ horizontalPadding: CGFloat) -> Self {
 //            self.horizontalPadding = horizontalPadding
 //            return self
 //        }
-//        
+//
 //        func setImageWidth(_ imageWidth: CGFloat) -> Self {
 //            self.imageWidth = imageWidth
 //            return self
 //        }
-//        
+//
 //        func setImageHeight(_ imageHeight: CGFloat) -> Self {
 //            self.imageHeight = imageHeight
 //            return self
 //        }
-//        
-//        
+//
+//
 //        // Add other setters as needed...
-//        
+//
 //        func build() -> KBTabs<T, Content> where Content: View {
 //            // Ensure the content closure is provided before building
 //            guard let contentClosure = content else {
@@ -113,20 +243,20 @@
 //
 //
 //struct KBTabView: View {
-//    
+//
 //    @Namespace var namespace
 //    @State private var currentTabID: String
-//    
+//
 //    private let tabs: [MyTab] = [
 //        MyTab(id: "home", title: "Home", iconName: "house.fill"),
 //        MyTab(id: "search", title: "Search", iconName: "magnifyingglass"),
 //        MyTab(id: "settings", title: "Settings", iconName: "gear")
 //    ]
-//    
+//
 //    init() {
 //        _currentTabID = State(initialValue: tabs.first?.id ?? "")
 //    }
-//    
+//
 //    var body: some View {
 //        VStack {
 //            KBTabs.Builder()
