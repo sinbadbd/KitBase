@@ -8,82 +8,100 @@
 import SwiftUI
 
 extension KBTabs {
-    public class Builder {
+    class Builder {
+        private var list: [T] = []
+        private var content: ((T, Bool) -> Content)?
+        private var currentSelection: T.ID?
+        private var onSelect: ((T) -> Void)?
+        private var backgroundColor: Color = .white
         private var selectedColor: Color = .blue
         private var deselectedColor: Color = .gray
-        private var borderColor: Color = .gray
-        private var verticalPadding: CGFloat = 10
-        private var horizontalPadding: CGFloat = 10
-        private var imageWidth: CGFloat = 24
-        private var imageHeight: CGFloat = 24
-        private var scrollDirection: Axis.Set = .horizontal
+        private var borderColor: Color = .black
+        private var borderWidth: CGFloat = 1.0
+        private var verticalPadding: CGFloat = 10.0
+        private var horizontalPadding: CGFloat = 10.0
+        private var imageWidth: CGFloat = 24.0
+        private var imageHeight: CGFloat = 24.0
+        private var animation: Namespace.ID
         
-        public init() {}
+        init(namespace: Namespace.ID) {
+            self.animation = namespace
+        }
         
-        public func setSelectedColor(_ color: Color) -> Builder {
-            self.selectedColor = color
+        func setList(_ list: [T]) -> Self {
+            self.list = list
             return self
         }
         
-        public func setDeselectedColor(_ color: Color) -> Builder {
-            self.deselectedColor = color
+        func setContent(_ content: @escaping (T, Bool) -> Content) -> Self {
+            self.content = content
             return self
         }
         
-        public func setBorderColor(_ color: Color) -> Builder {
-            self.borderColor = color
+        func setCurrentSelection(_ currentSelection: T.ID?) -> Self {
+            self.currentSelection = currentSelection
             return self
         }
         
-        public func setVerticalPadding(_ padding: CGFloat) -> Builder {
-            self.verticalPadding = padding
+        func setOnSelect(_ onSelect: @escaping (T) -> Void) -> Self {
+            self.onSelect = onSelect
             return self
         }
         
-        public func setHorizontalPadding(_ padding: CGFloat) -> Builder {
-            self.horizontalPadding = padding
+        func setBackgroundColor(_ backgroundColor: Color) -> Self {
+            self.backgroundColor = backgroundColor
             return self
         }
         
-        public func setImageWidth(_ width: CGFloat) -> Builder {
-            self.imageWidth = width
+        func setSelectedColor(_ selectedColor: Color) -> Self {
+            self.selectedColor = selectedColor
             return self
         }
         
-        public func setImageHeight(_ height: CGFloat) -> Builder {
-            self.imageHeight = height
+        func setDeselectedColor(_ deselectedColor: Color) -> Self {
+            self.deselectedColor = deselectedColor
             return self
         }
         
-        public func setScrollDirection(_ direction: Axis.Set) -> Builder {
-            self.scrollDirection = direction
+        func setBorderColor(_ borderColor: Color) -> Self {
+            self.borderColor = borderColor
             return self
         }
         
-        public func build<T: Identifiable, Content: View>(
-            list: [T],
-            currentTab: T.ID,
-            onSelect: @escaping (T) -> Void,
-            content: @escaping (T, Bool) -> Content,
-            animation: Namespace.ID
-        ) -> KBTabs<T, Content> {
-            //            KBTabs(
-            //                list: list,
-            //                currentTab: currentTab,
-            //                onSelect: onSelect,
-            //                content: content,
-            //                selectedColor: selectedColor,
-            //                deselectedColor: deselectedColor,
-            //                borderColor: borderColor,
-            //                verticalPadding: verticalPadding,
-            //                horizontalPadding: horizontalPadding,
-            //                imageWidth: imageWidth,
-            //                imageHeight: imageHeight,
-            //                scrollDirection: scrollDirection,
-            //                animation: animation
-            //            )
-            
-            KBTabs(list: list, currentTab: currentTab, onSelect: onSelect, content: content, selectedColor: selectedColor, deselectedColor: deselectedColor, borderColor: borderColor, verticalPadding: verticalPadding, horizontalPadding: horizontalPadding, imageWidth: imageWidth, imageHeight: imageHeight, scrollDirection: scrollDirection, animation: animation)
+        func setBorderWidth(_ borderWidth: CGFloat) -> Self {
+            self.borderWidth = borderWidth
+            return self
+        }
+        
+        func setVerticalPadding(_ verticalPadding: CGFloat) -> Self {
+            self.verticalPadding = verticalPadding
+            return self
+        }
+        
+        func setHorizontalPadding(_ horizontalPadding: CGFloat) -> Self {
+            self.horizontalPadding = horizontalPadding
+            return self
+        }
+        
+        func setImageWidth(_ imageWidth: CGFloat) -> Self {
+            self.imageWidth = imageWidth
+            return self
+        }
+        
+        func setImageHeight(_ imageHeight: CGFloat) -> Self {
+            self.imageHeight = imageHeight
+            return self
+        }
+        
+        
+        // Add other setters as needed...
+        
+        func build() -> KBTabs<T, Content> where Content: View {
+            // Ensure the content closure is provided before building
+            guard let contentClosure = content else {
+                fatalError("Content closure is not provided.")
+            }
+            return KBTabs(list: list, content: contentClosure, currentSelection: currentSelection, onSelect: onSelect ?? { _ in }, backgroundColor: backgroundColor, selectedColor: selectedColor, deselectedColor: deselectedColor, borderColor: borderColor, borderWidth: borderWidth, verticalPadding: verticalPadding, horizontalPadding: horizontalPadding, imageWidth: imageWidth, imageHeight: imageHeight, animation: animation)
         }
     }
 }
