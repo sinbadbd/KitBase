@@ -14,23 +14,23 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
     var currentTab: T.ID
     var onSelect: (T) -> Void
     var backgroundColor: Color = .white
-    var selectedColor: Color = .blue
-    var deselectedColor: Color = .gray
-    var borderColor: Color = .black
-    var borderWidth: CGFloat = 1.0
-    var verticalPadding: CGFloat = 10.0
-    var horizontalPadding: CGFloat = 10.0
-    var imageWidth: CGFloat? = 24.0
-    var imageHeight: CGFloat? = 24.0
-    var cornerRadius: CGFloat? = 8.0
-    var tabSpacing: CGFloat? = 10.0
-    var tabBackgroundColor: Color = .clear
-    var tabSelectedBackgroundColor: Color = .clear
-    var tabTextColor: Color = .black
-    var tabSelectedTextColor: Color = .white
-    var tabFont: Font = .body
-    var tabSelectedFont: Font = .headline
-    var animationDuration: Double = 0.3
+    var selectedColor: Color?
+    var deselectedColor: Color?
+    var borderColor: Color?
+    var borderWidth: CGFloat?
+    var verticalPadding: CGFloat?
+    var horizontalPadding: CGFloat?
+    var imageWidth: CGFloat?
+    var imageHeight: CGFloat?
+    var cornerRadius: CGFloat?
+    var tabSpacing: CGFloat?
+    var tabBackgroundColor: Color?
+    var tabSelectedBackgroundColor: Color?
+    var tabTextColor: Color?
+    var tabSelectedTextColor: Color?
+    var tabFont: Font?
+    var tabSelectedFont: Font?
+    var animationDuration: Double?
     var scrollDirection: Axis.Set
     var animation: Namespace.ID
     
@@ -39,13 +39,16 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
         currentTab: T.ID,
         onSelect: @escaping (T) -> Void,
         content: @escaping (T, Bool) -> Content,
-        selectedColor: Color = .blue,
-        deselectedColor: Color = .gray,
-        borderColor: Color = .gray,
-        verticalPadding: CGFloat = 10,
-        horizontalPadding: CGFloat = 10,
-        imageWidth: CGFloat = 24,
-        imageHeight: CGFloat = 24,
+        selectedColor: Color? = .blue,
+        deselectedColor: Color? = .gray,
+        borderColor: Color? = .gray,
+        borderWidth: CGFloat? = 1.0,
+        verticalPadding: CGFloat? = 10,
+        horizontalPadding: CGFloat? = 10,
+        imageWidth: CGFloat? = 24,
+        imageHeight: CGFloat? = 24,
+        cornerRadius: CGFloat? = 8.0,
+        tabSpacing: CGFloat? = 10,
         scrollDirection: Axis.Set = .horizontal,
         animation: Namespace.ID
     ) {
@@ -56,10 +59,13 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
         self.selectedColor = selectedColor
         self.deselectedColor = deselectedColor
         self.borderColor = borderColor
+        self.borderWidth = borderWidth
         self.verticalPadding = verticalPadding
         self.horizontalPadding = horizontalPadding
         self.imageWidth = imageWidth
         self.imageHeight = imageHeight
+        self.cornerRadius = cornerRadius
+        self.tabSpacing = tabSpacing
         self.scrollDirection = scrollDirection
         self.animation = animation
     }
@@ -68,20 +74,21 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
         ScrollView(scrollDirection, showsIndicators: false) {
             Group {
                 if scrollDirection == .horizontal {
-                    HStack { tabContent }
+                    HStack(spacing: tabSpacing ?? 0) { tabContent }
                 } else {
-                    VStack { tabContent }
+                    VStack(spacing: tabSpacing ?? 0) { tabContent }
                 }
             }
-            .padding(scrollDirection == .horizontal ? .horizontal : .vertical)
+            .padding(scrollDirection == .horizontal ? .horizontal : .vertical, tabSpacing ?? 0)
         }
+        .background(backgroundColor)
     }
     
     private var tabContent: some View {
         ForEach(list) { item in
             content(item, currentTab == item.id)
-                .padding(.vertical, verticalPadding)
-                .padding(.horizontal, horizontalPadding)
+                .padding(.vertical, verticalPadding ?? 0)
+                .padding(.horizontal, horizontalPadding ?? 0)
                 .background(backgroundView(for: item.id))
                 .onTapGesture { onSelect(item) }
         }
@@ -90,16 +97,17 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
     private func backgroundView(for itemId: T.ID) -> some View {
         Group {
             if currentTab == itemId {
-                RoundedRectangle(cornerRadius: 10, style: .continuous)
-                    .fill(selectedColor)
+                RoundedRectangle(cornerRadius: cornerRadius ?? 10, style: .continuous)
+                    .fill(selectedColor ?? Color.blue)
                     .matchedGeometryEffect(id: "TAB", in: animation)
             } else {
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(borderColor, lineWidth: 1)
+                RoundedRectangle(cornerRadius: cornerRadius ?? 10)
+                    .stroke(borderColor ?? Color.gray, lineWidth: borderWidth ?? 1)
             }
         }
     }
 }
+
 
 struct Tab: Identifiable {
     let id: Int
