@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-//@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
+
 public struct KBTextField<Content>: View where Content: View {
     var title: String? = nil
     var font: Font? = nil
