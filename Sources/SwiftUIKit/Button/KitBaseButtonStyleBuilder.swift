@@ -17,6 +17,7 @@ public class KitBaseButtonStyleBuilder {
     private var size: ButtonSize = .md
     private var variant: ButtonVariant = .solid
     private var backgroundColor: Color? = nil
+    private var gradient: LinearGradient? = nil
     private var font: Font? = nil
     private var borderColor: Color? = nil
     private var foregroundColor: Color? = nil
@@ -79,6 +80,18 @@ public class KitBaseButtonStyleBuilder {
      */
     public func setBackgroundColor(_ backgroundColor: Color?) -> KitBaseButtonStyleBuilder {
         self.backgroundColor = backgroundColor
+        return self
+    }
+    
+    /**
+     Sets the Gradient color of the button.
+     
+     - Parameter Linear Gradient: The background color of the button.
+     
+     - Returns: The modified instance for method chaining.
+     */
+    public func setLinearGradient(_ linearGradient: LinearGradient?) -> KitBaseButtonStyleBuilder {
+        self.gradient = linearGradient
         return self
     }
     
@@ -296,6 +309,7 @@ public class KitBaseButtonStyleBuilder {
     public func build() -> KitBaseButtonStyle {
         return KitBaseButtonStyle(
             backgroundColor: backgroundColor,
+            gradient: gradient,
             font: font,
             borderColor: borderColor,
             foregroundColor: foregroundColor,

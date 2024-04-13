@@ -21,6 +21,7 @@ public struct KitBaseButtonStyle: ButtonStyle {
     public let backgroundColor: Color?
     public let font: Font?
     public let borderColor: Color?
+    public let gradient: LinearGradient?
     public let foregroundColor: Color?
     public let opacity: Double?
     public var buttonWidth: CGFloat? = .infinity
@@ -36,7 +37,7 @@ public struct KitBaseButtonStyle: ButtonStyle {
     public var paddingAll: CGFloat?
     public var paddingHorizontal: CGFloat?
     public var paddingVertical: CGFloat
-    
+
     /*
      .padding(.horizontal, 12)
      .padding(.vertical, 10)
@@ -44,6 +45,7 @@ public struct KitBaseButtonStyle: ButtonStyle {
     public init(
         
         backgroundColor: Color? = nil,
+        gradient: LinearGradient? = nil,
         font: Font? = nil,
         borderColor: Color? = nil,
         foregroundColor: Color? = nil,
@@ -64,6 +66,7 @@ public struct KitBaseButtonStyle: ButtonStyle {
     ) {
         
         self.backgroundColor = backgroundColor
+        self.gradient = gradient
         self.font = font
         self.borderColor = borderColor
         self.foregroundColor = foregroundColor
@@ -113,7 +116,15 @@ public struct KitBaseButtonStyle: ButtonStyle {
         .padding(paddingAll ?? 0)
         .padding(.horizontal, paddingHorizontal)
         .padding(.vertical, paddingVertical)
-        .background(backgroundColor)
+        .background(
+            Group{
+                if let bgGradient = gradient {
+                    bgGradient
+                } else {
+                    backgroundColor ?? Color.primary
+                }
+            }
+        )
         .opacity(opacity ?? 1.0)
         .cornerRadius(buttonCornerRadius ?? 8)
         .overlay(
