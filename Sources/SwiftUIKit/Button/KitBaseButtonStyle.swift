@@ -44,10 +44,8 @@ public struct KitBaseButtonStyle: ButtonStyle {
     public var paddingHorizontal: CGFloat?
     public var paddingVertical: CGFloat
     public let textAlignment: ButtonTextAlignment
-    /*
-     .padding(.horizontal, 12)
-     .padding(.vertical, 10)
-     */
+    public var textPaddingHorizontal: CGFloat?
+    
     public init(
         
         backgroundColor: Color? = nil,
@@ -69,7 +67,8 @@ public struct KitBaseButtonStyle: ButtonStyle {
         paddingAll: CGFloat = 0,
         paddingHorizontal: CGFloat = 12,
         paddingVertical: CGFloat = 10,
-        textAlignment: ButtonTextAlignment = .center
+        textAlignment: ButtonTextAlignment = .center,
+        textPaddingHorizontal: CGFloat? = nil
     ) {
         
         self.backgroundColor = backgroundColor
@@ -92,6 +91,7 @@ public struct KitBaseButtonStyle: ButtonStyle {
         self.paddingHorizontal = paddingHorizontal
         self.paddingVertical = paddingVertical
         self.textAlignment = textAlignment
+        self.textPaddingHorizontal = textPaddingHorizontal
     }
     
     public func makeBody(configuration: Configuration) -> some View {
@@ -121,6 +121,7 @@ public struct KitBaseButtonStyle: ButtonStyle {
             configuration.label
                 .font(font)
                 .foregroundColor(foregroundColor)
+                .padding(.horizontal, textPaddingHorizontal ?? 0)
                 .frame(maxWidth: .infinity, alignment: {
                     switch textAlignment {
                     case .left: return .leading

@@ -38,6 +38,8 @@ public class KitBaseButtonStyleBuilder {
     public var paddingHorizontal: CGFloat?
     public var paddingVertical: CGFloat?
     public var textAlignment: ButtonTextAlignment? = .center
+    public var textPaddingHorizontal: CGFloat? = nil
+    
     // MARK: - Initializer
     
     /**
@@ -116,6 +118,18 @@ public class KitBaseButtonStyleBuilder {
      */
     public func setTextAlignment(_ alignment: ButtonTextAlignment?) -> KitBaseButtonStyleBuilder {
         self.textAlignment = alignment
+        return self
+    }
+    
+    /**
+     Sets the text Horizontal padding of the button.
+     
+     - Parameter Text Horizontal padding: The font of the button.
+     
+     - Returns: The modified instance for method chaining.
+     */
+    public func setTextHorizontalPadding(_ textPaddingHorizontal: CGFloat?) -> KitBaseButtonStyleBuilder {
+        self.textPaddingHorizontal = textPaddingHorizontal
         return self
     }
     
@@ -340,7 +354,8 @@ public class KitBaseButtonStyleBuilder {
             paddingAll: paddingAll ?? 0,
             paddingHorizontal: paddingHorizontal ?? 12,
             paddingVertical: paddingVertical ?? 10,
-            textAlignment: textAlignment ?? .center
+            textAlignment: textAlignment ?? .center,
+            textPaddingHorizontal: textPaddingHorizontal
         )
     }
 }
