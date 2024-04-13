@@ -45,7 +45,10 @@ public struct KitBaseButtonStyle: ButtonStyle {
     public var paddingVertical: CGFloat
     public let textAlignment: ButtonTextAlignment
     public var textPaddingHorizontal: CGFloat?
-    
+    public var rightText: String?
+    public var rightTextColor: Color?
+    public var rightTextFont: Font?
+
     public init(
         
         backgroundColor: Color? = nil,
@@ -68,7 +71,10 @@ public struct KitBaseButtonStyle: ButtonStyle {
         paddingHorizontal: CGFloat = 12,
         paddingVertical: CGFloat = 10,
         textAlignment: ButtonTextAlignment = .center,
-        textPaddingHorizontal: CGFloat? = nil
+        textPaddingHorizontal: CGFloat? = nil,
+        rightText: String? = nil,
+        rightTextColor: Color? = nil,
+        rightTextFont: Font? = nil
     ) {
         
         self.backgroundColor = backgroundColor
@@ -92,6 +98,9 @@ public struct KitBaseButtonStyle: ButtonStyle {
         self.paddingVertical = paddingVertical
         self.textAlignment = textAlignment
         self.textPaddingHorizontal = textPaddingHorizontal
+        self.rightText = rightText
+        self.rightTextColor = rightTextColor
+        self.rightTextFont = rightTextFont
     }
     
     public func makeBody(configuration: Configuration) -> some View {
@@ -118,17 +127,26 @@ public struct KitBaseButtonStyle: ButtonStyle {
                 Spacer(minLength: textAlignment == .left ? 0 : nil)
             }
             
-            configuration.label
-                .font(font)
-                .foregroundColor(foregroundColor)
-                .padding(.horizontal, textPaddingHorizontal ?? 0)
-                .frame(maxWidth: .infinity, alignment: {
-                    switch textAlignment {
-                    case .left: return .leading
-                    case .center: return .center
-                    case .right: return .trailing
-                    }
-                }())
+            HStack{
+                configuration.label
+                    .font(font)
+                    .foregroundColor(foregroundColor)
+                    .padding(.horizontal, textPaddingHorizontal ?? 0)
+                    .frame(maxWidth: .infinity, alignment: {
+                        switch textAlignment {
+                        case .left: return .leading
+                        case .center: return .center
+                        case .right: return .trailing
+                        }
+                    }())
+                
+                if let rightText = rightText {
+                    Text(rightText)
+                        .font(rightTextFont ?? font)
+                        .foregroundColor(rightTextColor ?? foregroundColor)
+                        .frame(alignment: .trailing)
+                }
+            }
             
             if textAlignment == .right || textAlignment == .center {
                 Spacer(minLength: textAlignment == .right ? 0 : nil)

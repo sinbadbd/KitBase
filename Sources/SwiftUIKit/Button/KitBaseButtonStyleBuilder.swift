@@ -40,6 +40,9 @@ public class KitBaseButtonStyleBuilder {
     public var textAlignment: ButtonTextAlignment? = .center
     public var textPaddingHorizontal: CGFloat? = nil
     
+    public var rightText: String?
+    public var rightTextColor: Color?
+    public var rightTextFont: Font?
     // MARK: - Initializer
     
     /**
@@ -326,6 +329,47 @@ public class KitBaseButtonStyleBuilder {
         return self
     }
     
+    
+    // MARK: - Right Text Configuration
+    
+    /**
+     Sets the right-aligned text of the button.
+     
+     - Parameter text: The right-aligned text of the button.
+     
+     - Returns: The modified instance for method chaining.
+     */
+    public func setRightText(_ text: String?) -> KitBaseButtonStyleBuilder {
+        self.rightText = text
+        return self
+    }
+    
+    /**
+     Sets the color of the right-aligned text.
+     
+     - Parameter color: The color of the right-aligned text.
+     
+     - Returns: The modified instance for method chaining.
+     */
+    public func setRightTextColor(_ color: Color?) -> KitBaseButtonStyleBuilder {
+        self.rightTextColor = color
+        return self
+    }
+    
+    /**
+     Sets the font of the right-aligned text.
+     
+     - Parameter font: The font of the right-aligned text.
+     
+     - Returns: The modified instance for method chaining.
+     */
+    public func setRightTextFont(_ font: Font?) -> KitBaseButtonStyleBuilder {
+        self.rightTextFont = font
+        return self
+    }
+
+    
+    
     // MARK: - Build Method
     
     /**
@@ -355,7 +399,10 @@ public class KitBaseButtonStyleBuilder {
             paddingHorizontal: paddingHorizontal ?? 12,
             paddingVertical: paddingVertical ?? 10,
             textAlignment: textAlignment ?? .center,
-            textPaddingHorizontal: textPaddingHorizontal
+            textPaddingHorizontal: textPaddingHorizontal,
+            rightText: rightText,
+            rightTextColor: rightTextColor,
+            rightTextFont: rightTextFont
         )
     }
 }
