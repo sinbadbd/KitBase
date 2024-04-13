@@ -15,6 +15,12 @@ public enum ButtonVariant {
     case solid, subtle, outline
 }
 
+public enum ButtonTextAlignment {
+    case left
+    case center
+    case right
+}
+
 //@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 public struct KitBaseButtonStyle: ButtonStyle {
     
@@ -37,7 +43,7 @@ public struct KitBaseButtonStyle: ButtonStyle {
     public var paddingAll: CGFloat?
     public var paddingHorizontal: CGFloat?
     public var paddingVertical: CGFloat
-
+    public let textAlignment: ButtonTextAlignment
     /*
      .padding(.horizontal, 12)
      .padding(.vertical, 10)
@@ -62,7 +68,8 @@ public struct KitBaseButtonStyle: ButtonStyle {
         isShowShadow: Bool = true,
         paddingAll: CGFloat = 0,
         paddingHorizontal: CGFloat = 12,
-        paddingVertical: CGFloat = 10
+        paddingVertical: CGFloat = 10,
+        textAlignment: ButtonTextAlignment = .center
     ) {
         
         self.backgroundColor = backgroundColor
@@ -84,11 +91,12 @@ public struct KitBaseButtonStyle: ButtonStyle {
         self.paddingAll = paddingAll
         self.paddingHorizontal = paddingHorizontal
         self.paddingVertical = paddingVertical
+        self.textAlignment = textAlignment
     }
     
     public func makeBody(configuration: Configuration) -> some View {
         
-        return  HStack {
+        return HStack {
             if let image = image {
                 Image(image)
                     .resizable()
@@ -105,10 +113,25 @@ public struct KitBaseButtonStyle: ButtonStyle {
                     .frame(width: iconWidth, height: iconHeight)
                 //                        .padding(.trailing, 8)
             }
+            
+            if textAlignment == .left || textAlignment == .center {
+                Spacer(minLength: textAlignment == .left ? 0 : nil)
+            }
+            
             configuration.label
                 .font(font)
                 .foregroundColor(foregroundColor)
-                .frame(maxWidth: .infinity)
+                .frame(maxWidth: .infinity, alignment: {
+                    switch textAlignment {
+                    case .left: return .leading
+                    case .center: return .center
+                    case .right: return .trailing
+                    }
+                }())
+            
+            if textAlignment == .right || textAlignment == .center {
+                Spacer(minLength: textAlignment == .right ? 0 : nil)
+            }
 
         }
         

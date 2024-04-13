@@ -37,7 +37,7 @@ public class KitBaseButtonStyleBuilder {
     public var paddingAll: CGFloat?
     public var paddingHorizontal: CGFloat?
     public var paddingVertical: CGFloat?
-    
+    public var textAlignment: ButtonTextAlignment? = .center
     // MARK: - Initializer
     
     /**
@@ -106,6 +106,19 @@ public class KitBaseButtonStyleBuilder {
         self.font = font
         return self
     }
+
+    /**
+     Sets the text alignment of the button.
+     
+     - Parameter Text alignment: The font of the button.
+     
+     - Returns: The modified instance for method chaining.
+     */
+    public func setTextAlignment(_ alignment: ButtonTextAlignment?) -> KitBaseButtonStyleBuilder {
+        self.textAlignment = alignment
+        return self
+    }
+    
     
     /**
      Sets the border color of the button.
@@ -311,7 +324,7 @@ public class KitBaseButtonStyleBuilder {
             backgroundColor: backgroundColor,
             gradient: gradient,
             font: font,
-            borderColor: borderColor,
+            borderColor: borderColor, 
             foregroundColor: foregroundColor,
             opacity: opacity,
             buttonWidth: buttonWidth,
@@ -326,7 +339,8 @@ public class KitBaseButtonStyleBuilder {
             isShowShadow: isShowShadow,
             paddingAll: paddingAll ?? 0,
             paddingHorizontal: paddingHorizontal ?? 12,
-            paddingVertical: paddingVertical ?? 10
+            paddingVertical: paddingVertical ?? 10,
+            textAlignment: textAlignment ?? .center
         )
     }
 }
