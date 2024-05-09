@@ -21,7 +21,9 @@ public class SnapCarouselBuilder<Content: View, T: Identifiable> {
     private var content: ((T) -> Content)? = nil
     private var shouldComputeItemWidthFactor: Bool = false
     private var enableAutoScroll: Bool = true
-
+    private var onTapAction: ((T) -> Void)? = nil
+    private var requireOnTap: Bool = false  // Optional, based on your need
+    
     public init() {}
     
     public func setSpacing(_ spacing: CGFloat) -> SnapCarouselBuilder {
@@ -65,7 +67,7 @@ public class SnapCarouselBuilder<Content: View, T: Identifiable> {
         self.enableAutoScroll = enable
         return self
     }
-
+    
     public func setShouldComputeItemWidthFactor(_ compute: Bool) -> SnapCarouselBuilder {
         self.shouldComputeItemWidthFactor = compute
         smallScreenInitialOffsetAdjustment = compute ? 5 : 45
@@ -91,9 +93,20 @@ public class SnapCarouselBuilder<Content: View, T: Identifiable> {
             itemWidthFactor = 2 / 3 // Adjust this value as needed to properly fit 1.5 items
         }
     }
-
+    
+    public func setOnTapAction(_ action: @escaping (T) -> Void) -> SnapCarouselBuilder {
+        self.onTapAction = action
+        return self
+    }
+    
+    public func setRequireOnTap(_ require: Bool) -> SnapCarouselBuilder {
+        self.requireOnTap = require
+        return self
+    }
+    
     
     public func build() -> SnapCarousel<Content, T> {
+        
         if !shouldComputeItemWidthFactor {
             computeItemWidthFactor()
         }
@@ -101,6 +114,11 @@ public class SnapCarouselBuilder<Content: View, T: Identifiable> {
         guard let content = self.content else {
             fatalError("SnapCarousel requires content to be set before building.")
         }
+        
+        if requireOnTap && onTapAction == nil {
+            fatalError("SnapCarousel requires an onTap action to be set before building.")
+        }
+        
         return SnapCarousel(
             spacing: spacing,
             edgeSpace: edgeSpace,
@@ -111,6 +129,7 @@ public class SnapCarouselBuilder<Content: View, T: Identifiable> {
             largeScreenInitialOffsetAdjustment: largeScreenInitialOffsetAdjustment,
             itemWidthFactor: itemWidthFactor,
             enableAutoScroll: enableAutoScroll,
+            onTap: onTapAction,
             content: content
         )
     }

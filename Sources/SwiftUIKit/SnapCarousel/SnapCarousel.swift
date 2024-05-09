@@ -26,6 +26,7 @@ public struct SnapCarousel<Content: View, T: Identifiable>: View {
     @State private var timer: Timer.TimerPublisher? = nil
     @State private var cancellable: AnyCancellable?
     var enableAutoScroll: Bool
+    var onTap: ((T) -> Void)? = nil
     
     public init(
         spacing: CGFloat = 16,
@@ -37,6 +38,7 @@ public struct SnapCarousel<Content: View, T: Identifiable>: View {
         largeScreenInitialOffsetAdjustment: CGFloat = 55,
         itemWidthFactor: CGFloat = 2 / 3,
         enableAutoScroll: Bool = true,
+        onTap: ((T) -> Void)? = nil,
         @ViewBuilder content: @escaping (T) -> Content
     ) {
         self.list = items
@@ -49,6 +51,7 @@ public struct SnapCarousel<Content: View, T: Identifiable>: View {
         self.largeScreenInitialOffsetAdjustment = largeScreenInitialOffsetAdjustment
         self.itemWidthFactor = itemWidthFactor
         self.enableAutoScroll = enableAutoScroll
+        self.onTap = onTap
     }
     
     public  var body: some View {
@@ -64,6 +67,7 @@ public struct SnapCarousel<Content: View, T: Identifiable>: View {
                 ForEach(list) { item in
                     content(item)
                         .frame(width: itemWidth)
+                        .onTapGesture { onTap?(item) }
                 }
             }
             .padding(.horizontal, edgeSpace)
