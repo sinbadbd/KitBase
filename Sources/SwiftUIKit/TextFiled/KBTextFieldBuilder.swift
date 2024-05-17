@@ -9,6 +9,7 @@ import SwiftUI
 
 //@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 public struct KBTextFieldBuilder<Content: View> {
+    
     public var title: String? = nil
     public var font: Font? = nil
     public var errorFont: Font? = nil
@@ -34,37 +35,37 @@ public struct KBTextFieldBuilder<Content: View> {
         self.isValid = isValid
     }
     
-    public func title(_ title: String) -> KBTextFieldBuilder {
+    public func setTitle(_ title: String) -> KBTextFieldBuilder {
         var copy = self
         copy.title = title
         return copy
     }
     
-    public func font(_ font: Font) -> KBTextFieldBuilder {
+    public func setFont(_ font: Font) -> KBTextFieldBuilder {
         var copy = self
         copy.font = font
         return copy
     }
     
-    public func errorFont(_ errorFont: Font) -> KBTextFieldBuilder {
+    public func setErrorFont(_ errorFont: Font) -> KBTextFieldBuilder {
         var copy = self
         copy.errorFont = errorFont
         return copy
     }
     
-    public func titleSpacing(_ spacing: CGFloat) -> KBTextFieldBuilder {
+    public func setTitleSpacing(_ spacing: CGFloat) -> KBTextFieldBuilder {
         var copy = self
         copy.titleSpacing = spacing
         return copy
     }
     
-    public func textColor(_ color: Color) -> KBTextFieldBuilder {
+    public func setTextColor(_ color: Color) -> KBTextFieldBuilder {
         var copy = self
         copy.textColor = color
         return copy
     }
     
-    public func backgroundColor(_ color: Color) -> KBTextFieldBuilder {
+    public func setBackgroundColor(_ color: Color) -> KBTextFieldBuilder {
         var copy = self
         copy.backgroundColor = color
         return copy
@@ -76,55 +77,57 @@ public struct KBTextFieldBuilder<Content: View> {
         return copy
     }
     
-    public func icon(_ icon: AnyView?) -> KBTextFieldBuilder {
+    public func setIcon(_ icon: AnyView?) -> KBTextFieldBuilder {
         var copy = self
         copy.icon = icon
         return copy
     }
     
-    public func textFieldHeight(_ height: CGFloat) -> Self {
+    public func setTextFieldHeight(_ height: CGFloat) -> Self {
         var copy = self
         copy.textFieldHeight = height
         return copy
     }
     
-    public func cornerRadius(_ radius: CGFloat) -> Self {
+    public func setCornerRadius(_ radius: CGFloat) -> Self {
         var copy = self
         copy.cornerRadius = radius
         return copy
     }
     
-    public func borderColor(_ color: Color?) -> Self {
+    public func setBorderColor(_ color: Color?) -> Self {
         var copy = self
         copy.borderColor = color
         return copy
     }
     
-    public func borderWidth(_ width: CGFloat) -> Self {
+    public func setBorderWidth(_ width: CGFloat) -> Self {
         var copy = self
         copy.borderWidth = width
         return copy
     }
     
-    public func strokeColor(_ color: Color) -> Self {
+    public func setStrokeColor(_ color: Color) -> Self {
         var copy = self
         copy.strokeColor = color
         return copy
     }
     
-    public func shadowColor(_ color: Color) -> Self {
+    public func setShadowColor(_ color: Color) -> Self {
         var copy = self
         copy.shadowColor = color
         return copy
     }
     
-    public  func shadow(radius: CGFloat, x: CGFloat, y: CGFloat) -> Self {
+    public func setShadow(radius: CGFloat, x: CGFloat, y: CGFloat) -> Self {
         var copy = self
         copy.shadowRadius = radius
         copy.shadowX = x
         copy.shadowY = y
         return copy
     }
+
+
     
     public func build() -> KBTextField<Content> {
     
@@ -169,43 +172,42 @@ struct KBTextFieldBuilderView: View  {
             KBTextFieldBuilder(content: {
                 TextField("Exclusive 7.7 package", text: $textInput)
             }, isValid: $nameTextFile)
-            .title("Username")
-            .font(.headline)
-            .errorFont(.subheadline)
-            .titleSpacing(12)
-            .textColor(.blue)
-            .backgroundColor(.white)
+            .setFont(.headline)
+            .setErrorFont(.subheadline)
+            .setTitleSpacing(12)
+            .setTextColor(.blue)
+            .setBackgroundColor(.white)
             .setErrorMessage("test error message")
-            .icon(AnyView(Image(systemName: "person")))
-            .textFieldHeight(44)
-            .cornerRadius(30)
-//            .borderColor(.green)
-            .borderWidth(0.5)
-//            .strokeColor(.indigo)
-//            .shadowColor(.black.opacity(0.5))
-//            .shadow(radius: 2, x: 2, y: 2)
-//            .shadow(radius: 3, x: 2, y: 3)
+            .setIcon(AnyView(Image(systemName: "person")))
+            .setTextFieldHeight(44)
+            .setCornerRadius(30)
+            //.setBorderColor(.green)
+            .setBorderWidth(0.5)
+            //.setStrokeColor(.indigo)
+            //.setShadowColor(.black.opacity(0.5))
+            .setShadow(radius: 3, x: 2, y: 3)
             .build()
+            
+            Divider()
             
             KBTextFieldBuilder(content: {
                 TextField("password", text: $usename)
             }, isValid: $nameTextFile)
 //            .title("password")
-            .font(.headline)
-            .errorFont(.subheadline)
-            .titleSpacing(12)
-            .textColor(.blue)
-            .backgroundColor(.white)
+            .setFont(.headline)
+            .setErrorFont(.subheadline)
+            .setTitleSpacing(12)
+            .setTextColor(.blue)
+            .setBackgroundColor(.white)
             .setErrorMessage("test error message")
-            .icon(AnyView(Image(systemName: "person")))
-            .textFieldHeight(44)
-            .cornerRadius(30)
-            //            .borderColor(.green)
-            .borderWidth(0.5)
-            //            .strokeColor(.indigo)
-            //            .shadowColor(.black.opacity(0.5))
-            //            .shadow(radius: 2, x: 2, y: 2)
-            //            .shadow(radius: 3, x: 2, y: 3)
+            .setIcon(AnyView(Image(systemName: "person")))
+            .setTextFieldHeight(44)
+            .setCornerRadius(30)
+            //.setBorderColor(.green)
+            .setBorderWidth(0.5)
+            //.setStrokeColor(.indigo)
+            //.setShadowColor(.black.opacity(0.5))
+            .setShadow(radius: 3, x: 2, y: 3)
             .build()
             
         }
