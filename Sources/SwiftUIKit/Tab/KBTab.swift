@@ -9,11 +9,11 @@ import SwiftUI
 
 public struct KBTabs<T: Identifiable, Content: View>: View {
     
-   public enum SelectionStyle {
+    public enum SelectionStyle {
         case borderBottom
         case bgColor
     }
-
+    
     var list: [T]
     var content: (T, Bool) -> Content
     var currentTab: T.ID
@@ -42,7 +42,7 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
     var selectionStyle: SelectionStyle = .bgColor
     var isHapticFeedbackEnabled: Bool
     var feedbackStyle: FeedbackStyle
-   
+    
     private var isScrollHapticFeedbackEnabled: Bool
     private var scrollFeedbackStyle: FeedbackStyle
     @State private var scrollOffset: CGFloat = 0
@@ -98,32 +98,30 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
     }
     
     public var body: some View {
-        ScrollViewReader { proxy in
-            ScrollView(scrollDirection, showsIndicators: false) {
-                Group {
-                    if scrollDirection == .horizontal {
-                        HStack(spacing: tabSpacing ?? 0) { tabContent }
-                    } else {
-                        VStack(spacing: tabSpacing ?? 0) { tabContent }
-                    }
+        //        ScrollViewReader { proxy in
+        ScrollView(scrollDirection, showsIndicators: false) {
+            Group {
+                if scrollDirection == .horizontal {
+                    HStack(spacing: tabSpacing ?? 0) { tabContent }
+                } else {
+                    VStack(spacing: tabSpacing ?? 0) { tabContent }
                 }
-                .padding(scrollDirection == .horizontal ? .horizontal : .vertical, tabSpacing ?? 0)
             }
-            .background(backgroundColor)
-            .background(
-                GeometryReader { geometry in
-                    Color.clear
-                        .onAppear {
-                            onScrollOffsetChange(geometry.frame(in: .global).minX)
-                        }
-                        .onChange(of: geometry.frame(in: .global).minX) { value in
-                            onScrollOffsetChange(value)
-                        }
-                }
-            )
+            .padding(scrollDirection == .horizontal ? .horizontal : .vertical, tabSpacing ?? 0)
         }
-
-        
+        .background(backgroundColor)
+        .background(
+            GeometryReader { geometry in
+                Color.clear
+                    .onAppear {
+                        onScrollOffsetChange(geometry.frame(in: .global).minX)
+                    }
+                    .onChange(of: geometry.frame(in: .global).minX) { value in
+                        onScrollOffsetChange(value)
+                    }
+            }
+        )
+        //        }
     }
     
     private func onScrollOffsetChange(_ offset: CGFloat) {
@@ -200,7 +198,7 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
                 )
         }
     }
-
+    
 }
 
 
