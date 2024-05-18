@@ -95,3 +95,55 @@ struct DemoLoadingView: View {
 
 ### Card View
 ##
+
+## Tab Item
+```swift 
+struct TabItemExample: View {
+    @Namespace private var animation
+    @State private var selectedTab: UUID = UUID()
+    
+    private let tabs = [
+        TabItem(id: UUID(), image: "ic-twitter", title: "Twitter"),
+        TabItem(id: UUID(), image: "ic-visa", title: "Visa"),
+        TabItem(id: UUID(), image: "ic-whatsapp", title: "Whatsapp"),
+        TabItem(id: UUID(), image: "ic-youtube", title: "Youtube"),
+        TabItem(id: UUID(), image: "img-checkwebsite", title: "Website"),
+        TabItem(id: UUID(), image: "ic-facebook", title: "Facebook"),
+        TabItem(id: UUID(), image: "ic-sim", title: "Sim"),
+        TabItem(id: UUID(), image: "ic-mc1", title: "Master Card"),
+    ]
+    
+    var body: some View {
+        KBTabsBuilder()
+            .withList(tabs)
+            .withCurrentTab(selectedTab)
+            .withContent { item, isSelected in
+                VStack{
+                    Image(item.image ?? "")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 24, height: 24)
+                    Text(item.title)
+                        .font(isSelected ? .headline : .subheadline)
+                        .foregroundColor(isSelected ? .white : .black)
+                }
+            }
+            .onSelect { item in
+                selectedTab = item.id
+                print(selectedTab)
+            }
+            .withScrollDirection(.horizontal)
+            .withNamespace(animation)
+            .setBackgroundColor(/*selectedTab == isSelected ? Color.gray.opacity(0.2) : */.gray)
+            .setSelectedColor(Color.blue)
+            .setDeselectedColor(Color.white)
+            .setBorderColor(Color.black)
+            .setBorderWidth(1)
+            .setVerticalPadding(10)
+            .setHorizontalPadding(20)
+            .setCornerRadius(10)
+            .setTabSpacing(10)
+            .build()
+            .padding()
+    }
+}```
