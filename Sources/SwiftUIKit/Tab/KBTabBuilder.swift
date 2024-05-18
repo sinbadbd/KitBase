@@ -28,6 +28,10 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
     private var namespace: Namespace.ID?
     private var selectionStyle: KBTabs<T, Content>.SelectionStyle = .bgColor
     
+    // Haptic feedback generators
+    private let tapFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+    private let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+
     public init() { }
     
     public func withList(_ list: [T]) -> Self {
@@ -144,14 +148,22 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
     }
     
     public func build() -> some View {
+        
         guard let content = content, let currentTab = currentTab, let onTap = onTap, let namespace = namespace else {
             fatalError("Missing required properties for KBTabs")
         }
         
+        // Prepare haptic feedback generators
+        tapFeedbackGenerator.prepare()
+        selectionFeedbackGenerator.prepare()
+
         return KBTabs(
             list: list,
             currentTab: currentTab,
-            onTap: onTap,
+            onTap: { item in
+                onTap(item)
+                tapFeedbackGenerator.impactOccurred() // Trigger haptic feedback for tap
+            },
             content: content,
             backgroundColor: backgroundColor ?? .clear,
             selectedColor: selectedColor ?? .blue,
