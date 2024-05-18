@@ -99,8 +99,15 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
                 }
             }
             .padding(scrollDirection == .horizontal ? .horizontal : .vertical, tabSpacing ?? 0)
+            .onAppear {
+                if isHapticFeedbackEnabled {
+                    let generator = UIImpactFeedbackGenerator(style: feedbackStyle.uiFeedbackStyle)
+                    generator.impactOccurred()
+                }
+            }
         }
         .background(backgroundColor)
+        
     }
     
     private var tabContent: some View {
