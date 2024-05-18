@@ -227,7 +227,9 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
             animation: namespace,
             selectionStyle: selectionStyle,
             isHapticFeedbackEnabled: isHapticFeedbackEnabled,
-            feedbackStyle: feedbackStyle
+            feedbackStyle: feedbackStyle,
+            isScrollHapticFeedbackEnabled: isScrollHapticFeedbackEnabled,
+            scrollFeedbackStyle: scrollFeedbackStyle
         )
     }
 }
