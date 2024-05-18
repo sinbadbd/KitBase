@@ -17,6 +17,7 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
     private var deselectedColor: Color?
     private var borderColor: Color?
     private var borderWidth: CGFloat?
+    private var borderBottom: CGFloat?
     private var verticalPadding: CGFloat?
     private var horizontalPadding: CGFloat?
     private var imageWidth: CGFloat?
@@ -94,6 +95,11 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
         builder.borderWidth = borderWidth
         return builder
     }
+    public func setBorderBottom(_ bottomBottom: CGFloat) -> Self {
+        var builder = self
+        builder.borderBottom = bottomBottom
+        return builder
+    }
     
     public func setVerticalPadding(_ verticalPadding: CGFloat) -> Self {
         var builder = self
@@ -152,6 +158,7 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
             deselectedColor: deselectedColor ?? .gray,
             borderColor: borderColor ?? .clear,
             borderWidth: borderWidth ?? 0,
+            borderBottom: borderBottom ?? 0,
             verticalPadding: verticalPadding ?? 0,
             horizontalPadding: horizontalPadding ?? 0,
             imageWidth: imageWidth ?? 24,

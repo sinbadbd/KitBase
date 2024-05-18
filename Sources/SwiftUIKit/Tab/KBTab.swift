@@ -23,6 +23,7 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
     var deselectedColor: Color?
     var borderColor: Color?
     var borderWidth: CGFloat?
+    var borderBottom: CGFloat?
     var verticalPadding: CGFloat?
     var horizontalPadding: CGFloat?
     var imageWidth: CGFloat?
@@ -50,6 +51,7 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
         deselectedColor: Color? = .gray,
         borderColor: Color? = .gray,
         borderWidth: CGFloat? = 1.0,
+        borderBottom: CGFloat? = 1.0,
         verticalPadding: CGFloat? = 0,
         horizontalPadding: CGFloat? = 0,
         imageWidth: CGFloat? = 10,
@@ -69,6 +71,7 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
         self.deselectedColor = deselectedColor
         self.borderColor = borderColor
         self.borderWidth = borderWidth
+        self.borderBottom = borderBottom
         self.verticalPadding = verticalPadding
         self.horizontalPadding = horizontalPadding
         self.imageWidth = imageWidth
@@ -119,7 +122,8 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
                     Spacer()
                     Rectangle()
                         .fill(selectedColor ?? Color.blue)
-                        .frame(height: borderWidth ?? 2)
+                        .frame(height: 1)
+                        .frame(height: borderBottom ?? 1)
                         .matchedGeometryEffect(id: "TAB", in: animation)
                 }
             case .bgColor:
