@@ -1,4 +1,5 @@
 {
+  "originHash" : "2a966aa6397e8f3c92b2cd8ff8083c295cba2cdab63d5285e49bcb74f7b2cfed",
   "pins" : [
     {
       "identity" : "kitbase",
@@ -6,9 +7,9 @@
       "location" : "https://github.com/sinbadbd/KitBase",
       "state" : {
         "branch" : "main",
-        "revision" : "61f8a730ff68f4726d83b31c64fa8ac9a80bbb93"
+        "revision" : "30a793419538bab6c7d31dce5e75ec06ba17f75d"
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

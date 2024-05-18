@@ -11,7 +11,7 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
     private var list: [T] = []
     private var content: ((T, Bool) -> Content)?
     private var currentTab: T.ID?
-    private var onSelect: ((T) -> Void)?
+    private var onTap: ((T) -> Void)?
     private var backgroundColor: Color?
     private var selectedColor: Color?
     private var deselectedColor: Color?
@@ -53,9 +53,9 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
         return builder
     }
     
-    public func onSelect(_ onSelect: @escaping (T) -> Void) -> Self {
+    public func onTap(_ onTap: @escaping (T) -> Void) -> Self {
         var builder = self
-        builder.onSelect = onSelect
+        builder.onTap = onTap
         return builder
     }
     
@@ -136,13 +136,13 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
     }
     
     public func build() -> some View {
-        guard let content = content, let currentTab = currentTab, let onSelect = onSelect, let namespace = namespace else {
+        guard let content = content, let currentTab = currentTab, let onTap = onTap, let namespace = namespace else {
             fatalError("Missing required properties for KBTabs")
         }
         
         return KBTabs(list: list,
                       currentTab: currentTab,
-                      onSelect: onSelect,
+                      onTap: onTap,
                       content: content,
                       backgroundColor: backgroundColor ?? .clear, // Provide default values or ensure they are set
                       selectedColor: selectedColor ?? .blue,
@@ -160,3 +160,52 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
     }
     
 }
+
+
+#Preview{
+    TabItemView()
+}
+
+struct TabItem: Identifiable {
+    let id: UUID
+    let title: String
+}
+
+struct TabItemView: View {
+    @Namespace private var animation
+    @State private var selectedTab: UUID = UUID()
+    
+    private let tabs = [
+        TabItem(id: UUID(), title: "Home"),
+        TabItem(id: UUID(), title: "Profile"),
+        TabItem(id: UUID(), title: "Settings")
+    ]
+    
+    var body: some View {
+        let tabBuilder = KBTabsBuilder<TabItem, Text>()
+            .withList(tabs)
+            .withCurrentTab(selectedTab)
+            .withContent { item, isSelected in
+                Text(item.title)
+                    .font(isSelected ? .headline : .subheadline)
+                    .foregroundColor(isSelected ? .white : .black)
+            }
+            .onTap { item in
+                selectedTab = item.id
+            }
+            .withScrollDirection(.horizontal)
+            .withNamespace(animation)
+            .setBackgroundColor(Color.gray.opacity(0.2))
+            .setSelectedColor(Color.blue)
+            .setDeselectedColor(Color.white)
+            .setBorderColor(Color.black)
+            .setBorderWidth(1)
+            .setVerticalPadding(10)
+            .setHorizontalPadding(20)
+            .setCornerRadius(10)
+            .setTabSpacing(10)
+        
+        tabBuilder.build()
+            .padding()
+    }
+    }

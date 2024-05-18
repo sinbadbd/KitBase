@@ -7,15 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D409D2C2BF877AC00760D2A /* TabItemExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D409D2B2BF877AC00760D2A /* TabItemExampleView.swift */; };
+		1D409D2F2BF878DF00760D2A /* SwiftUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1D409D2E2BF878DF00760D2A /* SwiftUIKit */; };
 		1D4ED7D12B3F0E820059E38B /* KitBaseExamleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4ED7D02B3F0E820059E38B /* KitBaseExamleApp.swift */; };
 		1D4ED7D32B3F0E820059E38B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4ED7D22B3F0E820059E38B /* ContentView.swift */; };
 		1D4ED7D52B3F0E840059E38B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D4ED7D42B3F0E840059E38B /* Assets.xcassets */; };
 		1D4ED7D92B3F0E840059E38B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D4ED7D82B3F0E840059E38B /* Preview Assets.xcassets */; };
-		1D4ED7E12B3F0F300059E38B /* KitBase in Frameworks */ = {isa = PBXBuildFile; productRef = 1D4ED7E02B3F0F300059E38B /* KitBase */; };
 		1D4ED7E52B3F24680059E38B /* ExButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4ED7E42B3F24680059E38B /* ExButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1D409D2B2BF877AC00760D2A /* TabItemExampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemExampleView.swift; sourceTree = "<group>"; };
 		1D4ED7CD2B3F0E820059E38B /* KitBaseExamle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KitBaseExamle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D4ED7D02B3F0E820059E38B /* KitBaseExamleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KitBaseExamleApp.swift; sourceTree = "<group>"; };
 		1D4ED7D22B3F0E820059E38B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -30,13 +32,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D4ED7E12B3F0F300059E38B /* KitBase in Frameworks */,
+				1D409D2F2BF878DF00760D2A /* SwiftUIKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D409D2A2BF8779200760D2A /* Tab */ = {
+			isa = PBXGroup;
+			children = (
+				1D409D2B2BF877AC00760D2A /* TabItemExampleView.swift */,
+			);
+			path = Tab;
+			sourceTree = "<group>";
+		};
 		1D4ED7C42B3F0E820059E38B = {
 			isa = PBXGroup;
 			children = (
@@ -56,6 +66,7 @@
 		1D4ED7CF2B3F0E820059E38B /* KitBaseExamle */ = {
 			isa = PBXGroup;
 			children = (
+				1D409D2A2BF8779200760D2A /* Tab */,
 				1D4ED7D02B3F0E820059E38B /* KitBaseExamleApp.swift */,
 				1D4ED7D22B3F0E820059E38B /* ContentView.swift */,
 				1D4ED7D42B3F0E840059E38B /* Assets.xcassets */,
@@ -91,7 +102,7 @@
 			);
 			name = KitBaseExamle;
 			packageProductDependencies = (
-				1D4ED7E02B3F0F300059E38B /* KitBase */,
+				1D409D2E2BF878DF00760D2A /* SwiftUIKit */,
 			);
 			productName = KitBaseExamle;
 			productReference = 1D4ED7CD2B3F0E820059E38B /* KitBaseExamle.app */;
@@ -122,7 +133,7 @@
 			);
 			mainGroup = 1D4ED7C42B3F0E820059E38B;
 			packageReferences = (
-				1D4ED7DF2B3F0F300059E38B /* XCRemoteSwiftPackageReference "KitBase" */,
+				1D409D2D2BF878DF00760D2A /* XCRemoteSwiftPackageReference "KitBase" */,
 			);
 			productRefGroup = 1D4ED7CE2B3F0E820059E38B /* Products */;
 			projectDirPath = "";
@@ -150,6 +161,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D409D2C2BF877AC00760D2A /* TabItemExampleView.swift in Sources */,
 				1D4ED7E52B3F24680059E38B /* ExButtonView.swift in Sources */,
 				1D4ED7D32B3F0E820059E38B /* ContentView.swift in Sources */,
 				1D4ED7D12B3F0E820059E38B /* KitBaseExamleApp.swift in Sources */,
@@ -373,7 +385,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		1D4ED7DF2B3F0F300059E38B /* XCRemoteSwiftPackageReference "KitBase" */ = {
+		1D409D2D2BF878DF00760D2A /* XCRemoteSwiftPackageReference "KitBase" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sinbadbd/KitBase";
 			requirement = {
@@ -384,10 +396,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1D4ED7E02B3F0F300059E38B /* KitBase */ = {
+		1D409D2E2BF878DF00760D2A /* SwiftUIKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1D4ED7DF2B3F0F300059E38B /* XCRemoteSwiftPackageReference "KitBase" */;
-			productName = KitBase;
+			package = 1D409D2D2BF878DF00760D2A /* XCRemoteSwiftPackageReference "KitBase" */;
+			productName = SwiftUIKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

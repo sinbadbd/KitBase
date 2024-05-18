@@ -12,7 +12,7 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
     var list: [T]
     var content: (T, Bool) -> Content
     var currentTab: T.ID
-    var onSelect: (T) -> Void
+    var onTap: ((T) -> Void)?
     var backgroundColor: Color?
     var selectedColor: Color?
     var deselectedColor: Color?
@@ -37,7 +37,7 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
     public init(
         list: [T],
         currentTab: T.ID,
-        onSelect: @escaping (T) -> Void,
+        onTap: @escaping (T) -> Void,
         content: @escaping (T, Bool) -> Content,
         backgroundColor: Color? = .white,
         selectedColor: Color? = .blue,
@@ -55,7 +55,7 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
     ) {
         self.list = list
         self.currentTab = currentTab
-        self.onSelect = onSelect
+        self.onTap = onTap
         self.content = content
         self.backgroundColor = backgroundColor
         self.selectedColor = selectedColor
@@ -95,9 +95,9 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
                     backgroundView(for: item.id)
                 )
                 .onTapGesture {
-                    withAnimation(.easeInOut) {
-                        onSelect(item)
-                    }
+                    //withAnimation(.easeInOut) {
+                    onTap?(item)
+                    //}
                 }
         }
     }
@@ -148,7 +148,7 @@ struct ContentView: View {
         KBTabs(
             list: tabs,
             currentTab: currentTab,
-            onSelect: { tab in
+            onTap: { tab in
                 self.currentTab = tab.id
             },
             content: { tab, isSelected in
