@@ -35,6 +35,11 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
     private let tapFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
     private let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
 
+    
+    private var isScrollHapticFeedbackEnabled: Bool = true
+    private var scrollFeedbackStyle: FeedbackStyle = .medium
+
+    
     public init() { }
     
     public func withList(_ list: [T]) -> Self {
@@ -159,6 +164,18 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
     public func setFeedbackStyle(_ feedbackStyle: FeedbackStyle) -> Self {
         var builder = self
         builder.feedbackStyle = feedbackStyle
+        return builder
+    }
+    
+    public func enableScrollHapticFeedback(_ isEnabled: Bool) -> Self {
+        var builder = self
+        builder.isScrollHapticFeedbackEnabled = isEnabled
+        return builder
+    }
+    
+    public func setScrollFeedbackStyle(_ style: FeedbackStyle) -> Self {
+        var builder = self
+        builder.scrollFeedbackStyle = style
         return builder
     }
     

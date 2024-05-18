@@ -43,6 +43,10 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
     var isHapticFeedbackEnabled: Bool
     var feedbackStyle: FeedbackStyle
    
+    private var isScrollHapticFeedbackEnabled: Bool
+    private var scrollFeedbackStyle: FeedbackStyle
+    @State private var scrollOffset: CGFloat = 0
+    
     public init(
         list: [T],
         currentTab: T.ID,
@@ -64,7 +68,9 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
         animation: Namespace.ID,
         selectionStyle: SelectionStyle,
         isHapticFeedbackEnabled: Bool = true,
-        feedbackStyle: FeedbackStyle = .soft
+        feedbackStyle: FeedbackStyle = .soft,
+        isScrollHapticFeedbackEnabled: Bool = true,
+        scrollFeedbackStyle: FeedbackStyle = .medium
     ) {
         self.list = list
         self.currentTab = currentTab
@@ -87,28 +93,61 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
         self.selectionStyle = selectionStyle
         self.isHapticFeedbackEnabled = isHapticFeedbackEnabled
         self.feedbackStyle = feedbackStyle
+        self.isScrollHapticFeedbackEnabled = isScrollHapticFeedbackEnabled
+        self.scrollFeedbackStyle = scrollFeedbackStyle
     }
     
     public var body: some View {
-        ScrollView(scrollDirection, showsIndicators: false) {
-            Group {
-                if scrollDirection == .horizontal {
-                    HStack(spacing: tabSpacing ?? 0) { tabContent }
-                } else {
-                    VStack(spacing: tabSpacing ?? 0) { tabContent }
+        ScrollViewReader { proxy in
+            ScrollView(scrollDirection, showsIndicators: false) {
+                Group {
+                    if scrollDirection == .horizontal {
+                        HStack(spacing: tabSpacing ?? 0) { tabContent }
+                    } else {
+                        VStack(spacing: tabSpacing ?? 0) { tabContent }
+                    }
                 }
+                .padding(scrollDirection == .horizontal ? .horizontal : .vertical, tabSpacing ?? 0)
             }
-            .padding(scrollDirection == .horizontal ? .horizontal : .vertical, tabSpacing ?? 0)
-            .onAppear {
-                if isHapticFeedbackEnabled {
-                    let generator = UIImpactFeedbackGenerator(style: feedbackStyle.uiFeedbackStyle)
-                    generator.impactOccurred()
+            .background(backgroundColor)
+            .background(
+                GeometryReader { geometry in
+                    Color.clear
+                        .onAppear {
+                            onScrollOffsetChange(geometry.frame(in: .global).minX)
+                        }
+                        .onChange(of: geometry.frame(in: .global).minX) { value in
+                            onScrollOffsetChange(value)
+                        }
+                }
+            )
+        }
+
+        
+    }
+    
+    private func onScrollOffsetChange(_ offset: CGFloat) {
+        scrollOffset = offset
+        if isScrollHapticFeedbackEnabled {
+            switch scrollFeedbackStyle {
+            case .light:
+                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            case .medium:
+                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+            case .heavy:
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+            case .soft:
+                if #available(iOS 13.0, *) {
+                    UIImpactFeedbackGenerator(style: .soft).impactOccurred()
+                }
+            case .rigid:
+                if #available(iOS 13.0, *) {
+                    UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
                 }
             }
         }
-        .background(backgroundColor)
-        
     }
+    
     
     private var tabContent: some View {
         ForEach(list) { item in
