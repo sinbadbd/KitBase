@@ -28,6 +28,7 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
     private var namespace: Namespace.ID?
     private var selectionStyle: KBTabs<T, Content>.SelectionStyle = .bgColor
     private var isHapticFeedbackEnabled: Bool = true
+    private var feedbackStyle: FeedbackStyle = .soft
     
     // Haptic feedback generators
     private let tapFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
@@ -154,6 +155,12 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
         return builder
     }
     
+    public func setFeedbackStyle(_ feedbackStyle: FeedbackStyle) -> Self {
+        var builder = self
+        builder.feedbackStyle = feedbackStyle
+        return builder
+    }
+    
     public func build() -> some View {
         
         guard let content = content, let currentTab = currentTab, let onTap = onTap, let namespace = namespace else {
@@ -189,7 +196,8 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
             scrollDirection: scrollDirection,
             animation: namespace,
             selectionStyle: selectionStyle,
-            isHapticFeedbackEnabled: isHapticFeedbackEnabled
+            isHapticFeedbackEnabled: isHapticFeedbackEnabled,
+            feedbackStyle: feedbackStyle
         )
     }
 }
