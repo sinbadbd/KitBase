@@ -27,6 +27,7 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
     private var scrollDirection: Axis.Set = .horizontal
     private var namespace: Namespace.ID?
     private var selectionStyle: KBTabs<T, Content>.SelectionStyle = .bgColor
+    private var isHapticFeedbackEnabled: Bool = true
     
     // Haptic feedback generators
     private let tapFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
@@ -147,6 +148,12 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
         return builder
     }
     
+    public func enableHapticFeedback(_ isEnabled: Bool) -> Self {
+        var builder = self
+        builder.isHapticFeedbackEnabled = isEnabled
+        return builder
+    }
+    
     public func build() -> some View {
         
         guard let content = content, let currentTab = currentTab, let onTap = onTap, let namespace = namespace else {
@@ -162,7 +169,9 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
             currentTab: currentTab,
             onTap: { item in
                 onTap(item)
-                tapFeedbackGenerator.impactOccurred() // Trigger haptic feedback for tap
+                if isHapticFeedbackEnabled {
+                    tapFeedbackGenerator.impactOccurred()
+                }
             },
             content: content,
             backgroundColor: backgroundColor ?? .clear,
@@ -179,7 +188,8 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
             tabSpacing: tabSpacing ?? 0,
             scrollDirection: scrollDirection,
             animation: namespace,
-            selectionStyle: selectionStyle
+            selectionStyle: selectionStyle,
+            isHapticFeedbackEnabled: isHapticFeedbackEnabled
         )
     }
 }

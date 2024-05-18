@@ -40,6 +40,7 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
     var scrollDirection: Axis.Set
     var animation: Namespace.ID
     var selectionStyle: SelectionStyle = .bgColor
+    var isHapticFeedbackEnabled: Bool
     
     // Haptic feedback generators
     private let tapFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
@@ -64,7 +65,8 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
         tabSpacing: CGFloat? = 2,
         scrollDirection: Axis.Set = .horizontal,
         animation: Namespace.ID,
-        selectionStyle: SelectionStyle
+        selectionStyle: SelectionStyle,
+        isHapticFeedbackEnabled: Bool = true
     ) {
         self.list = list
         self.currentTab = currentTab
@@ -85,6 +87,7 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
         self.scrollDirection = scrollDirection
         self.animation = animation
         self.selectionStyle = selectionStyle
+        self.isHapticFeedbackEnabled = isHapticFeedbackEnabled
         
         // Prepare haptic feedback generators
         self.tapFeedbackGenerator.prepare()
@@ -116,8 +119,11 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
                 .onTapGesture {
                     withAnimation {
                         onTap?(item)
+                        if isHapticFeedbackEnabled {
+                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                        }
                     }
-                    tapFeedbackGenerator.impactOccurred() 
+                   // tapFeedbackGenerator.impactOccurred() 
                 }
         }
     }
