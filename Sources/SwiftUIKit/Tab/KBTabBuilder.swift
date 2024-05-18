@@ -29,6 +29,7 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
     private var selectionStyle: KBTabs<T, Content>.SelectionStyle = .bgColor
     private var isHapticFeedbackEnabled: Bool = true
     private var feedbackStyle: FeedbackStyle = .soft
+    private var requireOnTap: Bool = false
     
     // Haptic feedback generators
     private let tapFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
@@ -161,9 +162,16 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
         return builder
     }
     
+    public func setRequireOnTap(_ require: Bool) -> Self {
+        var builder = self
+        builder.requireOnTap = require
+        return self
+    }
+    
+    
     public func build() -> some View {
         
-        guard let content = content, let currentTab = currentTab, let onTap = onTap, let namespace = namespace else {
+        guard let content = content, let currentTab = currentTab, /*let onTap = onTap,*/ let namespace = namespace else {
             fatalError("Missing required properties for KBTabs")
         }
         
@@ -171,11 +179,16 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
         tapFeedbackGenerator.prepare()
         selectionFeedbackGenerator.prepare()
 
+        
+        if requireOnTap && onTap == nil {
+            fatalError("SnapCarousel requires an onTap action to be set before building.")
+        }
+        
         return KBTabs(
             list: list,
             currentTab: currentTab,
             onTap: { item in
-                onTap(item)
+                onTap?(item)
                 if isHapticFeedbackEnabled {
                     tapFeedbackGenerator.impactOccurred()
                 }
