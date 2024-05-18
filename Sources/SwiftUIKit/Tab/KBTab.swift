@@ -9,6 +9,11 @@ import SwiftUI
 
 public struct KBTabs<T: Identifiable, Content: View>: View {
     
+   public enum SelectionStyle {
+        case borderBottom
+        case bgColor
+    }
+
     var list: [T]
     var content: (T, Bool) -> Content
     var currentTab: T.ID
@@ -33,6 +38,7 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
     var animationDuration: Double?
     var scrollDirection: Axis.Set
     var animation: Namespace.ID
+    var selectionStyle: SelectionStyle = .bgColor
     
     public init(
         list: [T],
@@ -51,7 +57,8 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
         cornerRadius: CGFloat? = 4,
         tabSpacing: CGFloat? = 2,
         scrollDirection: Axis.Set = .horizontal,
-        animation: Namespace.ID
+        animation: Namespace.ID,
+        selectionStyle: SelectionStyle
     ) {
         self.list = list
         self.currentTab = currentTab
@@ -70,6 +77,7 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
         self.tabSpacing = tabSpacing
         self.scrollDirection = scrollDirection
         self.animation = animation
+        self.selectionStyle = selectionStyle
     }
     
     public var body: some View {
@@ -95,32 +103,41 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
                     backgroundView(for: item.id)
                 )
                 .onTapGesture {
-                    //withAnimation(.easeInOut) {
-                    onTap?(item)
-                    //}
+                    withAnimation {
+                        onTap?(item)
+                    }
                 }
         }
     }
     
+    @ViewBuilder
     private func backgroundView(for itemId: T.ID) -> some View {
-        Group {
-            if currentTab == itemId {
+        if currentTab == itemId {
+            switch selectionStyle {
+            case .borderBottom:
+                VStack(spacing: 0) {
+                    Spacer()
+                    Rectangle()
+                        .fill(selectedColor ?? Color.blue)
+                        .frame(height: borderWidth ?? 2)
+                        .matchedGeometryEffect(id: "TAB", in: animation)
+                }
+            case .bgColor:
                 RoundedRectangle(cornerRadius: cornerRadius ?? 10, style: .continuous)
                     .fill(selectedColor ?? Color.blue)
-                // Apply border to the selected tab as well, if needed.
                     .overlay(
                         RoundedRectangle(cornerRadius: cornerRadius ?? 10)
                             .stroke(borderColor ?? Color.gray, lineWidth: borderWidth ?? 1)
                     )
                     .matchedGeometryEffect(id: "TAB", in: animation)
-            } else {
-                RoundedRectangle(cornerRadius: cornerRadius ?? 10)
-                    .fill(deselectedColor ?? Color.clear) // Fill with deselectedColor or default
-//                    .overlay(
-//                        RoundedRectangle(cornerRadius: cornerRadius ?? 10)
-//                            .stroke(borderColor ?? Color.gray, lineWidth: borderWidth ?? 1)
-//                    )
             }
+        } else {
+            RoundedRectangle(cornerRadius: cornerRadius ?? 10)
+                .fill(deselectedColor ?? Color.clear)
+                .overlay(
+                    RoundedRectangle(cornerRadius: cornerRadius ?? 10)
+                        .stroke(borderColor ?? Color.gray, lineWidth: borderWidth ?? 1)
+                )
         }
     }
 
@@ -172,7 +189,9 @@ struct ContentView: View {
             imageWidth: 24,
             imageHeight: 24,
             scrollDirection: .horizontal,
-            animation: Namespace().wrappedValue // Placeholder for animation
+            animation: Namespace().wrappedValue, // Placeholder for animation,
+            selectionStyle: .bgColor
+            
         )
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.white)

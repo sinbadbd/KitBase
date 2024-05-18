@@ -23,15 +23,9 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
     private var imageHeight: CGFloat?
     private var cornerRadius: CGFloat?
     private var tabSpacing: CGFloat?
-    private var tabBackgroundColor: Color?
-    private var tabSelectedBackgroundColor: Color?
-    private var tabTextColor: Color?
-    private var tabSelectedTextColor: Color?
-    private var tabFont: Font?
-    private var tabSelectedFont: Font?
-    private var animationDuration: Double?
     private var scrollDirection: Axis.Set = .horizontal
     private var namespace: Namespace.ID?
+    private var selectionStyle: KBTabs<T, Content>.SelectionStyle = .bgColor
     
     public init() { }
     
@@ -124,14 +118,22 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
         builder.imageHeight = imageHeight
         return builder
     }
+    
     public func setCornerRadius(_ cornerRadius: CGFloat) -> Self {
         var builder = self
         builder.cornerRadius = cornerRadius
         return builder
     }
+    
     public func setTabSpacing(_ tabSpacing: CGFloat) -> Self {
         var builder = self
         builder.tabSpacing = tabSpacing
+        return builder
+    }
+    
+    public func setSelectionStyle(_ selectionStyle: KBTabs<T, Content>.SelectionStyle) -> Self {
+        var builder = self
+        builder.selectionStyle = selectionStyle
         return builder
     }
     
@@ -140,25 +142,27 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
             fatalError("Missing required properties for KBTabs")
         }
         
-        return KBTabs(list: list,
-                      currentTab: currentTab,
-                      onTap: onTap,
-                      content: content,
-                      backgroundColor: backgroundColor ?? .clear, // Provide default values or ensure they are set
-                      selectedColor: selectedColor ?? .blue,
-                      deselectedColor: deselectedColor ?? .gray,
-                      borderColor: borderColor ?? .clear,
-                      borderWidth: borderWidth ?? 0,
-                      verticalPadding: verticalPadding ?? 0,
-                      horizontalPadding: horizontalPadding ?? 0,
-                      imageWidth: imageWidth ?? 24, // Assuming default value; adjust as needed
-                      imageHeight: imageHeight ?? 24, // Assuming default value; adjust as needed
-                      cornerRadius: cornerRadius ?? 0,
-                      tabSpacing: tabSpacing ?? 0,
-                      scrollDirection: scrollDirection,
-                      animation: namespace)
+        return KBTabs(
+            list: list,
+            currentTab: currentTab,
+            onTap: onTap,
+            content: content,
+            backgroundColor: backgroundColor ?? .clear,
+            selectedColor: selectedColor ?? .blue,
+            deselectedColor: deselectedColor ?? .gray,
+            borderColor: borderColor ?? .clear,
+            borderWidth: borderWidth ?? 0,
+            verticalPadding: verticalPadding ?? 0,
+            horizontalPadding: horizontalPadding ?? 0,
+            imageWidth: imageWidth ?? 24,
+            imageHeight: imageHeight ?? 24,
+            cornerRadius: cornerRadius ?? 0,
+            tabSpacing: tabSpacing ?? 0,
+            scrollDirection: scrollDirection,
+            animation: namespace,
+            selectionStyle: selectionStyle
+        )
     }
-    
 }
 
 
