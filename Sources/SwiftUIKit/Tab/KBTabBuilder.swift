@@ -36,8 +36,8 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
     private let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
 
     
-    private var isScrollHapticFeedbackEnabled: Bool = true
-    private var scrollFeedbackStyle: FeedbackStyle = .medium
+//    private var isScrollHapticFeedbackEnabled: Bool = true
+//    private var scrollFeedbackStyle: FeedbackStyle = .medium
 
     
     public init() { }
@@ -167,17 +167,17 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
         return builder
     }
     
-    public func enableScrollHapticFeedback(_ isEnabled: Bool) -> Self {
-        var builder = self
-        builder.isScrollHapticFeedbackEnabled = isEnabled
-        return builder
-    }
-    
-    public func setScrollFeedbackStyle(_ style: FeedbackStyle) -> Self {
-        var builder = self
-        builder.scrollFeedbackStyle = style
-        return builder
-    }
+//    public func enableScrollHapticFeedback(_ isEnabled: Bool) -> Self {
+//        var builder = self
+//        builder.isScrollHapticFeedbackEnabled = isEnabled
+//        return builder
+//    }
+//    
+//    public func setScrollFeedbackStyle(_ style: FeedbackStyle) -> Self {
+//        var builder = self
+//        builder.scrollFeedbackStyle = style
+//        return builder
+//    }
     
     public func setRequireOnTap(_ require: Bool) -> Self {
         var builder = self
@@ -227,9 +227,9 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
             animation: namespace,
             selectionStyle: selectionStyle,
             isHapticFeedbackEnabled: isHapticFeedbackEnabled,
-            feedbackStyle: feedbackStyle,
-            isScrollHapticFeedbackEnabled: isScrollHapticFeedbackEnabled,
-            scrollFeedbackStyle: scrollFeedbackStyle
+            feedbackStyle: feedbackStyle
+//            isScrollHapticFeedbackEnabled: isScrollHapticFeedbackEnabled,
+//            scrollFeedbackStyle: scrollFeedbackStyle
         )
     }
 }

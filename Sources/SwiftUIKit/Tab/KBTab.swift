@@ -43,9 +43,9 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
     var isHapticFeedbackEnabled: Bool
     var feedbackStyle: FeedbackStyle
     
-    private var isScrollHapticFeedbackEnabled: Bool
-    private var scrollFeedbackStyle: FeedbackStyle
-    @State private var scrollOffset: CGFloat = 0
+//    private var isScrollHapticFeedbackEnabled: Bool
+//    private var scrollFeedbackStyle: FeedbackStyle
+//    @State private var scrollOffset: CGFloat = 0
     
     public init(
         list: [T],
@@ -68,9 +68,9 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
         animation: Namespace.ID,
         selectionStyle: SelectionStyle,
         isHapticFeedbackEnabled: Bool = true,
-        feedbackStyle: FeedbackStyle = .soft,
-        isScrollHapticFeedbackEnabled: Bool = true,
-        scrollFeedbackStyle: FeedbackStyle = .medium
+        feedbackStyle: FeedbackStyle = .soft
+//        isScrollHapticFeedbackEnabled: Bool = true,
+//        scrollFeedbackStyle: FeedbackStyle = .medium
     ) {
         self.list = list
         self.currentTab = currentTab
@@ -93,8 +93,8 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
         self.selectionStyle = selectionStyle
         self.isHapticFeedbackEnabled = isHapticFeedbackEnabled
         self.feedbackStyle = feedbackStyle
-        self.isScrollHapticFeedbackEnabled = isScrollHapticFeedbackEnabled
-        self.scrollFeedbackStyle = scrollFeedbackStyle
+//        self.isScrollHapticFeedbackEnabled = isScrollHapticFeedbackEnabled
+//        self.scrollFeedbackStyle = scrollFeedbackStyle
     }
     
     public var body: some View {
@@ -111,6 +111,7 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
         }
         .background(backgroundColor)
         .background(
+            /*
             GeometryReader { geometry in
                 Color.clear
                     .onAppear {
@@ -119,11 +120,11 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
                     .onChange(of: geometry.frame(in: .global).minX) { value in
                         onScrollOffsetChange(value)
                     }
-            }
+            }*/
         )
         //        }
     }
-    
+    /*
     private func onScrollOffsetChange(_ offset: CGFloat) {
         scrollOffset = offset
         if isScrollHapticFeedbackEnabled {
@@ -144,7 +145,7 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
                 }
             }
         }
-    }
+    }*/
     
     
     private var tabContent: some View {
