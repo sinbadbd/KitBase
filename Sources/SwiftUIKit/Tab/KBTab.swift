@@ -51,6 +51,7 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
     private let tapFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
     private let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
     
+    @State private var previousOffset: CGFloat = 0
     
     public init(
         list: [T],
@@ -116,42 +117,19 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
         }
         .background(backgroundColor)
         .hapticScrollFeedback(feedbackStyle.uiFeedbackStyle)
-        .background(
-            /*
-            GeometryReader { geometry in
-                Color.clear
-                    .onAppear {
-                        onScrollOffsetChange(geometry.frame(in: .global).minX)
-                    }
-                    .onChange(of: geometry.frame(in: .global).minX) { value in
-                        onScrollOffsetChange(value)
-                    }
-            }*/
-        )
-        //        }
-    }
-    /*
-    private func onScrollOffsetChange(_ offset: CGFloat) {
-        scrollOffset = offset
-        if isScrollHapticFeedbackEnabled {
-            switch scrollFeedbackStyle {
-            case .light:
-                UIImpactFeedbackGenerator(style: .light).impactOccurred()
-            case .medium:
-                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-            case .heavy:
-                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-            case .soft:
-                if #available(iOS 13.0, *) {
-                    UIImpactFeedbackGenerator(style: .soft).impactOccurred()
-                }
-            case .rigid:
-                if #available(iOS 13.0, *) {
-                    UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
-                }
+        .background(GeometryReader { proxy in
+            Color.clear
+                .preference(key: ScrollOffsetKey.self, value: proxy.frame(in: .global).minY)
+        })
+        .onPreferenceChange(ScrollOffsetKey.self) { value in
+            if abs(value - previousOffset) > 20 { // Adjust the threshold as needed
+                let generator = UIImpactFeedbackGenerator(style: feedbackStyle.uiFeedbackStyle)
+                generator.impactOccurred()
+                previousOffset = value
             }
         }
-    }*/
+    }
+   
     
     @MainActor
     private var tabContent: some View {
