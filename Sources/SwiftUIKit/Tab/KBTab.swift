@@ -116,7 +116,8 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
             .padding(scrollDirection == .horizontal ? .horizontal : .vertical, tabSpacing ?? 0)
         }
         .background(backgroundColor)
-        .hapticScrollFeedback(feedbackStyle.uiFeedbackStyle)
+//        .hapticScrollFeedback(feedbackStyle.uiFeedbackStyle)
+        .background(ScrollViewHapticTrigger(feedbackStyle: feedbackStyle.uiFeedbackStyle)) // Add haptic trigger here
 //        .background(GeometryReader { proxy in
 //            Color.clear
 //                .preference(key: ScrollOffsetKey.self, value: proxy.frame(in: .global).minY)
