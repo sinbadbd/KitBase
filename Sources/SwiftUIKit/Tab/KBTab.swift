@@ -46,7 +46,11 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
     
 //    private var isScrollHapticFeedbackEnabled: Bool
 //    private var scrollFeedbackStyle: FeedbackStyle
-//    @State private var scrollOffset: CGFloat = 0
+ 
+    // Haptic feedback generators
+    private let tapFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+    private let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+    
     
     public init(
         list: [T],
@@ -111,6 +115,7 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
             .padding(scrollDirection == .horizontal ? .horizontal : .vertical, tabSpacing ?? 0)
         }
         .background(backgroundColor)
+        .hapticScrollFeedback(feedbackStyle.uiFeedbackStyle)
         .background(
             /*
             GeometryReader { geometry in
@@ -255,5 +260,50 @@ struct ContentView: View {
         )
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.white)
+    }
+}
+
+
+
+import SwiftUI
+struct HapticScrollModifier: ViewModifier {
+    var feedbackStyle: UIImpactFeedbackGenerator.FeedbackStyle
+    
+    func body(content: Content) -> some View {
+        ScrollViewReader { proxy in
+            content
+                .background(ScrollViewHapticTrigger(feedbackStyle: feedbackStyle))
+        }
+    }
+}
+
+struct ScrollViewHapticTrigger: View {
+    var feedbackStyle: UIImpactFeedbackGenerator.FeedbackStyle
+    @State private var previousOffset: CGFloat = 0
+    
+    var body: some View {
+        GeometryReader { proxy in
+            Color.clear
+                .preference(key: ScrollOffsetKey.self, value: proxy.frame(in: .global).minY)
+                .onPreferenceChange(ScrollOffsetKey.self) { value in
+                    if abs(value - previousOffset) > 20 { // Adjust the threshold as needed
+                        let generator = UIImpactFeedbackGenerator(style: feedbackStyle)
+                        generator.impactOccurred()
+                        previousOffset = value
+                    }
+                }
+        }
+    }
+}
+
+extension View {
+    func hapticScrollFeedback(_ feedbackStyle: UIImpactFeedbackGenerator.FeedbackStyle = .medium) -> some View {
+        self.modifier(HapticScrollModifier(feedbackStyle: feedbackStyle))
+    }
+}
+struct ScrollOffsetKey: PreferenceKey {
+    static var defaultValue: CGFloat { 0 }
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = nextValue()
     }
 }
