@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 
+@MainActor
 public struct SnapCarousel<Content: View, T: Identifiable>: View {
     var content: (T) -> Content
     var list: [T]

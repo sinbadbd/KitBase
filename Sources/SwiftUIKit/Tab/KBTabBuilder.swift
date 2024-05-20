@@ -6,6 +6,7 @@
 ////
 import SwiftUI
 
+@MainActor
 public struct KBTabsBuilder<T: Identifiable, Content: View> {
     
     private var list: [T] = []
@@ -186,7 +187,7 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
     }
     
     
-    public func build() -> some View {
+    @MainActor public func build() -> some View {
         
         guard let content = content, let currentTab = currentTab, /*let onTap = onTap,*/ let namespace = namespace else {
             fatalError("Missing required properties for KBTabs")
@@ -201,36 +202,39 @@ public struct KBTabsBuilder<T: Identifiable, Content: View> {
             fatalError("SnapCarousel requires an onTap action to be set before building.")
         }
         
-        return KBTabs(
-            list: list,
-            currentTab: currentTab,
-            onTap: { item in
-                onTap?(item)
-                if isHapticFeedbackEnabled {
-                    tapFeedbackGenerator.impactOccurred()
-                }
-            },
-            content: content,
-            backgroundColor: backgroundColor ?? .clear,
-            selectedColor: selectedColor ?? .blue,
-            deselectedColor: deselectedColor ?? .gray,
-            borderColor: borderColor ?? .clear,
-            borderWidth: borderWidth ?? 0,
-            borderBottom: borderBottom ?? 0,
-            verticalPadding: verticalPadding ?? 0,
-            horizontalPadding: horizontalPadding ?? 0,
-            imageWidth: imageWidth ?? 24,
-            imageHeight: imageHeight ?? 24,
-            cornerRadius: cornerRadius ?? 0,
-            tabSpacing: tabSpacing ?? 0,
-            scrollDirection: scrollDirection,
-            animation: namespace,
-            selectionStyle: selectionStyle,
-            isHapticFeedbackEnabled: isHapticFeedbackEnabled,
-            feedbackStyle: feedbackStyle
-//            isScrollHapticFeedbackEnabled: isScrollHapticFeedbackEnabled,
-//            scrollFeedbackStyle: scrollFeedbackStyle
-        )
+        return ScrollViewReader { proxy in
+            KBTabs(
+                list: list,
+                currentTab: currentTab,
+                onTap: { item in
+                    onTap?(item)
+                    proxy.scrollTo(item.id, anchor: .center)
+                    if isHapticFeedbackEnabled {
+                        tapFeedbackGenerator.impactOccurred()
+                    }
+                },
+                content: content,
+                backgroundColor: backgroundColor ?? .clear,
+                selectedColor: selectedColor ?? .blue,
+                deselectedColor: deselectedColor ?? .gray,
+                borderColor: borderColor ?? .clear,
+                borderWidth: borderWidth ?? 0,
+                borderBottom: borderBottom ?? 0,
+                verticalPadding: verticalPadding ?? 0,
+                horizontalPadding: horizontalPadding ?? 0,
+                imageWidth: imageWidth ?? 24,
+                imageHeight: imageHeight ?? 24,
+                cornerRadius: cornerRadius ?? 0,
+                tabSpacing: tabSpacing ?? 0,
+                scrollDirection: scrollDirection,
+                animation: namespace,
+                selectionStyle: selectionStyle,
+                isHapticFeedbackEnabled: isHapticFeedbackEnabled,
+                feedbackStyle: feedbackStyle
+                //            isScrollHapticFeedbackEnabled: isScrollHapticFeedbackEnabled,
+                //            scrollFeedbackStyle: scrollFeedbackStyle
+            )
+        }
     }
 }
 

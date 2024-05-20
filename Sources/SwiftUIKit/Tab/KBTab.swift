@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 public struct KBTabs<T: Identifiable, Content: View>: View {
     
     public enum SelectionStyle {
@@ -147,7 +148,7 @@ public struct KBTabs<T: Identifiable, Content: View>: View {
         }
     }*/
     
-    
+    @MainActor
     private var tabContent: some View {
         ForEach(list) { item in
             content(item, currentTab == item.id)

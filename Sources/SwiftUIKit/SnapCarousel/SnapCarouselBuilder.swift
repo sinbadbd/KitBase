@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 
+@MainActor
 public class SnapCarouselBuilder<Content: View, T: Identifiable> {
     
     private var spacing: CGFloat = 16
