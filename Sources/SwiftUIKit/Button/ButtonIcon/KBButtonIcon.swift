@@ -16,7 +16,7 @@ public enum ImageViewType{
 
 //@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 //@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
-public struct KBButtonType: View {
+public struct KBButtonIcon: View {
     public var imageType: ImageType = .image
     public var imageViewType: ImageViewType = .circle
     public let iconName: String
@@ -131,17 +131,17 @@ struct KBButtonAnimationView: View {
         Button {
             
         } label: {
-            KBButtonType(imageType: .icon, imageViewType: .circle, iconName: "plus", foregroundColor: .black, backgroundColor: .gray.opacity(0.2), borderColor: .gray.opacity(0.2), width: 40, height: 40, fontSize: 40)
+            KBButtonIcon(imageType: .icon, imageViewType: .circle, iconName: "plus", foregroundColor: .black, backgroundColor: .gray.opacity(0.2), borderColor: .gray.opacity(0.2), width: 40, height: 40, fontSize: 40)
         }
         Button {
             
         } label: {
-            KBButtonType(imageType: .icon, imageViewType: .rectangle, iconName: "magnifyingglass",  foregroundColor: .black, backgroundColor: .gray.opacity(0.2), borderColor: .gray.opacity(0.2), width: 40, height: 40, fontSize: 40)
+            KBButtonIcon(imageType: .icon, imageViewType: .rectangle, iconName: "magnifyingglass",  foregroundColor: .black, backgroundColor: .gray.opacity(0.2), borderColor: .gray.opacity(0.2), width: 40, height: 40, fontSize: 40)
         }
         Button {
             
         } label: {
-            KBButtonType(imageType: .icon, imageViewType: .circle, iconName: "ellipsis.message.fill",  foregroundColor: .black, backgroundColor: .gray.opacity(0.2), borderColor: .gray.opacity(0.2), width: 40, height: 4, fontSize: 40)
+            KBButtonIcon(imageType: .icon, imageViewType: .circle, iconName: "ellipsis.message.fill",  foregroundColor: .black, backgroundColor: .gray.opacity(0.2), borderColor: .gray.opacity(0.2), width: 40, height: 4, fontSize: 40)
         }
 
     }
