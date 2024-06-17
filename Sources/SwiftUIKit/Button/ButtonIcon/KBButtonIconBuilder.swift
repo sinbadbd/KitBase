@@ -13,7 +13,7 @@ public class KBButtonIconBuilder {
     private var iconName: String = ""
     private var foregroundColor: Color = .black
     private var backgroundColor: Color = .white
-    private var borderColor: Color = .black
+    private var borderColor: Color = .clear
     private var width: CGFloat = 50
     private var height: CGFloat = 50
     private var fontSize: CGFloat = 16
