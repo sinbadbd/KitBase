@@ -165,27 +165,28 @@ public struct KBTextFieldBuilder<Content: View> {
 struct KBTextFieldBuilderView: View  {
     @State var textInput: String
     @State var usename: String
-    @State var nameTextFile: Bool = false
+    @State var nameTextFile: Bool = true
     var body: some View {
         VStack(spacing: 20){
             
             KBTextFieldBuilder(content: {
                 TextField("Exclusive 7.7 package", text: $textInput)
             }, isValid: $nameTextFile)
-            .setFont(.headline)
-            .setErrorFont(.subheadline)
+//            .setFont(.headline)
+//            .setErrorFont(.subheadline)
             .setTitleSpacing(12)
             .setTextColor(.blue)
             .setBackgroundColor(.white)
-            .setErrorMessage("test error message")
+//            .setErrorMessage("test error message")
             .setIcon(AnyView(Image(systemName: "person")))
             .setTextFieldHeight(44)
-            .setCornerRadius(30)
+            .setCornerRadius(12)
             //.setBorderColor(.green)
             .setBorderWidth(0.5)
             //.setStrokeColor(.indigo)
             //.setShadowColor(.black.opacity(0.5))
-            .setShadow(radius: 3, x: 2, y: 3)
+//            .setShadow(radius: 3, x: 2, y: 3)
+            
             .build()
             
             Divider()
@@ -202,7 +203,7 @@ struct KBTextFieldBuilderView: View  {
             .setErrorMessage("test error message")
             .setIcon(AnyView(Image(systemName: "person")))
             .setTextFieldHeight(44)
-            .setCornerRadius(30)
+            .setCornerRadius(12)
             //.setBorderColor(.green)
             .setBorderWidth(0.5)
             //.setStrokeColor(.indigo)
