@@ -111,7 +111,7 @@ public class KitBaseButtonStyleBuilder {
         self.font = font
         return self
     }
-
+    
     /**
      Sets the text alignment of the button.
      
@@ -367,7 +367,7 @@ public class KitBaseButtonStyleBuilder {
         self.rightTextFont = font
         return self
     }
-
+    
     
     
     // MARK: - Build Method
@@ -382,7 +382,7 @@ public class KitBaseButtonStyleBuilder {
             backgroundColor: backgroundColor,
             gradient: gradient,
             font: font,
-            borderColor: borderColor, 
+            borderColor: borderColor,
             foregroundColor: foregroundColor,
             opacity: opacity,
             buttonWidth: buttonWidth,
@@ -425,18 +425,18 @@ struct ContentBuilderView: View {
             })
             .buttonStyle(
                 KitBaseButtonStyleBuilder()
-                    .setBackgroundColor(.blue)
+                    .setLinearGradient(LinearGradient(colors: [Color.red, Color.purple], startPoint: .leading, endPoint: .trailing))
                     .setForegroundColor(.white)
-//                    .setButtonWidth(200)
-//                    .setButtonHeight(30)
-//                    .setIcon("square.and.arrow.up")
-//                    .setImage("ic_edit")
-//                    .setIconColor(.red)
-//                    .setIconColor(.red)
+                //                    .setButtonWidth(200)
+                //                    .setButtonHeight(30)
+                //                    .setIcon("square.and.arrow.up")
+                //                    .setImage("ic_edit")
+                //                    .setIconColor(.red)
+                //                    .setIconColor(.red)
                     .setIconWidth(20)
                     .setIconHeight(20)
-//                    .setPaddingVertical(paddingVertical: 10)
-//                    .setPaddingHorizontal(paddingHorizontal: 16)
+                //                    .setPaddingVertical(paddingVertical: 10)
+                //                    .setPaddingHorizontal(paddingHorizontal: 16)
                     .build()
             )
         }
