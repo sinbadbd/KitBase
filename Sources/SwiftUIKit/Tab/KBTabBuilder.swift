@@ -255,7 +255,12 @@ struct TabItemView: View {
     private let tabs = [
         TabItem(id: UUID(), title: "Home"),
         TabItem(id: UUID(), title: "Profile"),
-        TabItem(id: UUID(), title: "Settings")
+        TabItem(id: UUID(), title: "A"),
+        TabItem(id: UUID(), title: "V"),
+        TabItem(id: UUID(), title: "V"),
+        TabItem(id: UUID(), title: "C"),
+        TabItem(id: UUID(), title: "V"),
+        TabItem(id: UUID(), title: "VR")
     ]
     
     var body: some View {
@@ -265,7 +270,7 @@ struct TabItemView: View {
             .withContent { item, isSelected in
                 Text(item.title)
                     .font(isSelected ? .headline : .subheadline)
-                    .foregroundColor(isSelected ? .white : .black)
+                    .foregroundColor(isSelected ? .red : .black)
             }
             .onTap { item in
                 selectedTab = item.id

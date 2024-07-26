@@ -4,7 +4,6 @@
 //
 //  Created by Imran on 6/10/23.
 //
-
 import SwiftUI
 
 public enum ButtonSize {
@@ -21,16 +20,16 @@ public enum ButtonTextAlignment {
     case right
 }
 
-//@available(iOS 15.0, macOS 13.0, watchOS 8, tvOS 13, *)
 public struct KitBaseButtonStyle: ButtonStyle {
     
     public let backgroundColor: Color?
     public let font: Font?
     public let borderColor: Color?
+    public let borderGradient: LinearGradient?
     public let gradient: LinearGradient?
     public let foregroundColor: Color?
     public let opacity: Double?
-    public var buttonWidth: CGFloat? = .infinity
+    public var buttonWidth: CGFloat?
     public let buttonHeight: CGFloat?
     public let buttonCornerRadius: CGFloat?
     public let borderWidth: CGFloat?
@@ -39,7 +38,7 @@ public struct KitBaseButtonStyle: ButtonStyle {
     public let iconColor: Color?
     public let iconWidth: CGFloat?
     public let iconHeight: CGFloat?
-    public var isShowShadow: Bool = true
+    public var isShowShadow: Bool
     public var paddingAll: CGFloat?
     public var paddingHorizontal: CGFloat?
     public var paddingVertical: CGFloat
@@ -48,13 +47,14 @@ public struct KitBaseButtonStyle: ButtonStyle {
     public var rightText: String?
     public var rightTextColor: Color?
     public var rightTextFont: Font?
-
+    public let iconAlignment: ButtonTextAlignment
+    
     public init(
-        
         backgroundColor: Color? = nil,
         gradient: LinearGradient? = nil,
         font: Font? = nil,
         borderColor: Color? = nil,
+        borderGradient: LinearGradient? = nil,
         foregroundColor: Color? = nil,
         opacity: Double? = nil,
         buttonWidth: CGFloat? = .infinity,
@@ -74,13 +74,14 @@ public struct KitBaseButtonStyle: ButtonStyle {
         textPaddingHorizontal: CGFloat? = nil,
         rightText: String? = nil,
         rightTextColor: Color? = nil,
-        rightTextFont: Font? = nil
+        rightTextFont: Font? = nil,
+        iconAlignment: ButtonTextAlignment = .left
     ) {
-        
         self.backgroundColor = backgroundColor
         self.gradient = gradient
         self.font = font
         self.borderColor = borderColor
+        self.borderGradient = borderGradient
         self.foregroundColor = foregroundColor
         self.opacity = opacity
         self.buttonWidth = buttonWidth
@@ -101,65 +102,51 @@ public struct KitBaseButtonStyle: ButtonStyle {
         self.rightText = rightText
         self.rightTextColor = rightTextColor
         self.rightTextFont = rightTextFont
+        self.iconAlignment = iconAlignment
     }
     
     public func makeBody(configuration: Configuration) -> some View {
-        
-        return HStack {
-            if let image = image {
-                Image(image)
-                    .resizable()
-                    .scaledToFill()
-                    .foregroundColor(iconColor ?? foregroundColor)
-                    .frame(width: iconWidth, height: iconHeight)
-                //                        .padding(.trailing, 8)
+        HStack {
+            if iconAlignment == .left {
+                iconView
             }
-            if let icon = systemIcon {
-                Image(systemName: icon)
-                    .resizable()
-                    .scaledToFill()
-                    .foregroundColor(iconColor ?? foregroundColor)
-                    .frame(width: iconWidth, height: iconHeight)
-                //                        .padding(.trailing, 8)
-            }
-            
             if textAlignment == .left || textAlignment == .center {
-                Spacer(minLength: textAlignment == .left ? 0 : nil)
-            }
-            
-            HStack{
                 configuration.label
                     .font(font)
                     .foregroundColor(foregroundColor)
                     .padding(.horizontal, textPaddingHorizontal ?? 0)
-                    .frame(maxWidth: .infinity, alignment: {
-                        switch textAlignment {
-                        case .left: return .leading
-                        case .center: return .center
-                        case .right: return .trailing
-                        }
-                    }())
-                
-                if let rightText = rightText {
-                    Text(rightText)
-                        .font(rightTextFont ?? font)
-                        .foregroundColor(rightTextColor ?? foregroundColor)
-                        .frame(alignment: .trailing)
-                }
+            }else if textAlignment == .right || textAlignment == .center{
+                configuration.label
+                    .font(font)
+                    .foregroundColor(foregroundColor)
+                    .padding(.horizontal, textPaddingHorizontal ?? 0)
             }
-            
-            if textAlignment == .right || textAlignment == .center {
-                Spacer(minLength: textAlignment == .right ? 0 : nil)
+            if textAlignment == .right {
+                Spacer()
             }
-
+            if iconAlignment == .center {
+                iconView
+            }
+          /*  if textAlignment == .right || textAlignment == .center {
+                configuration.label
+                    .font(font)
+                    .foregroundColor(foregroundColor)
+                    .padding(.horizontal, textPaddingHorizontal ?? 0)
+            }*/
+            if textAlignment == .left {
+                Spacer()
+            }
+            if iconAlignment == .right {
+                iconView
+            }
         }
-        
+        .frame(maxWidth: .infinity)
         .frame(width: buttonWidth, height: buttonHeight)
         .padding(paddingAll ?? 0)
         .padding(.horizontal, paddingHorizontal)
         .padding(.vertical, paddingVertical)
         .background(
-            Group{
+            Group {
                 if let bgGradient = gradient {
                     bgGradient
                 } else {
@@ -170,12 +157,35 @@ public struct KitBaseButtonStyle: ButtonStyle {
         .opacity(opacity ?? 1.0)
         .cornerRadius(buttonCornerRadius ?? 8)
         .overlay(
-            RoundedRectangle(cornerRadius: buttonCornerRadius ?? 8)
-                .stroke(borderColor ?? .clear, lineWidth: borderWidth ?? 0)
+            Group {
+                if let borderGradient = borderGradient {
+                    RoundedRectangle(cornerRadius: buttonCornerRadius ?? 8)
+                        .stroke(borderGradient, lineWidth: borderWidth ?? 0)
+                } else if let borderColor = borderColor {
+                    RoundedRectangle(cornerRadius: buttonCornerRadius ?? 8)
+                        .stroke(borderColor, lineWidth: borderWidth ?? 0)
+                }
+            }
                 .shadow(color: !isShowShadow ? .clear : Color(red: 0.38, green: 0.38, blue: 0.44).opacity(0.16), radius: 2, x: 0, y: 2)
-            
         )
-        .shadow(color: !isShowShadow ? .clear : Color(red: 0.38, green: 0.38, blue: 0.44).opacity(0.16), radius: 2, x: 0, y: 2)
+    }
+    
+    @ViewBuilder
+    private var iconView: some View {
+        if let image = image {
+            Image(image)
+                .resizable()
+                .scaledToFill()
+                .foregroundColor(iconColor ?? foregroundColor)
+                .frame(width: iconWidth, height: iconHeight)
+        }
+        if let icon = systemIcon {
+            Image(systemName: icon)
+                .resizable()
+                .scaledToFill()
+                .foregroundColor(iconColor ?? foregroundColor)
+                .frame(width: iconWidth, height: iconHeight)
+        }
     }
 }
 
@@ -197,10 +207,25 @@ struct ContentButtonView: View {
                     Color.red
                 }
                 .frame(width: 30, height: 20)
-            Button("icon with button", action: {
+            Button("ion button", action: {
                 print("print")
             })
-            .buttonStyle(KitBaseButtonStyle( backgroundColor: .red, borderColor: .accentColor, foregroundColor:.white, buttonHeight: 20, buttonCornerRadius: 8, icon: "pencil.circle.fill",image: "ic_edit", iconColor: .green, iconWidth: 14, iconHeight: 14))
+            .buttonStyle(KitBaseButtonStyle( 
+                backgroundColor: .black,
+                borderGradient: .linearGradient(colors: [.blue, .green], startPoint: .leading, endPoint: .trailing),
+                foregroundColor:.white,
+                buttonHeight: 20,
+                buttonCornerRadius: 8,
+                borderWidth:5,
+                icon: "pencil.circle.fill",
+                image: "ic_edit",
+                iconColor: .green,
+                iconWidth: 14,
+                iconHeight: 14
+              //  textAlignment: .center,
+//                iconAlignment: .left
+            )
+        )
             
             Button("Solid XS", action: {
                 
@@ -211,7 +236,7 @@ struct ContentButtonView: View {
                 
             }).padding(.horizontal,16)
              #if os(iOS)
-                .buttonStyle(KitBaseButtonStyle( backgroundColor: .clear, borderColor: .yellow, foregroundColor: .blue, buttonWidth: UIScreen.main.bounds.width * 0.80 - 40, borderWidth: 2))
+                .buttonStyle(KitBaseButtonStyle( backgroundColor: .clear, borderColor: .yellow, foregroundColor: .blue, buttonWidth: UIScreen.main.bounds.width * 0.80 - 40, borderWidth: 4))
             #elseif os(macOS)
                 .buttonStyle(KitBaseButtonStyle( backgroundColor: .clear, borderColor: .yellow, foregroundColor: .blue, buttonWidth: NSScreen.main?.frame.width, borderWidth: 2))
             #endif
